@@ -1,0 +1,13 @@
+{
+ "PS_slab_chosen": {
+  "val now": 18.175800323486328,
+  "val earlier": 18.17580223083496,
+  "max |diff| per event": 3.4332275390625e-05
+ },
+ "PS_stdacc_chosen": {
+  "val now": 18.203601837158203,
+  "val earlier": 18.203601837158203,
+  "max |diff| per event": 3.0517578125e-05
+ },
+ "module mtime-check: has lat_norm": true
+}

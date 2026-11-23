@@ -1,0 +1,105 @@
+{
+ "slab": {
+  "std:val": 18.23052978515625,
+  "slab8:val": 18.16593360900879,
+  "slab2:val": 18.165935516357422,
+  "std:test": 18.226184844970703,
+  "slab8:test": 18.161434173583984,
+  "slab2:test": 18.161439895629883,
+  "std:s2": 18.215734481811523,
+  "slab8:s2": 18.150955200195312,
+  "slab2:s2": 18.150970458984375,
+  "PS_slab - MLP_slab_ft [slab2,val]": [
+   0.009864094243514464,
+   0.0005933910099750955
+  ],
+  "MLP_slab_ft - MLP 3D-trained (G2) [slab2,val]": [
+   -0.0015654531132588674,
+   0.00028894359258751346
+  ],
+  "like-with-like gap fraction vs MLP_slab_ft [slab2,val]": 0.7642742991447449,
+  "PS_slab - MLP_slab_ft [slab2,test]": [
+   0.009470814383780562,
+   0.0005446963149548217
+  ],
+  "MLP_slab_ft - MLP 3D-trained (G2) [slab2,test]": [
+   -0.000978032769108531,
+   0.0003211219033278254
+  ],
+  "like-with-like gap fraction vs MLP_slab_ft [slab2,test]": 0.7585099935531616,
+  "PS_slab - MLP_slab_ft [slab2,s2]": [
+   0.009261528641377892,
+   0.00022845031917468763
+  ],
+  "MLP_slab_ft - MLP 3D-trained (G2) [slab2,s2]": [
+   -0.0007399931032984809,
+   0.00011794216303102125
+  ],
+  "like-with-like gap fraction vs MLP_slab_ft [slab2,s2]": 0.7736068964004517,
+  "PS_slab - MLP_slab_ft [slab8,val]": [
+   0.009738010061091845,
+   0.0005924927217321444
+  ],
+  "MLP_slab_ft - MLP 3D-trained (G2) [slab8,val]": [
+   -0.0017338128057133564,
+   0.00028919632768224237
+  ],
+  "like-with-like gap fraction vs MLP_slab_ft [slab8,val]": 0.7667108178138733,
+  "PS_slab - MLP_slab_ft [slab8,test]": [
+   0.009345269826585735,
+   0.0005443905338022283
+  ],
+  "MLP_slab_ft - MLP 3D-trained (G2) [slab8,test]": [
+   -0.0011601673882442706,
+   0.0003212681244391505
+  ],
+  "like-with-like gap fraction vs MLP_slab_ft [slab8,test]": 0.7611059546470642,
+  "PS_slab - MLP_slab_ft [slab8,s2]": [
+   0.009144295973237139,
+   0.00022817777218593773
+  ],
+  "MLP_slab_ft - MLP 3D-trained (G2) [slab8,s2]": [
+   -0.0009100827133783884,
+   0.00011806067659751093
+  ],
+  "like-with-like gap fraction vs MLP_slab_ft [slab8,s2]": 0.7759547233581543
+ },
+ "std": {
+  "std:val": 18.193479537963867,
+  "slab8:val": 18.17350196838379,
+  "slab2:val": 18.173751831054688,
+  "std:test": 18.18986701965332,
+  "slab8:test": 18.16991424560547,
+  "slab2:test": 18.170167922973633,
+  "std:s2": 18.178985595703125,
+  "slab8:s2": 18.159019470214844,
+  "slab2:s2": 18.159276962280273,
+  "PS_stdacc - MLP_std_ft [std,val]": [
+   0.010121556783029504,
+   0.0005913066316034964
+  ],
+  "MLP_std_ft - report MLP [std,val]": [
+   -0.0022781202423570153,
+   0.0002687014971920823
+  ],
+  "like-with-like gap fraction vs MLP_std_ft [std,val]": 0.7809107303619385,
+  "PS_stdacc - MLP_std_ft [std,test]": [
+   0.009616536671731108,
+   0.0005489106605543234
+  ],
+  "MLP_std_ft - report MLP [std,test]": [
+   -0.0023677021487672656,
+   0.00026408735252680347
+  ],
+  "like-with-like gap fraction vs MLP_std_ft [std,test]": 0.7793673872947693,
+  "PS_stdacc - MLP_std_ft [std,s2]": [
+   0.009670124938661952,
+   0.0002266512277565031
+  ],
+  "MLP_std_ft - report MLP [std,s2]": [
+   -0.002426129942367394,
+   9.737500320354097e-05
+  ],
+  "like-with-like gap fraction vs MLP_std_ft [std,s2]": 0.7865111827850342
+ }
+}

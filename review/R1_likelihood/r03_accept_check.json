@@ -1,0 +1,653 @@
+{
+ "A per-cell [random, 40 test events]": {
+  "D range [mm]": [
+   1199.2501220703125,
+   1219.750244140625
+  ],
+  "theta range": [
+   0.08445753157138824,
+   0.6256719827651978
+  ],
+  "exact vs brute-force MC: mean |dA|, max |dA| (MC sd <= 0.0078)": [
+   0.0012691234328624898,
+   0.030557151904592517
+  ],
+  "exact vs brute-force MC: mean signed dA over partially cut cells": 6.404864200259208e-06,
+  "closed form nsub=64 vs exact: max |dA|": 0.0003613869457533836,
+  "exact reference nr=256 vs nr=1024: max |dA| (8 events)": 8.907252713186153e-08,
+  "closed form nsub=2 vs exact: mean |dA| (all cells), max |dA|": [
+   0.0002426333100527142,
+   0.21715560953906088
+  ],
+  "closed form nsub=2 vs exact: mean |dA| over partially cut cells": 0.0010071965724602317,
+  "r->0 (first two r bins), partially cut cells: mean |dA|, max |dA|, n": [
+   0.07503102057903743,
+   0.21715560953906088,
+   162
+  ],
+  "cells cut by BOTH planes: n, mean |dA| nsub=2, max |dA| nsub=2, mean |exact - MC|": [
+   0,
+   null,
+   null,
+   null
+  ]
+ },
+ "A per-cell [smallest_D, 40 test events]": {
+  "D range [mm]": [
+   30.750097274780273,
+   891.7500610351562
+  ],
+  "theta range": [
+   0.05901993438601494,
+   0.6160053014755249
+  ],
+  "exact vs brute-force MC: mean |dA|, max |dA| (MC sd <= 0.0078)": [
+   0.00044274069105326296,
+   0.029035257870391407
+  ],
+  "exact vs brute-force MC: mean signed dA over partially cut cells": -0.00014185019429473653,
+  "closed form nsub=64 vs exact: max |dA|": 0.0006974601413123338,
+  "exact reference nr=256 vs nr=1024: max |dA| (8 events)": 1.4155859651143743e-08,
+  "closed form nsub=2 vs exact: mean |dA| (all cells), max |dA|": [
+   0.00047098412010529515,
+   0.23183912525505657
+  ],
+  "closed form nsub=2 vs exact: mean |dA| over partially cut cells": 0.005206182582514973,
+  "r->0 (first two r bins), partially cut cells: mean |dA|, max |dA|, n": [
+   0.14598043152091972,
+   0.23183912525505657,
+   165
+  ],
+  "cells cut by BOTH planes: n, mean |dA| nsub=2, max |dA| nsub=2, mean |exact - MC|": [
+   144,
+   0.0032692464438317183,
+   0.029716872815766182,
+   0.006588825280394066
+  ]
+ },
+ "A per-cell [largest_theta, 40 test events]": {
+  "D range [mm]": [
+   1117.2501220703125,
+   1219.750244140625
+  ],
+  "theta range": [
+   0.6275110244750977,
+   0.6283147931098938
+  ],
+  "exact vs brute-force MC: mean |dA|, max |dA| (MC sd <= 0.0078)": [
+   0.0015738520624290259,
+   0.029573097594815856
+  ],
+  "exact vs brute-force MC: mean signed dA over partially cut cells": 7.99209036674961e-06,
+  "closed form nsub=64 vs exact: max |dA|": 2.5190328771046433e-05,
+  "exact reference nr=256 vs nr=1024: max |dA| (8 events)": 9.384980792503939e-08,
+  "closed form nsub=2 vs exact: mean |dA| (all cells), max |dA|": [
+   0.00012415513363193753,
+   0.13461656564085023
+  ],
+  "closed form nsub=2 vs exact: mean |dA| over partially cut cells": 0.00041947450341724634,
+  "r->0 (first two r bins), partially cut cells: mean |dA|, max |dA|, n": [
+   0.019678138896166375,
+   0.13461656564085023,
+   82
+  ],
+  "cells cut by BOTH planes: n, mean |dA| nsub=2, max |dA| nsub=2, mean |exact - MC|": [
+   0,
+   null,
+   null,
+   null
+  ]
+ },
+ "A per-cell [smallest_theta, 40 test events]": {
+  "D range [mm]": [
+   30.750097274780273,
+   1219.7501220703125
+  ],
+  "theta range": [
+   0.05483587458729744,
+   0.07260006666183472
+  ],
+  "exact vs brute-force MC: mean |dA|, max |dA| (MC sd <= 0.0078)": [
+   0.0002751772495847655,
+   0.028154386313358648
+  ],
+  "exact vs brute-force MC: mean signed dA over partially cut cells": -9.505974930470185e-05,
+  "closed form nsub=64 vs exact: max |dA|": 0.0005555913723603867,
+  "exact reference nr=256 vs nr=1024: max |dA| (8 events)": 1.1408055944350792e-08,
+  "closed form nsub=2 vs exact: mean |dA| (all cells), max |dA|": [
+   0.0005464285094814846,
+   0.24024075588513227
+  ],
+  "closed form nsub=2 vs exact: mean |dA| over partially cut cells": 0.009373557427851746,
+  "r->0 (first two r bins), partially cut cells: mean |dA|, max |dA|, n": [
+   0.1721973399405751,
+   0.24024075588513227,
+   160
+  ],
+  "cells cut by BOTH planes: n, mean |dA| nsub=2, max |dA| nsub=2, mean |exact - MC|": [
+   80,
+   0.005342947365798931,
+   0.029716872815766182,
+   0.0052545350799728385
+  ]
+ },
+ "edge example: theta, front plane on the axis z'=-h/cos(t), z-cell, A(nsub=2) first 3 r bins, exact": [
+  0.6275110244750977,
+  -12.662271706997977,
+  [
+   -19.53125,
+   -6.640625
+  ],
+  [
+   0.5,
+   0.47058039903640747,
+   0.4777175486087799
+  ],
+  [
+   0.46713380514893393,
+   0.46713380514893293,
+   0.4750217980814305
+  ]
+ ],
+ "B: error of ln M with the nsub=2 closed form, ln M(nsub=2) - ln M(exact) [nat] (mean, SE) per group; = error of the slab NLL": {
+  "report_gflash_n1": {
+   "all": [
+    8.210421039284022e-05,
+    1.8292363975645117e-06
+   ],
+   "bin0 (p<1)": [
+    0.00034581410090282804,
+    1.706907083428933e-05
+   ],
+   "bin1": [
+    0.00018631097074641904,
+    8.137172688895835e-06
+   ],
+   "bins2-4": [
+    0.00010655295039212415,
+    1.852883244860903e-06
+   ],
+   "bins5-19": [
+    5.27772735563367e-05,
+    1.915459047809443e-06
+   ],
+   "max |err| per event": 0.018314554404579297,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.035255750688278714,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.03517364647788587,
+   "mean M_slab(exact)": 0.9603925936616631,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.01759152316032245,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.03431681177522622,
+    0.006434582761547921
+   ]
+  },
+  "report_gflash_n6": {
+   "all": [
+    0.00010039783446847436,
+    2.516413158373712e-06
+   ],
+   "bin0 (p<1)": [
+    0.000930774149039465,
+    3.081895762986402e-05
+   ],
+   "bin1": [
+    0.00017612518434852384,
+    8.013973799364897e-06
+   ],
+   "bins2-4": [
+    6.304155998450913e-05,
+    8.385813917513542e-07
+   ],
+   "bins5-19": [
+    4.768574809147614e-05,
+    1.541534517047897e-06
+   ],
+   "max |err| per event": 0.012953210982032726,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.03152899372924969,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.03142859589478121,
+   "mean M_slab(exact)": 0.9643216071274225,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.018301035696164186,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.030593304953950382,
+    0.006073820514681045
+   ]
+  },
+  "report_mlp": {
+   "all": [
+    0.00026207584170441175,
+    5.792967163716407e-06
+   ],
+   "bin0 (p<1)": [
+    0.002123008599436882,
+    8.729033170740503e-05
+   ],
+   "bin1": [
+    0.0005188337927870767,
+    1.547003885131235e-05
+   ],
+   "bins2-4": [
+    0.0002490574133202702,
+    3.214740315447279e-06
+   ],
+   "bins5-19": [
+    0.00012402745603204635,
+    1.430937377873887e-06
+   ],
+   "max |err| per event": 0.014535608973555896,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.020478797477059312,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.0202167216353549,
+   "mean M_slab(exact)": 0.9775981532421896,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.027084901522503355,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.01984275184598238,
+    0.003137066384943334
+   ]
+  },
+  "report_cnn": {
+   "all": [
+    0.00025926401216524157,
+    5.712948101857298e-06
+   ],
+   "bin0 (p<1)": [
+    0.002117835855697153,
+    8.520170610649238e-05
+   ],
+   "bin1": [
+    0.0005175813963359292,
+    1.5486811169523797e-05
+   ],
+   "bins2-4": [
+    0.00024103321394672246,
+    3.264304049157125e-06
+   ],
+   "bins5-19": [
+    0.00012231035085465562,
+    1.4334522666235399e-06
+   ],
+   "max |err| per event": 0.013791724390628072,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.02041821133574184,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.020158947323576593,
+   "mean M_slab(exact)": 0.9777707236420132,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.028096551610847825,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.019784179318044028,
+    0.003020330395414911
+   ]
+  },
+  "new_slab_gce_n1": {
+   "all": [
+    0.00014099897244158443,
+    6.2358600217035045e-06
+   ],
+   "bin0 (p<1)": [
+    0.0012122832073742696,
+    0.00010619178612847319
+   ],
+   "bin1": [
+    0.0002652975533321599,
+    2.1853917401361355e-05
+   ],
+   "bins2-4": [
+    0.000145359020616652,
+    5.9459122542421895e-06
+   ],
+   "bins5-19": [
+    6.072285453791132e-05,
+    2.906016465325049e-06
+   ],
+   "max |err| per event": 0.02444667764380054,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.18243453630457995,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.18229353733213838,
+   "mean M_slab(exact)": 0.8313805520471161,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.038806255595059,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.18106593075716632,
+    0.0037487959631078323
+   ]
+  },
+  "new_stdacc_gce_n1": {
+   "all": [
+    0.00022967455808126696,
+    3.7087044029622314e-06
+   ],
+   "bin0 (p<1)": [
+    0.0016909298139311535,
+    4.397407935629715e-05
+   ],
+   "bin1": [
+    0.0004369605480745304,
+    9.879113012610686e-06
+   ],
+   "bins2-4": [
+    0.00025126083296692,
+    2.519410167166786e-06
+   ],
+   "bins5-19": [
+    0.00011454134245518692,
+    1.0878095502619959e-06
+   ],
+   "max |err| per event": 0.008598155313142453,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.020748131069883227,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.02051845651180196,
+   "mean M_slab(exact)": 0.9772974547367602,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.028304901001466005,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.02017696826773098,
+    0.0031118707498596927
+   ]
+  },
+  "new_slab_gce_n2": {
+   "all": [
+    0.0001342256683796829,
+    6.020596070854859e-06
+   ],
+   "bin0 (p<1)": [
+    0.0012088357446802707,
+    0.0001010725775566783
+   ],
+   "bin1": [
+    0.0002660209746240067,
+    2.1973953702791193e-05
+   ],
+   "bins2-4": [
+    0.00012506138766173926,
+    5.391355825587678e-06
+   ],
+   "bins5-19": [
+    5.593290342161053e-05,
+    2.938138706655314e-06
+   ],
+   "max |err| per event": 0.024087288861883938,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.20895500104366788,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.2088207753752882,
+   "mean M_slab(exact)": 0.8096403278277925,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.03912635030802113,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.20746105790287317,
+    0.0037077679663547335
+   ]
+  },
+  "new_stdacc_gce_n2": {
+   "all": [
+    0.00023167338985013243,
+    3.709744653484317e-06
+   ],
+   "bin0 (p<1)": [
+    0.0017056111971217938,
+    4.403449429613289e-05
+   ],
+   "bin1": [
+    0.00044397955506797303,
+    9.075892329852528e-06
+   ],
+   "bins2-4": [
+    0.00024407419941544251,
+    2.4521988913205616e-06
+   ],
+   "bins5-19": [
+    0.00011719978566152079,
+    1.0202839044644437e-06
+   ],
+   "max |err| per event": 0.0076144941529219246,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.020955958512056377,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.020724285122206247,
+   "mean M_slab(exact)": 0.9768292198411144,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.02838358968138337,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.02036204386985477,
+    0.003405904741175351
+   ]
+  },
+  "new_slab_gce_n6": {
+   "all": [
+    0.0001357125757569226,
+    6.479761645473884e-06
+   ],
+   "bin0 (p<1)": [
+    0.0012718279449853826,
+    0.0001107509326525867
+   ],
+   "bin1": [
+    0.0002731716873530556,
+    2.3366954525113792e-05
+   ],
+   "bins2-4": [
+    0.00010171207025382983,
+    5.085374971795914e-06
+   ],
+   "bins5-19": [
+    5.79221535045789e-05,
+    2.9705014618539294e-06
+   ],
+   "max |err| per event": 0.026784123479938138,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.22092823672162526,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.22079252414586834,
+   "mean M_slab(exact)": 0.8003129190098369,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.03960495425139769,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.219147558656279,
+    0.004418034504700673
+   ]
+  },
+  "new_stdacc_gce_n6": {
+   "all": [
+    0.0002348251674515228,
+    3.7682137987178546e-06
+   ],
+   "bin0 (p<1)": [
+    0.0017247461040063507,
+    4.4958349799391423e-05
+   ],
+   "bin1": [
+    0.0004907724139124461,
+    9.566313008172852e-06
+   ],
+   "bins2-4": [
+    0.0002331075875203975,
+    2.362672047614417e-06
+   ],
+   "bins5-19": [
+    0.00011920970294142796,
+    1.0055745049312594e-06
+   ],
+   "max |err| per event": 0.007179016898569923,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.0210867209563869,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.020851895788935378,
+   "mean M_slab(exact)": 0.9766570563560252,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.028660846447268386,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.02048252806141542,
+    0.0034589381699714717
+   ]
+  },
+  "ref_slab_gflash_n6": {
+   "all": [
+    0.00011658241771234668,
+    5.65690631521666e-06
+   ],
+   "bin0 (p<1)": [
+    0.001276543173007445,
+    0.00010076339637732041
+   ],
+   "bin1": [
+    0.000164329750647722,
+    1.3918330622809596e-05
+   ],
+   "bins2-4": [
+    4.9982507156782604e-05,
+    1.4784375825350977e-06
+   ],
+   "bins5-19": [
+    4.968855245212877e-05,
+    1.6573635031162954e-06
+   ],
+   "max |err| per event": 0.034668543177922784,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.16816316519861968,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.16804658278090734,
+   "mean M_slab(exact)": 0.8505870263948853,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.03089013642401478,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.16642991506096413,
+    0.006547237040367343
+   ]
+  },
+  "ref_slab_mlp": {
+   "all": [
+    -0.00017896577651642544,
+    1.2926083409234788e-05
+   ],
+   "bin0 (p<1)": [
+    -0.0018827481578003078,
+    0.00024528702987906446
+   ],
+   "bin1": [
+    -0.00033529042602392704,
+    2.8237612505223774e-05
+   ],
+   "bins2-4": [
+    -0.00018632779748099036,
+    6.338738641199309e-06
+   ],
+   "bins5-19": [
+    -5.395856700633441e-05,
+    2.8281431857149533e-06
+   ],
+   "max |err| per event": 0.047018287657063285,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.2930728829667194,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.2932518487432358,
+   "mean M_slab(exact)": 0.7513791023638494,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.041471662331046474,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.29164051023957904,
+    0.0024108753490961125
+   ]
+  },
+  "ref_std_gflash_acc_n6": {
+   "all": [
+    0.00012900207550053925,
+    2.2876132957988808e-06
+   ],
+   "bin0 (p<1)": [
+    0.000952012498885081,
+    2.174493187500161e-05
+   ],
+   "bin1": [
+    0.00026065055109255394,
+    8.094714186049329e-06
+   ],
+   "bins2-4": [
+    0.00010351303036532593,
+    1.0119326271232487e-06
+   ],
+   "bins5-19": [
+    7.068911678890976e-05,
+    1.5707923106164982e-06
+   ],
+   "max |err| per event": 0.012476603357665539,
+   "mean ln M_std - ln M_slab(exact)  (= std NLL - slab NLL)": 0.026991470157987692,
+   "mean ln M_std - ln M_slab(nsub=2)  (as used)": 0.026862468082487156,
+   "mean M_slab(exact)": 0.970424456730493,
+   "mean ln M_slab(half=10.25) - ln M_slab(half=0)  (half-layer offset)": 0.020264526294439176,
+   "mean -ln M_front, -ln M_back (exact)": [
+    0.026181168056789095,
+    0.004207667371798475
+   ]
+  }
+ },
+ "B: paired difference of that error vs report GFlash n=6 [nat] (mean, SE): bias of model comparisons": {
+  "report_gflash_n1": [
+   -1.8293624075634143e-05,
+   1.5174406580645557e-06
+  ],
+  "report_gflash_n6": [
+   0.0,
+   0.0
+  ],
+  "report_mlp": [
+   0.0001616780072359374,
+   5.0899700254632215e-06
+  ],
+  "report_cnn": [
+   0.00015886617769676718,
+   5.004815359160581e-06
+  ],
+  "new_slab_gce_n1": [
+   4.060113797311002e-05,
+   4.4118872236520154e-06
+  ],
+  "new_stdacc_gce_n1": [
+   0.0001292767236127926,
+   3.071438777474544e-06
+  ],
+  "new_slab_gce_n2": [
+   3.3827833911208526e-05,
+   4.181492712802928e-06
+  ],
+  "new_stdacc_gce_n2": [
+   0.00013127555538165807,
+   3.0832308849275737e-06
+  ],
+  "new_slab_gce_n6": [
+   3.531474128844825e-05,
+   4.653174691825858e-06
+  ],
+  "new_stdacc_gce_n6": [
+   0.00013442733298304845,
+   3.1430866204420023e-06
+  ],
+  "ref_slab_gflash_n6": [
+   1.6184583243872293e-05,
+   3.6932571530807843e-06
+  ],
+  "ref_slab_mlp": [
+   -0.00027936361098489975,
+   1.3115885835468869e-05
+  ],
+  "ref_std_gflash_acc_n6": [
+   2.8604241032064885e-05,
+   6.232622091152286e-07
+  ]
+ },
+ "C: model-sampling MC (600 test events, 200k points each)": {
+  "report_gflash_n6": {
+   "ln M_exact - ln M_MC (mean, SE)": [
+    2.4320132883466784e-05,
+    1.7661630131963294e-05
+   ],
+   "ln M_nsub2 - ln M_MC (mean, SE)": [
+    0.00013652264994505516,
+    2.2540643316779124e-05
+   ]
+  },
+  "report_mlp": {
+   "ln M_exact - ln M_MC (mean, SE)": [
+    3.0567983740088964e-07,
+    1.3872086414012812e-05
+   ],
+   "ln M_nsub2 - ln M_MC (mean, SE)": [
+    0.00025260433961307645,
+    2.963539008210391e-05
+   ]
+  },
+  "new_slab_gce_n6": {
+   "ln M_exact - ln M_MC (mean, SE)": [
+    -1.5788615727943775e-05,
+    4.547322381015422e-05
+   ],
+   "ln M_nsub2 - ln M_MC (mean, SE)": [
+    0.0001593904790817543,
+    6.192667694568404e-05
+   ]
+  },
+  "ref_slab_gflash_n6": {
+   "ln M_exact - ln M_MC (mean, SE)": [
+    2.443306686107649e-07,
+    4.4817032211509564e-05
+   ],
+   "ln M_nsub2 - ln M_MC (mean, SE)": [
+    0.00014998531048439635,
+    5.3624364829500926e-05
+   ]
+  }
+ }
+}

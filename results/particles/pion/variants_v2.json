@@ -1,0 +1,104 @@
+{
+ "val": {
+  "plateau_track": 18.123926162719727,
+  "plateau_track+spk": 18.12369728088379,
+  "plateau_track+far": 18.12379264831543,
+  "plateau_track+end": 18.123394012451172,
+  "plateau_track+all": 18.122968673706055
+ },
+ "params": {
+  "plateau_track": 53,
+  "plateau_track+spk": 57,
+  "plateau_track+far": 56,
+  "plateau_track+end": 56,
+  "plateau_track+all": 67
+ },
+ "kwargs": {
+  "plateau_track+spk": {
+   "long": "plateau",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  },
+  "plateau_track+far": {
+   "long": "plateau",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "degrees": null
+  },
+  "plateau_track+end": {
+   "long": "plateau",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "endblob": true,
+   "degrees": null
+  },
+  "plateau_track+all": {
+   "long": "plateau",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  }
+ },
+ "best": "plateau_track+all",
+ "chosen": "plateau_track+all",
+ "diff_vs_best": {
+  "plateau_track": [
+   0.0009576920601835219,
+   0.00022131677930287003
+  ],
+  "plateau_track+spk": [
+   0.0007279980381994343,
+   0.0002038331715966562
+  ],
+  "plateau_track+far": [
+   0.0008216760310042263,
+   0.00020593480693851838
+  ],
+  "plateau_track+end": [
+   0.0004242806450579079,
+   0.0001527387243324524
+  ],
+  "plateau_track+all": [
+   0.0,
+   0.0
+  ]
+ },
+ "diff_vs_base": {
+  "plateau_track": [
+   0.0,
+   0.0
+  ],
+  "plateau_track+spk": [
+   -0.00022969402198408758,
+   8.86857460024371e-05
+  ],
+  "plateau_track+far": [
+   -0.00013601602917929557,
+   0.00010206464894211965
+  ],
+  "plateau_track+end": [
+   -0.000533411415125614,
+   0.0001675206403374892
+  ],
+  "plateau_track+all": [
+   -0.0009576920601835219,
+   0.00022131677930287003
+  ]
+ }
+}

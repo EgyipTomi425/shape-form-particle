@@ -1,0 +1,35 @@
+# Data caches, logs and Python byproducts (the caches are rebuilt from the simulation CSVs on first use)
+/cache/
+/logs/
+__pycache__/
+*.pyc
+*.log
+*.tmp
+
+# Exploration lanes and review byproducts: only the body-fitting lane is part of the final pipeline
+/lanes/*
+!/lanes/E1_bodies/
+/lanes/E1_bodies/logs/
+/review/**/*.npz
+/review/**/*.pt
+/review/R2_numbers/snapshot/
+
+# Proton-only stage before the four-particle pipeline (superseded by results/particles/) and its scratch scripts
+/results/final/
+/results/round2/
+/scripts/quick_abar.py
+/scripts/diag1.py
+/scripts/round2.py
+/scripts/final_ladder.py
+/review/R2_numbers/g2_md5.txt
+
+# Per-event NLL arrays of the earlier rounds (the final round 3 keeps test_v3_nll.npz and s2_v3_nll.npz)
+/results/particles/*/test_nll.npz
+/results/particles/*/test_v2_nll.npz
+/results/particles/*/s2_nll.npz
+/results/particles/*/s2_v2_nll.npz
+
+# Working notes, duplicates and the local PDF rendering of the README (regenerable with scripts/build_readme_pdf.sh)
+/LAB_GUIDE.md
+/Protonmodell-Tamas (1).pdf
+/README.pdf

@@ -1,0 +1,38 @@
+{
+ "baseline": "cylinder",
+ "baseline_degree": 6,
+ "mlp": "L3xH32",
+ "baseline_test": 16.08992576599121,
+ "baseline_export": 16.089925777904178,
+ "baseline_max_abs_diff": 5.340576171875e-05,
+ "mlp_test": 16.004566192626953,
+ "mlp_export": 16.004566101591507,
+ "mlp_max_abs_diff": 1.1444091796875e-05,
+ "report_exports": {
+  "cnn": {
+   "test": 16.004093350899083,
+   "n_params": 121939
+  },
+  "cnn_formula": {
+   "test": 16.068893068411704,
+   "n_params": 27
+  },
+  "cylinder": {
+   "test": 16.089925777904178,
+   "n_params": 59
+  },
+  "mlp": {
+   "test": 16.004566101591507,
+   "n_params": 2785
+  },
+  "mlp_formula": {
+   "test": 16.07123884661005,
+   "n_params": 27
+  }
+ },
+ "n_events": {
+  "train": 69858,
+  "val": 14969,
+  "test": 14970
+ }
+}

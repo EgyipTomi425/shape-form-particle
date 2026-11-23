@@ -1,0 +1,380 @@
+{
+ "residual over-normalisation of the slab metric, 1200 random test events (mean nat per event)": {
+  "report_gflash_n6": {
+   "ln M_slab(nsub2) - ln M_slab(brute force) (MC check of the slab part)": 0.00012557788671647944,
+   "ln M_slab - ln M_outline (bf)": 0.143761932692053,
+   "ln M_slab - ln M_cells (bf)": 0.22633283572737373,
+   "ln M_slab - ln M_cells_nogap (bf)": 0.14403657804337108,
+   "ln M_slab - ln M_cells (G1 cache, same events)": 0.23409454411719754,
+   "ln M_slab - ln M_full (G1 cache, same events)": 0.15139772903897153
+  },
+  "report_mlp": {
+   "ln M_slab(nsub2) - ln M_slab(brute force) (MC check of the slab part)": 0.0002734389568575689,
+   "ln M_slab - ln M_outline (bf)": 0.1381161002821005,
+   "ln M_slab - ln M_cells (bf)": 0.2192184510599254,
+   "ln M_slab - ln M_cells_nogap (bf)": 0.13847274417457175,
+   "ln M_slab - ln M_cells (G1 cache, same events)": 0.226658251955297,
+   "ln M_slab - ln M_full (G1 cache, same events)": 0.14523358433195366
+  },
+  "report_cnn": {
+   "ln M_slab(nsub2) - ln M_slab(brute force) (MC check of the slab part)": 0.0002691375282506991,
+   "ln M_slab - ln M_outline (bf)": 0.1387132174139843,
+   "ln M_slab - ln M_cells (bf)": 0.21944413958475584,
+   "ln M_slab - ln M_cells_nogap (bf)": 0.13908817415494115,
+   "ln M_slab - ln M_cells (G1 cache, same events)": 0.22685022333714258,
+   "ln M_slab - ln M_full (G1 cache, same events)": 0.14579329788784043
+  },
+  "new_slab_gce_n6": {
+   "ln M_slab(nsub2) - ln M_slab(brute force) (MC check of the slab part)": 0.00020006206311061811,
+   "ln M_slab - ln M_outline (bf)": 0.13457598216052355,
+   "ln M_slab - ln M_cells (bf)": 0.215512344124981,
+   "ln M_slab - ln M_cells_nogap (bf)": 0.1349785013270823,
+   "ln M_slab - ln M_cells (G1 cache, same events)": 0.22302886658225687,
+   "ln M_slab - ln M_full (G1 cache, same events)": 0.14133666168268494
+  },
+  "new_stdacc_gce_n6": {
+   "ln M_slab(nsub2) - ln M_slab(brute force) (MC check of the slab part)": 0.00022741935454769898,
+   "ln M_slab - ln M_outline (bf)": 0.13849779724374206,
+   "ln M_slab - ln M_cells (bf)": 0.21932253103784566,
+   "ln M_slab - ln M_cells_nogap (bf)": 0.1388404812701908,
+   "ln M_slab - ln M_cells (G1 cache, same events)": 0.22678659197533343,
+   "ln M_slab - ln M_full (G1 cache, same events)": 0.14555854411657473
+  },
+  "ref_slab_gflash_n6": {
+   "ln M_slab(nsub2) - ln M_slab(brute force) (MC check of the slab part)": 0.0002208774570909484,
+   "ln M_slab - ln M_outline (bf)": 0.13426186513711688,
+   "ln M_slab - ln M_cells (bf)": 0.21626780242035887,
+   "ln M_slab - ln M_cells_nogap (bf)": 0.1345601079219318,
+   "ln M_slab - ln M_cells (G1 cache, same events)": 0.22387929478168483,
+   "ln M_slab - ln M_full (G1 cache, same events)": 0.1410987686024593
+  },
+  "ref_slab_mlp": {
+   "ln M_slab(nsub2) - ln M_slab(brute force) (MC check of the slab part)": -1.532533756603854e-05,
+   "ln M_slab - ln M_outline (bf)": 0.1341140864285961,
+   "ln M_slab - ln M_cells (bf)": 0.21491470120997969,
+   "ln M_slab - ln M_cells_nogap (bf)": 0.1345973498213671,
+   "ln M_slab - ln M_cells (G1 cache, same events)": 0.22260186317832625,
+   "ln M_slab - ln M_full (G1 cache, same events)": 0.14116796461473388
+  },
+  "ref_std_gflash_acc_n6": {
+   "ln M_slab(nsub2) - ln M_slab(brute force) (MC check of the slab part)": 0.0001484312220303439,
+   "ln M_slab - ln M_outline (bf)": 0.1388281830995273,
+   "ln M_slab - ln M_cells (bf)": 0.22096623897493126,
+   "ln M_slab - ln M_cells_nogap (bf)": 0.13909153986859413,
+   "ln M_slab - ln M_cells (G1 cache, same events)": 0.22867139466729508,
+   "ln M_slab - ln M_full (G1 cache, same events)": 0.14617783536843562
+  }
+ },
+ "model-dependent part (= bias of the slab metric's paired differences relative to a properly normalised one), mean, SE": {
+  "new_slab_gce_n6 - report_gflash_n6": {
+   "paired d(ln M_slab - ln M_bf_outline)": [
+    -0.009185950531529444,
+    0.0010542394134403748
+   ],
+   "paired d(ln M_slab - ln M_bf_cells)": [
+    -0.010820491602392786,
+    0.0011470841869888027
+   ],
+   "paired d(ln M_slab - ln M_bf_cells_ng)": [
+    -0.009058076716288782,
+    0.0010536871784213079
+   ],
+   "paired d(ln M_slab - ln M_g1_cells)": [
+    -0.011065677534940699,
+    0.0011494460306157189
+   ],
+   "paired d(ln M_slab - ln M_g1_full)": [
+    -0.010061067356286599,
+    0.0011509576549954353
+   ]
+  },
+  "report_mlp - report_gflash_n6": {
+   "paired d(ln M_slab - ln M_bf_outline)": [
+    -0.005645832409952495,
+    0.0007156507723742133
+   ],
+   "paired d(ln M_slab - ln M_bf_cells)": [
+    -0.007114384667448366,
+    0.0007702074607082525
+   ],
+   "paired d(ln M_slab - ln M_bf_cells_ng)": [
+    -0.005563833868799309,
+    0.000716064369880347
+   ],
+   "paired d(ln M_slab - ln M_g1_cells)": [
+    -0.007436292161900552,
+    0.0007743357895402665
+   ],
+   "paired d(ln M_slab - ln M_g1_full)": [
+    -0.006164144707017869,
+    0.0007500561096355933
+   ]
+  },
+  "new_slab_gce_n6 - report_mlp": {
+   "paired d(ln M_slab - ln M_bf_outline)": [
+    -0.0035401181215769487,
+    0.0004210885747693723
+   ],
+   "paired d(ln M_slab - ln M_bf_cells)": [
+    -0.003706106934944418,
+    0.0004655103112670529
+   ],
+   "paired d(ln M_slab - ln M_bf_cells_ng)": [
+    -0.0034942428474894725,
+    0.0004202797164237078
+   ],
+   "paired d(ln M_slab - ln M_g1_cells)": [
+    -0.0036293853730401467,
+    0.00046655100821179615
+   ],
+   "paired d(ln M_slab - ln M_g1_full)": [
+    -0.003896922649268728,
+    0.000483362554146329
+   ]
+  },
+  "new_slab_gce_n6 - ref_slab_gflash_n6": {
+   "paired d(ln M_slab - ln M_bf_outline)": [
+    0.0003141170234066601,
+    0.0003992055174414447
+   ],
+   "paired d(ln M_slab - ln M_bf_cells)": [
+    -0.0007554582953778983,
+    0.0004318106415691281
+   ],
+   "paired d(ln M_slab - ln M_bf_cells_ng)": [
+    0.0004183934051504978,
+    0.00039938824380360516
+   ],
+   "paired d(ln M_slab - ln M_g1_cells)": [
+    -0.0008504281994279846,
+    0.00043942191605497803
+   ],
+   "paired d(ln M_slab - ln M_g1_full)": [
+    0.00023789308022565504,
+    0.0004214368816426876
+   ]
+  },
+  "new_slab_gce_n6 - ref_slab_mlp": {
+   "paired d(ln M_slab - ln M_bf_outline)": [
+    0.000461895731927456,
+    0.00019245383064533657
+   ],
+   "paired d(ln M_slab - ln M_bf_cells)": [
+    0.0005976429150012625,
+    0.00022523082889839817
+   ],
+   "paired d(ln M_slab - ln M_bf_cells_ng)": [
+    0.0003811515057152161,
+    0.00019291151801984507
+   ],
+   "paired d(ln M_slab - ln M_g1_cells)": [
+    0.0004270034039306122,
+    0.00020588733893859367
+   ],
+   "paired d(ln M_slab - ln M_g1_full)": [
+    0.0001686970679510274,
+    0.00019506897405537592
+   ]
+  },
+  "new_stdacc_gce_n6 - report_gflash_n6": {
+   "paired d(ln M_slab - ln M_bf_outline)": [
+    -0.005264135448310919,
+    0.0007006044288641551
+   ],
+   "paired d(ln M_slab - ln M_bf_cells)": [
+    -0.0070103046895280815,
+    0.0007738508431620179
+   ],
+   "paired d(ln M_slab - ln M_bf_cells_ng)": [
+    -0.005196096773180266,
+    0.0007010900597760984
+   ],
+   "paired d(ln M_slab - ln M_g1_cells)": [
+    -0.00730795214186412,
+    0.0007805154567725353
+   ],
+   "paired d(ln M_slab - ln M_g1_full)": [
+    -0.005839184922396804,
+    0.0007550412905913804
+   ]
+  },
+  "ref_std_gflash_acc_n6 - report_gflash_n6": {
+   "paired d(ln M_slab - ln M_bf_outline)": [
+    -0.004933749592525684,
+    0.0005787744286770902
+   ],
+   "paired d(ln M_slab - ln M_bf_cells)": [
+    -0.005366596752442469,
+    0.000596891846954292
+   ],
+   "paired d(ln M_slab - ln M_bf_cells_ng)": [
+    -0.004945038174776959,
+    0.0005791041247287204
+   ],
+   "paired d(ln M_slab - ln M_g1_cells)": [
+    -0.005423149449902495,
+    0.0005970159408796474
+   ],
+   "paired d(ln M_slab - ln M_g1_full)": [
+    -0.0052198936705358905,
+    0.0005957817746549579
+   ]
+  },
+  "report_cnn - report_mlp": {
+   "paired d(ln M_slab - ln M_bf_outline)": [
+    0.0005971171318838002,
+    0.00017397863032906925
+   ],
+   "paired d(ln M_slab - ln M_bf_cells)": [
+    0.000225688524830448,
+    0.0001894761045351594
+   ],
+   "paired d(ln M_slab - ln M_bf_cells_ng)": [
+    0.0006154299803693877,
+    0.00017404956746370798
+   ],
+   "paired d(ln M_slab - ln M_g1_cells)": [
+    0.00019197138184560752,
+    0.00019013025286107618
+   ],
+   "paired d(ln M_slab - ln M_g1_full)": [
+    0.0005597135558867724,
+    0.00018000076817634644
+   ]
+  }
+ },
+ "G1 quadrature convergence (report GFlash n=6 weights)": [
+  {
+   "event": 5,
+   "ln M_cells: G1(nsub2,nphi24) - G1(nsub6,nphi96)": -0.0001696367487518946,
+   "ln M_cells: G1(nsub6,nphi96) - brute force(512/cell)": -0.014060860664426134,
+   "ln M_full: G1(nsub2) - G1(nsub6)": 2.5773742873193284e-05
+  },
+  {
+   "event": 17,
+   "ln M_cells: G1(nsub2,nphi24) - G1(nsub6,nphi96)": 0.0002194338326798606,
+   "ln M_cells: G1(nsub6,nphi96) - brute force(512/cell)": -0.004532047288021812,
+   "ln M_full: G1(nsub2) - G1(nsub6)": -7.485680138530348e-07
+  },
+  {
+   "event": 20,
+   "ln M_cells: G1(nsub2,nphi24) - G1(nsub6,nphi96)": 0.00016472663503741547,
+   "ln M_cells: G1(nsub6,nphi96) - brute force(512/cell)": -0.0012380194919936471,
+   "ln M_full: G1(nsub2) - G1(nsub6)": 0.00022153053048235005
+  },
+  {
+   "event": 21,
+   "ln M_cells: G1(nsub2,nphi24) - G1(nsub6,nphi96)": 0.000705085172114206,
+   "ln M_cells: G1(nsub6,nphi96) - brute force(512/cell)": -0.01559167884758872,
+   "ln M_full: G1(nsub2) - G1(nsub6)": 0.00023030415946445615
+  },
+  {
+   "event": 35,
+   "ln M_cells: G1(nsub2,nphi24) - G1(nsub6,nphi96)": 0.0005341353467686327,
+   "ln M_cells: G1(nsub6,nphi96) - brute force(512/cell)": -0.012802455953197511,
+   "ln M_full: G1(nsub2) - G1(nsub6)": 7.851913751667078e-05
+  },
+  {
+   "event": 44,
+   "ln M_cells: G1(nsub2,nphi24) - G1(nsub6,nphi96)": 0.00018108058788647574,
+   "ln M_cells: G1(nsub6,nphi96) - brute force(512/cell)": -0.011432718061151634,
+   "ln M_full: G1(nsub2) - G1(nsub6)": 1.2773253679029817e-05
+  },
+  {
+   "event": 54,
+   "ln M_cells: G1(nsub2,nphi24) - G1(nsub6,nphi96)": 0.00012470162400259055,
+   "ln M_cells: G1(nsub6,nphi96) - brute force(512/cell)": -0.0009556800092095225,
+   "ln M_full: G1(nsub2) - G1(nsub6)": 0.00017277394350179165
+  },
+  {
+   "event": 58,
+   "ln M_cells: G1(nsub2,nphi24) - G1(nsub6,nphi96)": -0.0005915575669502848,
+   "ln M_cells: G1(nsub6,nphi96) - brute force(512/cell)": -0.0027318451654053666,
+   "ln M_full: G1(nsub2) - G1(nsub6)": -0.00010592386229579809
+  },
+  {
+   "event": 63,
+   "ln M_cells: G1(nsub2,nphi24) - G1(nsub6,nphi96)": 0.0005795274577393705,
+   "ln M_cells: G1(nsub6,nphi96) - brute force(512/cell)": -0.00703680284887831,
+   "ln M_full: G1(nsub2) - G1(nsub6)": 0.0005211023223883338
+  },
+  {
+   "event": 84,
+   "ln M_cells: G1(nsub2,nphi24) - G1(nsub6,nphi96)": 0.00027912678689848147,
+   "ln M_cells: G1(nsub6,nphi96) - brute force(512/cell)": 0.0004988081816693773,
+   "ln M_full: G1(nsub2) - G1(nsub6)": 3.199296536063323e-05
+  }
+ ],
+ "mass outside the slab (test events)": {
+  "report_gflash_n6": {
+   "mean mass outside the event's slab": 0.03558477386832237,
+   "mean mass in cells outside EVERY training event's slab": 0.003579523414373398,
+   "mean mass in cells with Abar(train) < 0.05": 0.004252786748111248
+  },
+  "report_mlp": {
+   "mean mass outside the event's slab": 0.02214706502854824,
+   "mean mass in cells outside EVERY training event's slab": 2.3297784537135158e-06,
+   "mean mass in cells with Abar(train) < 0.05": 3.6172958061797544e-05
+  },
+  "report_cnn": {
+   "mean mass outside the event's slab": 0.021976681426167488,
+   "mean mass in cells outside EVERY training event's slab": 6.586816994058609e-07,
+   "mean mass in cells with Abar(train) < 0.05": 2.9434839234454557e-05
+  },
+  "new_slab_gce_n6": {
+   "mean mass outside the event's slab": 0.19958849251270294,
+   "mean mass in cells outside EVERY training event's slab": 0.12440324574708939,
+   "mean mass in cells with Abar(train) < 0.05": 0.14220832288265228
+  },
+  "new_stdacc_gce_n6": {
+   "mean mass outside the event's slab": 0.023114828392863274,
+   "mean mass in cells outside EVERY training event's slab": 1.1148650713721509e-07,
+   "mean mass in cells with Abar(train) < 0.05": 0.00018860273121390492
+  },
+  "ref_slab_gflash_n6": {
+   "mean mass outside the event's slab": 0.1493428349494934,
+   "mean mass in cells outside EVERY training event's slab": 0.08624010533094406,
+   "mean mass in cells with Abar(train) < 0.05": 0.09563542902469635
+  },
+  "ref_slab_mlp": {
+   "mean mass outside the event's slab": 0.24872234463691711,
+   "mean mass in cells outside EVERY training event's slab": 0.17424727976322174,
+   "mean mass in cells with Abar(train) < 0.05": 0.20005512237548828
+  },
+  "ref_std_gflash_acc_n6": {
+   "mean mass outside the event's slab": 0.029453683644533157,
+   "mean mass in cells outside EVERY training event's slab": 1.3712993052195088e-07,
+   "mean mass in cells with Abar(train) < 0.05": 0.00015971309039741755
+  }
+ },
+ "first hit layer > 0: n, theta quartiles, origin rho quartiles [mm], rho of the incident line at the detector front face quartiles": [
+  387,
+  [
+   0.1196478009223938,
+   0.3446442782878876,
+   0.5320356786251068
+  ],
+  [
+   523.4264221191406,
+   1357.881591796875,
+   2173.960693359375
+  ],
+  [
+   504.22789001464844,
+   1330.3038330078125,
+   2136.7239990234375
+  ]
+ ],
+ "first hit layer = 0: theta quartiles, origin rho quartiles": [
+  [
+   0.31866052746772766,
+   0.4451276659965515,
+   0.5433931946754456
+  ],
+  [
+   1224.6685791015625,
+   1758.5496826171875,
+   2228.962646484375
+  ]
+ ]
+}

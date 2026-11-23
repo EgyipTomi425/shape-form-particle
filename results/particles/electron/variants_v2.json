@@ -1,0 +1,83 @@
+{
+ "val": {
+  "plateau": 14.806891441345215,
+  "plateau+spk": 14.809029579162598,
+  "plateau+far": 14.797101020812988,
+  "plateau+all": 14.796236038208008
+ },
+ "params": {
+  "plateau": 41,
+  "plateau+spk": 45,
+  "plateau+far": 44,
+  "plateau+all": 50
+ },
+ "kwargs": {
+  "plateau+spk": {
+   "long": "plateau",
+   "track": false,
+   "spike": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  },
+  "plateau+far": {
+   "long": "plateau",
+   "track": false,
+   "spike": true,
+   "far": true,
+   "degrees": null
+  },
+  "plateau+all": {
+   "long": "plateau",
+   "track": false,
+   "spike": true,
+   "far": true,
+   "endblob": false,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  }
+ },
+ "best": "plateau+all",
+ "chosen": "plateau+all",
+ "diff_vs_best": {
+  "plateau": [
+   0.010655414518479293,
+   0.0013489076799960964
+  ],
+  "plateau+spk": [
+   0.01279380323251205,
+   0.0014400486980349482
+  ],
+  "plateau+far": [
+   0.0008640908600449665,
+   8.890279899066605e-05
+  ],
+  "plateau+all": [
+   0.0,
+   0.0
+  ]
+ },
+ "diff_vs_base": {
+  "plateau": [
+   0.0,
+   0.0
+  ],
+  "plateau+spk": [
+   0.0021383887140327584,
+   0.0004382801568422462
+  ],
+  "plateau+far": [
+   -0.009791323658434326,
+   0.0013402726112488866
+  ],
+  "plateau+all": [
+   -0.010655414518479293,
+   0.0013489076799960964
+  ]
+ }
+}

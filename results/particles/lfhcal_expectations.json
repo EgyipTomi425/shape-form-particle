@@ -1,0 +1,87 @@
+{
+ "layer": {
+  "pitch_mm": 20.5,
+  "thickness_mm": {
+   "steel": 15.2,
+   "scint": 4.0,
+   "kapton": 0.8,
+   "air": 0.5
+  },
+  "front_steel_mm": 40.4
+ },
+ "stack": {
+  "X0_mm": 23.47693990856356,
+  "lambda_I_mm": 211.69121302206145,
+  "lambda_pi_mm": 259.7825637471763,
+  "R_M_mm": 21.929821005182163,
+  "Ec_MeV": 22.701197881707778,
+  "mip_dEdx_MeV_per_mm": 0.8944404938536586,
+  "density_g_cm3": 6.077687804878049
+ },
+ "front": {
+  "X0": 2.2883764737176966,
+  "lambda_I": 0.24033480290590054,
+  "lambda_pi": 0.19749283753273825,
+  "stack_equiv_em_mm": 53.72407696164094,
+  "stack_equiv_dEdx_mm": 51.468456386246714
+ },
+ "highland_muon": {
+  "with_front": {
+   "300-1200 mm": {
+    "c_mm": 63.21413639752929,
+    "k": 1.4136068731942344
+   },
+   "100-1200 mm": {
+    "c_mm": 62.033456676587605,
+    "k": 1.3479825739213158
+   },
+   "200-1300 mm": {
+    "c_mm": 63.177554054901115,
+    "k": 1.3967490512399872
+   },
+   "300-1000 mm": {
+    "c_mm": 62.75767714473063,
+    "k": 1.40328986214934
+   }
+  },
+  "without_front": {
+   "300-1200 mm": {
+    "c_mm": 58.55309084138981,
+    "k": 1.5337748231522395
+   }
+  },
+  "sigma_at_1m_p1GeV_mm": {
+   "with_front": 63.384244590548334,
+   "without_front": 58.55160937544894
+  },
+  "note": "beta = 1, fixed p (no energy loss), normal incidence; energy loss along the track raises c and k"
+ },
+ "electron_tmax_behind_first_tile_mm": {
+  "1": 23.405596118774703,
+  "2": 39.67857082457079,
+  "5": 61.190273275554055,
+  "10": 77.46324798135015,
+  "20": 93.73622268714624
+ },
+ "csda_external": {
+  "source": "NIST PSTAR / PDG muon tables, homogenised over the layer mix, after the 40.4 mm front steel at normal incidence (independent check, 2026-11-17); Bethe estimate agrees within ~1 %",
+  "proton_mm_after_front": {
+   "T=0.433 GeV (p=1 GeV/c)": 165,
+   "T=0.5 GeV": 219,
+   "T=1.0 GeV": 694
+  },
+  "proton_local_exponent": {
+   "0.05-0.1 GeV": 1.75,
+   "0.1-0.2": 1.73,
+   "0.2-0.5": 1.63,
+   "0.5-1": 1.46,
+   "1-2": 1.31
+  },
+  "muon_linear_fit": "R ≈ 1.06–1.07 m/GeV · T − 75…80 mm for T = 0.15–1.25 GeV",
+  "stopping_in_front_steel_GeV_c": {
+   "proton": 0.61,
+   "muon": 0.153,
+   "note": "normal incidence; 0.64 / 0.165 at theta = 0.57 rad"
+  }
+ }
+}

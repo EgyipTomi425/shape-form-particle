@@ -1,0 +1,129 @@
+{
+ "n events origin layer empty after cuts": 184,
+ "n events first hit layer > 0": 387,
+ "overlap": 77,
+ "origin layer empty": {
+  "std: report_mlp - report_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.2056689826716652,
+   -0.002524219104294717
+  ],
+  "slab: report_mlp - report_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.19275782743771658,
+   -0.0023657577540381436
+  ],
+  "cells: report_mlp - report_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.17108346573755445,
+   -0.0020997437096925043
+  ],
+  "std: new_slab_gce_n6 - report_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.008854623137208108,
+   -0.00010867467030725
+  ],
+  "slab: new_slab_gce_n6 - report_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.21439688338870005,
+   -0.002631338483425881
+  ],
+  "cells: new_slab_gce_n6 - report_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.17611928599399376,
+   -0.0021615494012069674
+  ],
+  "std: new_slab_gce_n6 - ref_slab_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.09825008746247897,
+   -0.0012058441897742885
+  ],
+  "slab: new_slab_gce_n6 - ref_slab_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.11813796742236624,
+   -0.001449932364308657
+  ],
+  "cells: new_slab_gce_n6 - ref_slab_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.11696198544814315,
+   -0.0014354992877840408
+  ],
+  "std: new_slab_gce_n6 - report_mlp: mean in group, contribution to the overall mean": [
+   0.19681435953445706,
+   0.0024155444339874666
+  ],
+  "slab: new_slab_gce_n6 - report_mlp: mean in group, contribution to the overall mean": [
+   -0.021639055950983473,
+   -0.0002655807293877374
+  ],
+  "cells: new_slab_gce_n6 - report_mlp: mean in group, contribution to the overall mean": [
+   -0.00503582025643929,
+   -6.180569151446301e-05
+  ],
+  "report_gflash_n6: mean slab NLL in group vs rest": [
+   21.887216069672636,
+   18.176634049556114
+  ],
+  "report_mlp: mean slab NLL in group vs rest": [
+   21.69445824223492,
+   18.128250288821903
+  ],
+  "new_slab_gce_n6: mean slab NLL in group vs rest": [
+   21.672819186283935,
+   18.12739760669072
+  ]
+ },
+ "first hit layer > 0": {
+  "std: report_mlp - report_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.22178696647170054,
+   -0.00572515715211767
+  ],
+  "slab: report_mlp - report_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.20328428214221136,
+   -0.005247533163622985
+  ],
+  "cells: report_mlp - report_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.1879064540243577,
+   -0.004850573486354485
+  ],
+  "std: new_slab_gce_n6 - report_gflash_n6: mean in group, contribution to the overall mean": [
+   0.01901067775772114,
+   0.0004907372126626255
+  ],
+  "slab: new_slab_gce_n6 - report_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.20244987405564427,
+   -0.0052259939474075725
+  ],
+  "cells: new_slab_gce_n6 - report_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.17859151795591938,
+   -0.004610119893872786
+  ],
+  "std: new_slab_gce_n6 - ref_slab_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.16694844303758075,
+   -0.004309568266778531
+  ],
+  "slab: new_slab_gce_n6 - ref_slab_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.11950868195892396,
+   -0.003084969311506375
+  ],
+  "cells: new_slab_gce_n6 - ref_slab_gflash_n6: mean in group, contribution to the overall mean": [
+   -0.11777934546840316,
+   -0.0030403286216830324
+  ],
+  "std: new_slab_gce_n6 - report_mlp: mean in group, contribution to the overall mean": [
+   0.24079764422942165,
+   0.006215894364780295
+  ],
+  "slab: new_slab_gce_n6 - report_mlp: mean in group, contribution to the overall mean": [
+   0.0008344080865671004,
+   2.1539216215412743e-05
+  ],
+  "cells: new_slab_gce_n6 - report_mlp: mean in group, contribution to the overall mean": [
+   0.009314936068438341,
+   0.00024045359248169943
+  ],
+  "report_gflash_n6: mean slab NLL in group vs rest": [
+   18.99878983133771,
+   18.201596240870867
+  ],
+  "report_mlp: mean slab NLL in group vs rest": [
+   18.795505549195497,
+   18.15549811337948
+  ],
+  "new_slab_gce_n6: mean slab NLL in group vs rest": [
+   18.796339957282065,
+   18.154338851536068
+  ]
+ }
+}

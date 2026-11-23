@@ -1,0 +1,66 @@
+{
+ "3D PS_slab - GFlash 3D refit [test]": {
+  "mean": -0.02977,
+  "median": -0.01978,
+  "1%-trimmed mean": -0.02571,
+  "frac events negative": 0.641,
+  "mean excl. bin0": -0.0155,
+  "contribution bin0 to mean": -0.01504
+ },
+ "3D PS_slab - GFlash 3D refit [s2]": {
+  "mean": -0.03166,
+  "median": -0.01954,
+  "1%-trimmed mean": -0.02636,
+  "frac events negative": 0.64,
+  "mean excl. bin0": -0.01609,
+  "contribution bin0 to mean": -0.01637
+ },
+ "std PS_stdacc - GFlash x Abar refit [test]": {
+  "mean": -0.03398,
+  "median": -0.01116,
+  "1%-trimmed mean": -0.02842,
+  "frac events negative": 0.618,
+  "mean excl. bin0": -0.01723,
+  "contribution bin0 to mean": -0.01761
+ },
+ "std PS_stdacc - GFlash x Abar refit [s2]": {
+  "mean": -0.03563,
+  "median": -0.01153,
+  "1%-trimmed mean": -0.02901,
+  "frac events negative": 0.619,
+  "mean excl. bin0": -0.0177,
+  "contribution bin0 to mean": -0.01882
+ },
+ "3D PS_slab - MLP 3D-trained [test]": {
+  "mean": 0.00819,
+  "median": 0.00542,
+  "1%-trimmed mean": 0.00746,
+  "frac events negative": 0.405,
+  "mean excl. bin0": 0.00492,
+  "contribution bin0 to mean": 0.00351
+ },
+ "3D PS_slab - MLP 3D-trained [s2]": {
+  "mean": 0.00823,
+  "median": 0.00534,
+  "1%-trimmed mean": 0.00742,
+  "frac events negative": 0.406,
+  "mean excl. bin0": 0.00483,
+  "contribution bin0 to mean": 0.00365
+ },
+ "std PS_stdacc - report MLP [test]": {
+  "mean": 0.00725,
+  "median": 0.0064,
+  "1%-trimmed mean": 0.00649,
+  "frac events negative": 0.407,
+  "mean excl. bin0": 0.00492,
+  "contribution bin0 to mean": 0.00257
+ },
+ "std PS_stdacc - report MLP [s2]": {
+  "mean": 0.00724,
+  "median": 0.0062,
+  "1%-trimmed mean": 0.00619,
+  "frac events negative": 0.409,
+  "mean excl. bin0": 0.00447,
+  "contribution bin0 to mean": 0.00299
+ }
+}

@@ -1,0 +1,305 @@
+{
+ "val": {
+  "base": 16.01670265197754,
+  "halo": 16.01671028137207,
+  "bragg": 16.016618728637695,
+  "halo+bragg": 16.016624450683594,
+  "curv": 16.016273498535156,
+  "slopes": 16.015968322753906,
+  "all3": 16.016016006469727,
+  "ms": 16.012269973754883,
+  "ms+halo": 16.012252807617188,
+  "ms+curv+slopes": 16.012277603149414,
+  "all4": 16.011669158935547
+ },
+ "params": {
+  "base": 61,
+  "halo": 65,
+  "bragg": 62,
+  "halo+bragg": 66,
+  "curv": 64,
+  "slopes": 71,
+  "all3": 79,
+  "ms": 63,
+  "ms+halo": 67,
+  "ms+curv+slopes": 76,
+  "all4": 81
+ },
+ "kwargs": {
+  "base": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  },
+  "halo": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "track_halo": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  },
+  "bragg": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "bragg": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  },
+  "halo+bragg": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "track_halo": true,
+   "bragg": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  },
+  "curv": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "curv": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  },
+  "slopes": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2,
+    "s_sig": 2,
+    "s_R": 2,
+    "s_lam": 2,
+    "s_1": 2,
+    "s_2": 2
+   }
+  },
+  "all3": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "curv": true,
+   "track_halo": true,
+   "bragg": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2,
+    "s_sig": 2,
+    "s_R": 2,
+    "s_lam": 2,
+    "s_1": 2,
+    "s_2": 2
+   }
+  },
+  "ms": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "ms": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  },
+  "ms+halo": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "ms": true,
+   "track_halo": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  },
+  "ms+curv+slopes": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "ms": true,
+   "curv": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2,
+    "s_sig": 2,
+    "s_R": 2,
+    "s_lam": 2,
+    "s_1": 2,
+    "s_2": 2
+   }
+  },
+  "all4": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "ms": true,
+   "curv": true,
+   "track_halo": true,
+   "bragg": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2,
+    "s_sig": 2,
+    "s_R": 2,
+    "s_lam": 2,
+    "s_1": 2,
+    "s_2": 2
+   }
+  }
+ },
+ "base_name": "full_att+all",
+ "best": "all4",
+ "chosen": "all4",
+ "diff_vs_best": {
+  "base": [
+   0.005033707043731035,
+   0.00040269172062946967
+  ],
+  "halo": [
+   0.005040892571005795,
+   0.00040256415117104736
+  ],
+  "bragg": [
+   0.004949257395949024,
+   0.00040324279259086246
+  ],
+  "halo+bragg": [
+   0.004953389177660687,
+   0.00040317088516482745
+  ],
+  "curv": [
+   0.004603050683509755,
+   0.00038568429683906186
+  ],
+  "slopes": [
+   0.0042980236012947265,
+   0.0005774973190052823
+  ],
+  "all3": [
+   0.004346675899560916,
+   0.0005869154012707876
+  ],
+  "ms": [
+   0.0005991556209778529,
+   8.337497324624928e-05
+  ],
+  "ms+halo": [
+   0.0005830296120078827,
+   7.871109818997819e-05
+  ],
+  "ms+curv+slopes": [
+   0.0006077999150922649,
+   7.918691592949745e-05
+  ],
+  "all4": [
+   0.0,
+   0.0
+  ]
+ },
+ "diff_vs_base": {
+  "base": [
+   0.0,
+   0.0
+  ],
+  "halo": [
+   7.185527274759764e-06,
+   4.209387215696093e-06
+  ],
+  "bragg": [
+   -8.444964778201121e-05,
+   1.5739283490352212e-05
+  ],
+  "halo+bragg": [
+   -8.031786607034747e-05,
+   1.7009892337868533e-05
+  ],
+  "curv": [
+   -0.00043065636022128023,
+   5.771551788751917e-05
+  ],
+  "slopes": [
+   -0.0007356834424363085,
+   0.0005421551597902779
+  ],
+  "all3": [
+   -0.0006870311441701196,
+   0.0005551126579203673
+  ],
+  "ms": [
+   -0.004434551422753182,
+   0.00041612330883400873
+  ],
+  "ms+halo": [
+   -0.004450677431723152,
+   0.00041155241027926155
+  ],
+  "ms+curv+slopes": [
+   -0.00442590712863877,
+   0.0004096237750215195
+  ],
+  "all4": [
+   -0.005033707043731035,
+   0.00040269172062946967
+  ]
+ }
+}

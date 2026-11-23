@@ -1,0 +1,158 @@
+{
+ "max |Abar(train) - Abar(test)|, max |Abar(train) - Abar(val)|": [
+  0.0041495561599731445,
+  0.0019164830446243286
+ ],
+ "1) stored logA buffers vs recomputed Abar (front+back, nsub=4)": {
+  "stdacc_gce_n1": {
+   "max |logA - log Abar(train)| over cells with Abar>1e-3": 0.0,
+   "max |logA - log Abar(val)| over cells with Abar>1e-3": 0.0460515022277832,
+   "max |logA - log Abar(test)| over cells with Abar>1e-3": 0.013062477111816406,
+   "max |logA - log Abar(all)| over cells with Abar>1e-3": 0.005158901214599609
+  },
+  "stdacc_gce_n2": {
+   "max |logA - log Abar(train)| over cells with Abar>1e-3": 0.0,
+   "max |logA - log Abar(val)| over cells with Abar>1e-3": 0.0460515022277832,
+   "max |logA - log Abar(test)| over cells with Abar>1e-3": 0.013062477111816406,
+   "max |logA - log Abar(all)| over cells with Abar>1e-3": 0.005158901214599609
+  },
+  "stdacc_gce_n3": {
+   "max |logA - log Abar(train)| over cells with Abar>1e-3": 0.0,
+   "max |logA - log Abar(val)| over cells with Abar>1e-3": 0.0460515022277832,
+   "max |logA - log Abar(test)| over cells with Abar>1e-3": 0.013062477111816406,
+   "max |logA - log Abar(all)| over cells with Abar>1e-3": 0.005158901214599609
+  },
+  "stdacc_gce_n4": {
+   "max |logA - log Abar(train)| over cells with Abar>1e-3": 0.0,
+   "max |logA - log Abar(val)| over cells with Abar>1e-3": 0.0460515022277832,
+   "max |logA - log Abar(test)| over cells with Abar>1e-3": 0.013062477111816406,
+   "max |logA - log Abar(all)| over cells with Abar>1e-3": 0.005158901214599609
+  },
+  "stdacc_gce_n5": {
+   "max |logA - log Abar(train)| over cells with Abar>1e-3": 0.0,
+   "max |logA - log Abar(val)| over cells with Abar>1e-3": 0.0460515022277832,
+   "max |logA - log Abar(test)| over cells with Abar>1e-3": 0.013062477111816406,
+   "max |logA - log Abar(all)| over cells with Abar>1e-3": 0.005158901214599609
+  },
+  "stdacc_gce_n6": {
+   "max |logA - log Abar(train)| over cells with Abar>1e-3": 0.0,
+   "max |logA - log Abar(val)| over cells with Abar>1e-3": 0.0460515022277832,
+   "max |logA - log Abar(test)| over cells with Abar>1e-3": 0.013062477111816406,
+   "max |logA - log Abar(all)| over cells with Abar>1e-3": 0.005158901214599609
+  },
+  "stdacc_gce_chosen": {
+   "max |logA - log Abar(train)| over cells with Abar>1e-3": 0.0,
+   "max |logA - log Abar(val)| over cells with Abar>1e-3": 0.0460515022277832,
+   "max |logA - log Abar(test)| over cells with Abar>1e-3": 0.013062477111816406,
+   "max |logA - log Abar(all)| over cells with Abar>1e-3": 0.005158901214599609
+  },
+  "ref_std_gflash_acc_n6": {
+   "max |logA - log Abar(train)| over cells with Abar>1e-3": 4.76837158203125e-07,
+   "max |logA - log Abar(val)| over cells with Abar>1e-3": 0.0460515022277832,
+   "max |logA - log Abar(test)| over cells with Abar>1e-3": 0.013062000274658203,
+   "max |logA - log Abar(all)| over cells with Abar>1e-3": 0.005158901214599609
+  },
+  "G2 fast_std_gflash_accboth_n6": {
+   "max |logA - log Abar(train)| over cells with Abar>1e-3": 4.76837158203125e-07,
+   "max |logA - log Abar(val)| over cells with Abar>1e-3": 0.0460515022277832,
+   "max |logA - log Abar(test)| over cells with Abar>1e-3": 0.013062000274658203,
+   "max |logA - log Abar(all)| over cells with Abar>1e-3": 0.005158901214599609
+  },
+  "G2 ref_std_gflash_accboth_n6 (report protocol)": {
+   "max |logA - log Abar(train)| over cells with Abar>1e-3": 4.76837158203125e-07,
+   "max |logA - log Abar(val)| over cells with Abar>1e-3": 0.0460515022277832,
+   "max |logA - log Abar(test)| over cells with Abar>1e-3": 0.013062000274658203,
+   "max |logA - log Abar(all)| over cells with Abar>1e-3": 0.005158901214599609
+  }
+ },
+ "2) Abar(test) instead of Abar(train) on the test set": {
+  "new_stdacc_gce_n6": {
+   "test NLL with stored Abar(train)": 18.199485778808594,
+   "test NLL with Abar(test)": 18.19948387145996,
+   "paired change (mean, SE)": [
+    -9.490942431966687e-08,
+    1.0656400490915985e-06
+   ],
+   "logA is a buffer (not a Parameter)": true,
+   "n_params() of the wrapper": 86
+  },
+  "ref_std_gflash_acc_n6": {
+   "test NLL with stored Abar(train)": 18.233463287353516,
+   "test NLL with Abar(test)": 18.23346710205078,
+   "paired change (mean, SE)": [
+    2.173756683987449e-06,
+    1.0642546612871229e-06
+   ],
+   "logA is a buffer (not a Parameter)": true,
+   "n_params() of the wrapper": 45
+  }
+ },
+ "3) report metric: GFlash n=6 x Abar vs plain refit with the same optimiser": {
+  "val": {
+   "GFlash n6 x Abar (fit_fast)": 18.239681243896484,
+   "GFlash n6 plain (fit_fast, lane G2)": 18.25894546508789,
+   "report GFlash n6": 18.258665084838867,
+   "x Abar - plain fit_fast (paired)": [
+    -0.01926632879446448,
+    0.0007543817440759179
+   ],
+   "x Abar - report (paired)": [
+    -0.018986249213429635,
+    0.000840484188518016
+   ],
+   "plain fit_fast - report (paired)": [
+    0.0002800795810348461,
+    0.0004306808110195304
+   ]
+  },
+  "test": {
+   "GFlash n6 x Abar (fit_fast)": 18.233463287353516,
+   "GFlash n6 plain (fit_fast, lane G2)": 18.253005981445312,
+   "report GFlash n6": 18.253604888916016,
+   "x Abar - plain fit_fast (paired)": [
+    -0.019542536651566546,
+    0.0008207968449725118
+   ],
+   "x Abar - report (paired)": [
+    -0.020139058855071012,
+    0.0009320850933913044
+   ],
+   "plain fit_fast - report (paired)": [
+    -0.0005965222035044667,
+    0.0004154260517566657
+   ]
+  }
+ },
+ "3b) properly normalised (cells) test NLL: x Abar - plain fit_fast, x Abar - report": [
+  [
+   -0.01011695933577144,
+   0.0007966224586638306
+  ],
+  [
+   -0.010053085146773227,
+   0.0009083368156735339
+  ]
+ ],
+ "4) train: mean theta per momentum bin (0..19)": [
+  0.41559135913848877,
+  0.41712257266044617,
+  0.42027920484542847,
+  0.42054444551467896,
+  0.418701171875,
+  0.4208165407180786,
+  0.4218376874923706,
+  0.4213660955429077,
+  0.42088818550109863,
+  0.4203597605228424,
+  0.4228709042072296,
+  0.42294177412986755,
+  0.41771942377090454,
+  0.4230557084083557,
+  0.4229406416416168,
+  0.4215400218963623,
+  0.4251188635826111,
+  0.42274194955825806,
+  0.42570728063583374,
+  0.4224001467227936
+ ]
+}

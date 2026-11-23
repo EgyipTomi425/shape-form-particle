@@ -1,0 +1,14 @@
+{
+ "new_std": {
+  "max_abs_sum_minus_1": 3.5762786865234375e-07,
+  "finite": true,
+  "effective_params": 119,
+  "claimed_params": 119
+ },
+ "new_slab": {
+  "max_abs_sum_minus_1": 3.5762786865234375e-07,
+  "finite": true,
+  "effective_params": 93,
+  "claimed_params": 93
+ }
+}

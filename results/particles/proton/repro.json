@@ -1,0 +1,38 @@
+{
+ "baseline": "gflash",
+ "baseline_degree": 6,
+ "mlp": "L3xH16",
+ "baseline_test": 18.253604888916016,
+ "baseline_export": 18.253603414766562,
+ "baseline_max_abs_diff": 3.4332275390625e-05,
+ "mlp_test": 18.192235946655273,
+ "mlp_export": 18.192235799011325,
+ "mlp_max_abs_diff": 3.0517578125e-05,
+ "report_exports": {
+  "cnn": {
+   "test": 18.190821068836506,
+   "n_params": 121939
+  },
+  "cnn_formula": {
+   "test": 18.266161446955568,
+   "n_params": 21
+  },
+  "gflash": {
+   "test": 18.253603414766562,
+   "n_params": 45
+  },
+  "mlp": {
+   "test": 18.192235799011325,
+   "n_params": 881
+  },
+  "mlp_formula": {
+   "test": 18.267670759587304,
+   "n_params": 21
+  }
+ },
+ "n_events": {
+  "train": 69946,
+  "val": 14987,
+  "test": 14992
+ }
+}

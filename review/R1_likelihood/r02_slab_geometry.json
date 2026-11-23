@@ -1,0 +1,180 @@
+{
+ "geo_s1": {
+  "layer": 20.5,
+  "cell": 48.59999999999991,
+  "z_back": 4882.15
+ },
+ "geo_s2": {
+  "layer": 20.5,
+  "cell": 48.59999999999991,
+  "z_back": 4882.15
+ },
+ "train": {
+  "n_events": 69946,
+  "n_hits": 20545647,
+  "box": [
+   48.599998474121094,
+   48.599998474121094,
+   20.5
+  ],
+  "max |z_trans(formula) - z_trans(R^T x)| [mm]": 0.00048828125,
+  "min hit z_trans [mm]": -0.00029754638671875,
+  "max hit (z_trans - (D - h)) [mm]": 0.000244140625,
+  "max |hit z_trans - nearest layer multiple| [mm]": 0.0005474090576171875,
+  "min fold-point (z_trans + h) [mm]": -1.9073486328125e-06,
+  "max fold-point (z_trans - D) [mm]": 0.0,
+  "fold points outside the grid: fraction of points": 0.0008337076218626749,
+  "fold points outside the grid: hit-weight fraction per event": 0.0005240987975421952,
+  "max |sin_t + R[0,2]|": 6.593763828277588e-07,
+  "max |R[1,2]|": 0.0,
+  "events whose origin layer has no hit after the cuts (min z_trans > 1 mm)": 0.013653390109539032,
+  "D range [mm]": [
+   10.250097274780273,
+   1219.750244140625
+  ],
+  "theta range": [
+   0.05243431404232979,
+   0.6283072829246521
+  ]
+ },
+ "val": {
+  "n_events": 14987,
+  "n_hits": 4411185,
+  "box": [
+   48.599998474121094,
+   48.599998474121094,
+   20.5
+  ],
+  "max |z_trans(formula) - z_trans(R^T x)| [mm]": 0.00043487548828125,
+  "min hit z_trans [mm]": -0.000385284423828125,
+  "max hit (z_trans - (D - h)) [mm]": 0.0001220703125,
+  "max |hit z_trans - nearest layer multiple| [mm]": 0.00043010711669921875,
+  "min fold-point (z_trans + h) [mm]": 0.0,
+  "max fold-point (z_trans - D) [mm]": -0.0001220703125,
+  "fold points outside the grid: fraction of points": 0.0008406577540955549,
+  "fold points outside the grid: hit-weight fraction per event": 0.000595998754138521,
+  "max |sin_t + R[0,2]|": 6.817281246185303e-07,
+  "max |R[1,2]|": 0.0,
+  "events whose origin layer has no hit after the cuts (min z_trans > 1 mm)": 0.014879561960697174,
+  "D range [mm]": [
+   10.250097274780273,
+   1219.750244140625
+  ],
+  "theta range": [
+   0.05262729898095131,
+   0.6283128261566162
+  ]
+ },
+ "test": {
+  "n_events": 14992,
+  "n_hits": 4412396,
+  "box": [
+   48.599998474121094,
+   48.599998474121094,
+   20.5
+  ],
+  "max |z_trans(formula) - z_trans(R^T x)| [mm]": 0.00042724609375,
+  "min hit z_trans [mm]": -0.0003204345703125,
+  "max hit (z_trans - (D - h)) [mm]": 0.000244140625,
+  "max |hit z_trans - nearest layer multiple| [mm]": 0.0003910064697265625,
+  "min fold-point (z_trans + h) [mm]": 0.0,
+  "max fold-point (z_trans - D) [mm]": -0.000244140625,
+  "fold points outside the grid: fraction of points": 0.0008694999553530554,
+  "fold points outside the grid: hit-weight fraction per event": 0.0004653752864739343,
+  "max |sin_t + R[0,2]|": 5.587935447692871e-07,
+  "max |R[1,2]|": 0.0,
+  "events whose origin layer has no hit after the cuts (min z_trans > 1 mm)": 0.01227321196347475,
+  "D range [mm]": [
+   30.750097274780273,
+   1219.750244140625
+  ],
+  "theta range": [
+   0.05483587458729744,
+   0.6283147931098938
+  ]
+ },
+ "s2_train": {
+  "n_events": 69963,
+  "n_hits": 20579193,
+  "box": [
+   48.599998474121094,
+   48.599998474121094,
+   20.5
+  ],
+  "max |z_trans(formula) - z_trans(R^T x)| [mm]": 0.000457763671875,
+  "min hit z_trans [mm]": -0.000331878662109375,
+  "max hit (z_trans - (D - h)) [mm]": 0.0003662109375,
+  "max |hit z_trans - nearest layer multiple| [mm]": 0.0005474090576171875,
+  "min fold-point (z_trans + h) [mm]": 0.0,
+  "max fold-point (z_trans - D) [mm]": 0.0,
+  "fold points outside the grid: fraction of points": 0.000858291825388877,
+  "fold points outside the grid: hit-weight fraction per event": 0.0005364054445415396,
+  "max |sin_t + R[0,2]|": 7.040798664093018e-07,
+  "max |R[1,2]|": 0.0,
+  "events whose origin layer has no hit after the cuts (min z_trans > 1 mm)": 0.014121750369668007,
+  "D range [mm]": [
+   10.250097274780273,
+   1219.750244140625
+  ],
+  "theta range": [
+   0.052705422043800354,
+   0.628304123878479
+  ]
+ },
+ "s2_val": {
+  "n_events": 14991,
+  "n_hits": 4406694,
+  "box": [
+   48.599998474121094,
+   48.599998474121094,
+   20.5
+  ],
+  "max |z_trans(formula) - z_trans(R^T x)| [mm]": 0.0003662109375,
+  "min hit z_trans [mm]": -0.00029754638671875,
+  "max hit (z_trans - (D - h)) [mm]": 0.000244140625,
+  "max |hit z_trans - nearest layer multiple| [mm]": 0.0003910064697265625,
+  "min fold-point (z_trans + h) [mm]": 0.0,
+  "max fold-point (z_trans - D) [mm]": -0.0001220703125,
+  "fold points outside the grid: fraction of points": 0.0008171481557376119,
+  "fold points outside the grid: hit-weight fraction per event": 0.0005260592029741609,
+  "max |sin_t + R[0,2]|": 4.76837158203125e-07,
+  "max |R[1,2]|": 0.0,
+  "events whose origin layer has no hit after the cuts (min z_trans > 1 mm)": 0.014542058110237122,
+  "D range [mm]": [
+   10.25009822845459,
+   1219.750244140625
+  ],
+  "theta range": [
+   0.0536385178565979,
+   0.6282867789268494
+  ]
+ },
+ "s2_test": {
+  "n_events": 14994,
+  "n_hits": 4416611,
+  "box": [
+   48.599998474121094,
+   48.599998474121094,
+   20.5
+  ],
+  "max |z_trans(formula) - z_trans(R^T x)| [mm]": 0.00048828125,
+  "min hit z_trans [mm]": -0.00040435791015625,
+  "max hit (z_trans - (D - h)) [mm]": 0.0001220703125,
+  "max |hit z_trans - nearest layer multiple| [mm]": 0.0005474090576171875,
+  "min fold-point (z_trans + h) [mm]": -3.814697265625e-06,
+  "max fold-point (z_trans - D) [mm]": -0.0001220703125,
+  "fold points outside the grid: fraction of points": 0.0008658859134300032,
+  "fold points outside the grid: hit-weight fraction per event": 0.0004614612610191387,
+  "max |sin_t + R[0,2]|": 6.109476089477539e-07,
+  "max |R[1,2]|": 0.0,
+  "events whose origin layer has no hit after the cuts (min z_trans > 1 mm)": 0.012204881757497787,
+  "D range [mm]": [
+   10.250097274780273,
+   1219.750244140625
+  ],
+  "theta range": [
+   0.05383826047182083,
+   0.628296434879303
+  ]
+ }
+}

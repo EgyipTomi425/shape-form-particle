@@ -1,0 +1,274 @@
+{
+ "PS_slab_chosen": {
+  "n_params() claimed": 86,
+  "effective (delta=0.05)": 86,
+  "effective (delta=-0.05)": 86,
+  "effective (delta=0.001)": 86,
+  "raw entries": 182,
+  "per tensor (effective, raw)": {
+   "coef": [
+    86,
+    182
+   ]
+  },
+  "jacobian": {
+   "n_columns": 86,
+   "rank(tol 1e-10)": 86,
+   "rank(tol 1e-7)": 86,
+   "smallest 5 sigma/sigma_max": [
+    1.6965719551416932e-05,
+    5.773491092703108e-06,
+    4.034722503657426e-06,
+    2.6301640020350285e-06,
+    8.182245730324014e-07
+   ]
+  },
+  "normalisation train range p 0.24-20: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation train range p 0.24-20: finite": true,
+  "normalisation wide p 0.15-30: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation wide p 0.15-30: finite": true
+ },
+ "PS_stdacc_chosen": {
+  "n_params() claimed": 86,
+  "effective (delta=0.05)": 86,
+  "effective (delta=-0.05)": 86,
+  "effective (delta=0.001)": 86,
+  "raw entries": 182,
+  "per tensor (effective, raw)": {
+   "base.coef": [
+    86,
+    182
+   ]
+  },
+  "jacobian": {
+   "n_columns": 86,
+   "rank(tol 1e-10)": 86,
+   "rank(tol 1e-7)": 86,
+   "smallest 5 sigma/sigma_max": [
+    1.8788002595895582e-05,
+    7.47761492179848e-06,
+    3.784506950192847e-06,
+    3.408496445623333e-06,
+    7.102940879248788e-07
+   ]
+  },
+  "normalisation train range p 0.24-20: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation train range p 0.24-20: finite": true,
+  "normalisation wide p 0.15-30: max |logsumexp|": 2.384185791015625e-07,
+  "normalisation wide p 0.15-30: finite": true
+ },
+ "PS_slab_n1": {
+  "n_params() claimed": 37,
+  "effective (delta=0.05)": 37,
+  "effective (delta=-0.05)": 37,
+  "effective (delta=0.001)": 37,
+  "raw entries": 78,
+  "per tensor (effective, raw)": {
+   "coef": [
+    37,
+    78
+   ]
+  },
+  "jacobian": {
+   "n_columns": 37,
+   "rank(tol 1e-10)": 37,
+   "rank(tol 1e-7)": 37,
+   "smallest 5 sigma/sigma_max": [
+    0.0009978104062212734,
+    0.0006285780369198747,
+    0.0003758908411693971,
+    0.00020967768800172833,
+    7.166910787122569e-05
+   ]
+  },
+  "normalisation train range p 0.24-20: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation train range p 0.24-20: finite": true,
+  "normalisation wide p 0.15-30: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation wide p 0.15-30: finite": true
+ },
+ "PS_slab_n2": {
+  "n_params() claimed": 46,
+  "effective (delta=0.05)": 46,
+  "effective (delta=-0.05)": 46,
+  "effective (delta=0.001)": 46,
+  "raw entries": 78,
+  "per tensor (effective, raw)": {
+   "coef": [
+    46,
+    78
+   ]
+  },
+  "jacobian": {
+   "n_columns": 46,
+   "rank(tol 1e-10)": 46,
+   "rank(tol 1e-7)": 46,
+   "smallest 5 sigma/sigma_max": [
+    0.000421846651556371,
+    0.0001963888366913214,
+    0.00010352984080314269,
+    9.424759215726834e-05,
+    3.48368285060849e-05
+   ]
+  },
+  "normalisation train range p 0.24-20: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation train range p 0.24-20: finite": true,
+  "normalisation wide p 0.15-30: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation wide p 0.15-30: finite": true
+ },
+ "PS_stdacc_n2": {
+  "n_params() claimed": 46,
+  "effective (delta=0.05)": 46,
+  "effective (delta=-0.05)": 46,
+  "effective (delta=0.001)": 46,
+  "raw entries": 78,
+  "per tensor (effective, raw)": {
+   "base.coef": [
+    46,
+    78
+   ]
+  },
+  "jacobian": {
+   "n_columns": 46,
+   "rank(tol 1e-10)": 46,
+   "rank(tol 1e-7)": 46,
+   "smallest 5 sigma/sigma_max": [
+    0.0003930648043521723,
+    0.00017583828567076804,
+    9.193241131871684e-05,
+    6.813268858487276e-05,
+    2.6990807661226704e-05
+   ]
+  },
+  "normalisation train range p 0.24-20: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation train range p 0.24-20: finite": true,
+  "normalisation wide p 0.15-30: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation wide p 0.15-30: finite": true
+ },
+ "report_gflash_n6": {
+  "n_params() claimed": 45,
+  "effective (delta=0.05)": 45,
+  "effective (delta=-0.05)": 45,
+  "effective (delta=0.001)": 45,
+  "raw entries": 45,
+  "per tensor (effective, raw)": {
+   "coef": [
+    42,
+    42
+   ],
+   "slope": [
+    3,
+    3
+   ]
+  },
+  "jacobian": {
+   "n_columns": 45,
+   "rank(tol 1e-10)": 45,
+   "rank(tol 1e-7)": 45,
+   "smallest 5 sigma/sigma_max": [
+    0.00010065691700845174,
+    5.809989492817271e-05,
+    4.8361112856616135e-05,
+    1.4165541383099055e-05,
+    6.312806423812728e-06
+   ]
+  },
+  "normalisation train range p 0.24-20: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation train range p 0.24-20: finite": true,
+  "normalisation wide p 0.15-30: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation wide p 0.15-30: finite": true
+ },
+ "ref_slab_gflash_n6": {
+  "n_params() claimed": 45,
+  "effective (delta=0.05)": 45,
+  "effective (delta=-0.05)": 45,
+  "effective (delta=0.001)": 45,
+  "raw entries": 45,
+  "per tensor (effective, raw)": {
+   "coef": [
+    42,
+    42
+   ],
+   "slope": [
+    3,
+    3
+   ]
+  },
+  "jacobian": {
+   "n_columns": 45,
+   "rank(tol 1e-10)": 45,
+   "rank(tol 1e-7)": 45,
+   "smallest 5 sigma/sigma_max": [
+    5.895304019998114e-05,
+    3.1415783469166994e-05,
+    1.4956090287322046e-05,
+    4.453026575810774e-06,
+    2.1820185471517744e-06
+   ]
+  },
+  "normalisation train range p 0.24-20: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation train range p 0.24-20: finite": true,
+  "normalisation wide p 0.15-30: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation wide p 0.15-30: finite": true
+ },
+ "ref_std_gflash_acc_n6": {
+  "n_params() claimed": 45,
+  "effective (delta=0.05)": 45,
+  "effective (delta=-0.05)": 45,
+  "effective (delta=0.001)": 45,
+  "raw entries": 45,
+  "per tensor (effective, raw)": {
+   "base.coef": [
+    42,
+    42
+   ],
+   "base.slope": [
+    3,
+    3
+   ]
+  },
+  "jacobian": {
+   "n_columns": 45,
+   "rank(tol 1e-10)": 45,
+   "rank(tol 1e-7)": 45,
+   "smallest 5 sigma/sigma_max": [
+    5.621015711597163e-05,
+    2.7207694288969173e-05,
+    1.3107467776756012e-05,
+    3.893808861301146e-06,
+    1.8764236094608055e-06
+   ]
+  },
+  "normalisation train range p 0.24-20: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation train range p 0.24-20: finite": true,
+  "normalisation wide p 0.15-30: max |logsumexp|": 4.76837158203125e-07,
+  "normalisation wide p 0.15-30: finite": true
+ },
+ "PS names x degree (chosen)": {
+  "z0": 7,
+  "log_tmax": 7,
+  "log_am1": 7,
+  "log_sig": 7,
+  "log_R": 7,
+  "log_lam": 7,
+  "logit_1": 7,
+  "logit_2": 7,
+  "s_sig": 1,
+  "s_R": 1,
+  "s_lam": 1,
+  "s_1": 1,
+  "s_2": 1,
+  "logit_sp": 7,
+  "sp_z": 1,
+  "log_sp_sz": 1,
+  "log_sp_sr": 1,
+  "logit_tr": 7,
+  "log_R1": 1,
+  "k_R": 1,
+  "R0": 1,
+  "log_wR": 1,
+  "kap": 1,
+  "zt0": 1,
+  "log_st": 1,
+  "log_d1": 1
+ }
+}

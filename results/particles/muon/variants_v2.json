@@ -1,0 +1,104 @@
+{
+ "val": {
+  "full_att": 16.021562576293945,
+  "full_att+spk": 16.02090072631836,
+  "full_att+far": 16.0197696685791,
+  "full_att+end": 16.019357681274414,
+  "full_att+all": 16.01670265197754
+ },
+ "params": {
+  "full_att": 47,
+  "full_att+spk": 51,
+  "full_att+far": 50,
+  "full_att+end": 50,
+  "full_att+all": 61
+ },
+ "kwargs": {
+  "full_att+spk": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  },
+  "full_att+far": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "degrees": null
+  },
+  "full_att+end": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "endblob": true,
+   "degrees": null
+  },
+  "full_att+all": {
+   "long": "gamma",
+   "track": true,
+   "spike": true,
+   "att": true,
+   "far": true,
+   "endblob": true,
+   "degrees": {
+    "sp_z": 2,
+    "log_sp_sz": 2,
+    "log_sp_sr": 2
+   }
+  }
+ },
+ "best": "full_att+all",
+ "chosen": "full_att+all",
+ "diff_vs_best": {
+  "full_att": [
+   0.004858986187318864,
+   0.0004405460781134546
+  ],
+  "full_att+spk": [
+   0.004197810772736474,
+   0.0004048642697112517
+  ],
+  "full_att+far": [
+   0.003065541779814188,
+   0.00043866603153549285
+  ],
+  "full_att+end": [
+   0.0026541306679597142,
+   0.0005036241563225528
+  ],
+  "full_att+all": [
+   0.0,
+   0.0
+  ]
+ },
+ "diff_vs_base": {
+  "full_att": [
+   0.0,
+   0.0
+  ],
+  "full_att+spk": [
+   -0.0006611754145823895,
+   0.0001278569191244461
+  ],
+  "full_att+far": [
+   -0.0017934444075046764,
+   0.0003978686646872054
+  ],
+  "full_att+end": [
+   -0.0022048555193591494,
+   0.0003590444521875935
+  ],
+  "full_att+all": [
+   -0.004858986187318864,
+   0.0004405460781134546
+  ]
+ }
+}

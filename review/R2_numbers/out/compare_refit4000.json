@@ -1,0 +1,54 @@
+{
+ "slab val: GFlash4000 n6 mean": 18.207521438598633,
+ "slab val: GFlash4000 - GFlash3000 (study ref)": [
+  -0.0002706708047120656,
+  9.435622754970915e-05
+ ],
+ "slab val: PS chosen - GFlash4000": [
+  -0.03172155844645845,
+  0.001565693854721108
+ ],
+ "slab val: PS chosen - GFlash3000 (study ref)": [
+  -0.03199222925117051,
+  0.0015688706203941197
+ ],
+ "slab test: GFlash4000 n6 mean": 18.200368881225586,
+ "slab test: GFlash4000 - GFlash3000 (study ref)": [
+  -0.00029467225965339064,
+  9.959548799771651e-05
+ ],
+ "slab test: PS chosen - GFlash4000": [
+  -0.02945705939764147,
+  0.0013581174726176998
+ ],
+ "slab test: PS chosen - GFlash3000 (study ref)": [
+  -0.02975173165729486,
+  0.0013588830949466512
+ ],
+ "stdacc val: GFlash4000 n6 mean": 18.239259719848633,
+ "stdacc val: GFlash4000 - GFlash3000 (study ref)": [
+  -0.0004192941413279204,
+  0.00012565675016726314
+ ],
+ "stdacc val: PS chosen - GFlash4000": [
+  -0.035658664363566586,
+  0.001691213550312383
+ ],
+ "stdacc val: PS chosen - GFlash3000 (study ref)": [
+  -0.03607795850489451,
+  0.0016637730734365276
+ ],
+ "stdacc test: GFlash4000 n6 mean": 18.23307228088379,
+ "stdacc test: GFlash4000 - GFlash3000 (study ref)": [
+  -0.0003933879838045786,
+  0.00012921324282151193
+ ],
+ "stdacc test: PS chosen - GFlash4000": [
+  -0.033586234967507574,
+  0.0015047274586694253
+ ],
+ "stdacc test: PS chosen - GFlash3000 (study ref)": [
+  -0.033979622951312155,
+  0.001483234698949086
+ ]
+}

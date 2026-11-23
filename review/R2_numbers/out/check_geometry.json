@@ -1,0 +1,70 @@
+{
+ "geo": {
+  "layer": 20.5,
+  "cell": 48.59999999999991,
+  "z_back": 4882.15
+ },
+ "val: hits min z_trans": -0.000385284423828125,
+ "val: hits max (z_trans - D)": -10.2498779296875,
+ "val: fold pts min z_trans (should be >= -h=10.25)": -10.25,
+ "val: fold pts max (z_trans - D) (should be <= 0)": -0.0001220703125,
+ "test: hits min z_trans": -0.0003204345703125,
+ "test: hits max (z_trans - D)": -10.249755859375,
+ "test: fold pts min z_trans (should be >= -h=10.25)": -10.25,
+ "test: fold pts max (z_trans - D) (should be <= 0)": -0.000244140625,
+ "max |A_study(nsub2) - A_mine(nsub2)|": 0.00010821223258972168,
+ "mean |A2 - A16|": 0.00023845378018449992,
+ "mean |A8 - A16|": 1.2252470696694218e-05,
+ "PS_slab_chosen: mean lnM(nsub2) - lnM(nsub16)": 0.00015372777124866843,
+ "PS_slab_chosen: mean lnM(nsub8) - lnM(nsub16)": 2.3250177036970854e-06,
+ "PS_slab_chosen: mean slab mass M (nsub16)": 0.8032992482185364,
+ "PS_slab_chosen: MC check mean(lnM_mine16 - lnM_MC) +- SE": [
+  -0.0001397257437929511,
+  0.00011111179628642276
+ ],
+ "ref_slab_gflash_n6: mean lnM(nsub2) - lnM(nsub16)": 0.00013476121239364147,
+ "ref_slab_gflash_n6: mean lnM(nsub8) - lnM(nsub16)": 2.405125997029245e-06,
+ "ref_slab_gflash_n6: mean slab mass M (nsub16)": 0.8598334789276123,
+ "ref_slab_gflash_n6: MC check mean(lnM_mine16 - lnM_MC) +- SE": [
+  -3.143590583931655e-05,
+  9.745389252202585e-05
+ ],
+ "report_gflash_n6: mean lnM(nsub2) - lnM(nsub16)": 9.610512643121183e-05,
+ "report_gflash_n6: mean lnM(nsub8) - lnM(nsub16)": 3.301916876807809e-06,
+ "report_gflash_n6: mean slab mass M (nsub16)": 0.9659548997879028,
+ "report_gflash_n6: MC check mean(lnM_mine16 - lnM_MC) +- SE": [
+  -2.9783517675241455e-05,
+  4.284612077753991e-05
+ ],
+ "report_mlp: mean lnM(nsub2) - lnM(nsub16)": 0.0002154667308786884,
+ "report_mlp: mean lnM(nsub8) - lnM(nsub16)": 1.1656455171760172e-05,
+ "report_mlp: mean slab mass M (nsub16)": 0.978817880153656,
+ "report_mlp: MC check mean(lnM_mine16 - lnM_MC) +- SE": [
+  -1.8629418264026754e-05,
+  3.3653941500233486e-05
+ ],
+ "ref_slab_mlp_L3xH16: mean lnM(nsub2) - lnM(nsub16)": -0.00011108908802270889,
+ "ref_slab_mlp_L3xH16: mean lnM(nsub8) - lnM(nsub16)": -5.3622061386704445e-06,
+ "ref_slab_mlp_L3xH16: mean slab mass M (nsub16)": 0.75773024559021,
+ "ref_slab_mlp_L3xH16: MC check mean(lnM_mine16 - lnM_MC) +- SE": [
+  -0.0001643180730752647,
+  0.00012773918570019305
+ ],
+ "Abar recomputed vs ckpt PS_stdacc_chosen: max |diff|": 5.960464477539063e-08,
+ "Abar recomputed vs ckpt ref_std_gflash_acc_n6: max |diff|": 5.960464477539063e-08,
+ "Abar recomputed vs ckpt g2_std_mlp_acc: max |diff|": 5.960464477539063e-08,
+ "Abar(train) vs Abar(val): max |diff|": 0.0019164830446243286,
+ "train: p range": [
+  0.28534525632858276,
+  19.999752044677734
+ ],
+ "val: p range": [
+  0.3268381655216217,
+  19.99798011779785
+ ],
+ "test: p range": [
+  0.24895933270454407,
+  19.999853134155273
+ ],
+ "sec": 2
+}

@@ -1,0 +1,58 @@
+{
+ "rows (all hits, pre-cut)": 8230442,
+ "events": 14992,
+ "a) max |R.trans - local| [mm]": 9.094947017729282e-13,
+ "b) max |z' cos t - x' sin t - z_trans| [mm]": 9.094947017729282e-13,
+ "b) min z_trans over all raw hits [mm]": 0.0,
+ "c) max spread of (global - trans) within an event [mm] (x, y, z)": [
+  4.547473508864641e-13,
+  4.547473508864641e-13,
+  0.0
+ ],
+ "d) max |z0 - min z (all raw hits)| [mm]": 0.0,
+ "e) origin vs energy-weighted centroid of the first-layer hits (all times): median / 99% / max distance [mm]": [
+  0.0,
+  6.821210263296962e-13,
+  1.1368683772161603e-12
+ ],
+ "e) same with only the prompt (t < 100 ns) first-layer hits: median / 99% / max [mm]": [
+  0.06706271330616317,
+  121.5641020202843,
+  820.7572317428671
+ ],
+ "e) events whose first (origin) layer has no prompt hit at all": 183,
+ "f) events whose origin layer has no hit after the cuts": 184,
+ "f) of their origin-layer hits: removed by the time cut only / by the spatial cut only / by both": [
+  321,
+  1,
+  8
+ ],
+ "f) particle types of those origin-layer hits": {
+  "neutron": 308,
+  "gamma": 7,
+  "e+": 6,
+  "e-": 6,
+  "proton": 2,
+  "PDG_1000060120": 1
+ },
+ "f) their origin-layer hit times [ns]: median, min": [
+  774.4161987304688,
+  13.402044296264648
+ ],
+ "f) for those events: first kept layer behind the origin [mm]: median / 90% / max": [
+  41.0,
+  280.85000000000036,
+  861.0
+ ],
+ "energy fraction removed per event: time cut (mean, max)": [
+  0.036222957267585884,
+  0.9775914982954786
+ ],
+ "energy fraction removed per event: spatial cuts after the time cut (mean, max)": [
+  0.01070939212550696,
+  0.9887394189676045
+ ],
+ "prompt energy fraction cut by z'<-200 (mean per event)": 0.0003823492862386597,
+ "prompt energy fraction cut by z'>1450 (mean per event)": 2.2652586272388824e-05,
+ "prompt energy fraction cut by r>=700 (mean per event)": 0.01030439025299591
+}

@@ -1,0 +1,310 @@
+{
+ "s2 geo": {
+  "layer": 20.5,
+  "cell": 48.59999999999991,
+  "z_back": 4882.15
+ },
+ "s1 geo": {
+  "layer": 20.5,
+  "cell": 48.59999999999991,
+  "z_back": 4882.15
+ },
+ "s2 sets": {
+  "train": 69963,
+  "val": 14991,
+  "test": 14994
+ },
+ "s2 n events": 99948,
+ "s2 box": [
+  48.599998474121094,
+  48.599998474121094,
+  20.5
+ ],
+ "s1 box": [
+  48.599998474121094,
+  48.599998474121094,
+  20.5
+ ],
+ "s2 p range": [
+  0.2879698872566223,
+  19.999784469604492
+ ],
+ "s2 events below/above the s1 training p range": [
+  0,
+  2
+ ],
+ "identical event keys s1 & s2": 0,
+ "identical momentum values (6 digits) s1 & s2": 624,
+ "means": {
+  "PS_slab_chosen|std": 18.38127,
+  "PS_slab_chosen|slab8": 18.1601,
+  "PS_slab_chosen|slab2": 18.16023,
+  "PS_slab_n1|std": 18.34867,
+  "PS_slab_n1|slab8": 18.16606,
+  "PS_slab_n1|slab2": 18.1662,
+  "PS_slab_n2|std": 18.37269,
+  "PS_slab_n2|slab8": 18.16355,
+  "PS_slab_n2|slab2": 18.16368,
+  "PS_stdacc_chosen|std": 18.18866,
+  "PS_stdacc_chosen|slab8": 18.16755,
+  "PS_stdacc_chosen|slab2": 18.16777,
+  "PS_stdacc_n1|std": 18.19395,
+  "PS_stdacc_n1|slab8": 18.17321,
+  "PS_stdacc_n1|slab2": 18.17343,
+  "PS_stdacc_n2|std": 18.19138,
+  "PS_stdacc_n2|slab8": 18.17042,
+  "PS_stdacc_n2|slab2": 18.17064,
+  "report_gflash_n6|std": 18.24374,
+  "report_gflash_n6|slab8": 18.21215,
+  "report_gflash_n6|slab2": 18.21225,
+  "report_mlp|std": 18.18141,
+  "report_mlp|slab8": 18.16094,
+  "report_mlp|slab2": 18.16119,
+  "ref_std_gflash_acc_n6|std": 18.22429,
+  "ref_std_gflash_acc_n6|slab8": 18.19727,
+  "ref_std_gflash_acc_n6|slab2": 18.1974,
+  "ref_slab_gflash_n6|std": 18.36031,
+  "ref_slab_gflash_n6|slab8": 18.19176,
+  "ref_slab_gflash_n6|slab2": 18.19187,
+  "ref_slab_mlp_L3xH16|std": 18.44477,
+  "ref_slab_mlp_L3xH16|slab8": 18.15187,
+  "ref_slab_mlp_L3xH16|slab2": 18.15171,
+  "g2_std_mlp_acc|std": 18.18218,
+  "g2_std_mlp_acc|slab8": 18.16144,
+  "g2_std_mlp_acc|slab2": 18.16168
+ },
+ "paired s2 (mean, SE)": {
+  "3D: PS_slab - report GFlash n6 (renorm) [slab8]": [
+   -0.052056,
+   0.000799
+  ],
+  "3D: PS_slab - report GFlash n6 (renorm) [slab2]": [
+   -0.05202,
+   0.000799
+  ],
+  "3D: PS_slab - GFlash n6 3D refit [slab8]": [
+   -0.03166,
+   0.000572
+  ],
+  "3D: PS_slab - GFlash n6 3D refit [slab2]": [
+   -0.031642,
+   0.000572
+  ],
+  "3D: PS_slab - report MLP (renorm) [slab8]": [
+   -0.000841,
+   0.000315
+  ],
+  "3D: PS_slab - report MLP (renorm) [slab2]": [
+   -0.000952,
+   0.000315
+  ],
+  "3D: PS_slab - MLP 3D-trained [slab8]": [
+   0.008234,
+   0.000234
+  ],
+  "3D: PS_slab - MLP 3D-trained [slab2]": [
+   0.008522,
+   0.000235
+  ],
+  "3D: PS_slab n2 - GFlash n6 3D refit [slab8]": [
+   -0.02821,
+   0.00056
+  ],
+  "3D: PS_slab n2 - GFlash n6 3D refit [slab2]": [
+   -0.028194,
+   0.000561
+  ],
+  "3D: PS_slab n1 - GFlash n6 3D refit [slab8]": [
+   -0.025696,
+   0.000577
+  ],
+  "3D: PS_slab n1 - GFlash n6 3D refit [slab2]": [
+   -0.025673,
+   0.000577
+  ],
+  "3D: PS_slab n6 - PS_slab n2 [slab8]": [
+   -0.00345,
+   0.000162
+  ],
+  "3D: PS_slab n6 - PS_slab n2 [slab2]": [
+   -0.003448,
+   0.000162
+  ],
+  "3D: GFlash 3D refit - report GFlash renorm [slab8]": [
+   -0.020396,
+   0.000492
+  ],
+  "3D: GFlash 3D refit - report GFlash renorm [slab2]": [
+   -0.020378,
+   0.000492
+  ],
+  "3D: MLP 3D-trained - report MLP renorm [slab8]": [
+   -0.009076,
+   0.000235
+  ],
+  "3D: MLP 3D-trained - report MLP renorm [slab2]": [
+   -0.009474,
+   0.000235
+  ],
+  "std: PS_stdacc - report GFlash n6 [std]": [
+   -0.055084,
+   0.000767
+  ],
+  "std: PS_stdacc - GFlash n6 x Abar refit [std]": [
+   -0.035633,
+   0.000611
+  ],
+  "std: PS_stdacc - report MLP [std]": [
+   0.007244,
+   0.00023
+  ],
+  "std: PS_stdacc - MLP x Abar (G2) [std]": [
+   0.00648,
+   0.000235
+  ],
+  "std: PS_stdacc n2 - GFlash n6 x Abar refit [std]": [
+   -0.032907,
+   0.000591
+  ],
+  "std: PS_stdacc n1 - GFlash n6 x Abar refit [std]": [
+   -0.030339,
+   0.000617
+  ],
+  "std: PS_stdacc n6 - PS_stdacc n2 [std]": [
+   -0.002726,
+   0.000144
+  ],
+  "std: GFlash x Abar refit - report GFlash [std]": [
+   -0.019451,
+   0.000334
+  ],
+  "std: MLP x Abar (G2) - report MLP [std]": [
+   0.000764,
+   0.000176
+  ]
+ },
+ "gap fractions s2 (fraction, closed, gap)": {
+  "notebook def std": [
+   0.8838,
+   0.05508,
+   0.06233
+  ],
+  "notebook def 3D slab2": [
+   0.8593,
+   0.05202,
+   0.06054
+  ],
+  "like-with-like std (GFlash x Abar refit, MLP x Abar)": [
+   0.8461,
+   0.03563,
+   0.04211
+  ],
+  "like-with-like 3D slab2 (GFlash 3D refit, MLP 3D-trained)": [
+   0.7879,
+   0.03164,
+   0.04016
+  ],
+  "like-with-like 3D slab8": [
+   0.7937,
+   0.03166,
+   0.03989
+  ]
+ },
+ "per bin s2 (mean, SE, contribution)": {
+  "3D slab8: PS_slab - MLP 3D-trained": {
+   "bin0": [
+    0.07308,
+    0.00342,
+    0.00365
+   ],
+   "bin1": [
+    0.03523,
+    0.00227,
+    0.00176
+   ],
+   "bins2-4": [
+    0.00321,
+    0.00039,
+    0.00048
+   ],
+   "bins5-19": [
+    0.00312,
+    0.00011,
+    0.00234
+   ],
+   "bins2-19": [
+    0.00314,
+    0.00011,
+    0.00283
+   ],
+   "per bin 2..19": [
+    0.0035,
+    0.0036,
+    0.0026,
+    0.002,
+    0.0012,
+    0.002,
+    0.0028,
+    0.0019,
+    0.0036,
+    0.0029,
+    0.0038,
+    0.0034,
+    0.0027,
+    0.0038,
+    0.0043,
+    0.0035,
+    0.0048,
+    0.0043
+   ]
+  },
+  "std: PS_stdacc - report MLP": {
+   "bin0": [
+    0.05998,
+    0.00313,
+    0.00299
+   ],
+   "bin1": [
+    0.02671,
+    0.00209,
+    0.00134
+   ],
+   "bins2-4": [
+    0.00307,
+    0.00052,
+    0.00046
+   ],
+   "bins5-19": [
+    0.00327,
+    0.00013,
+    0.00245
+   ],
+   "bins2-19": [
+    0.00324,
+    0.00014,
+    0.00291
+   ],
+   "per bin 2..19": [
+    0.0025,
+    0.0039,
+    0.0028,
+    0.0024,
+    0.0026,
+    0.0018,
+    0.0034,
+    0.002,
+    0.003,
+    0.0037,
+    0.0042,
+    0.0037,
+    0.004,
+    0.0033,
+    0.0038,
+    0.0033,
+    0.005,
+    0.0029
+   ]
+  }
+ },
+ "sec": 67
+}

@@ -1,0 +1,134 @@
+{
+ "report_gflash_n6": {
+  "p=0.5": {
+   "mass in cells outside every training slab": 0.021901976317167282,
+   "mass at z' < -12.9 mm": 0.14338423311710358
+  },
+  "p=1.0": {
+   "mass in cells outside every training slab": 0.006454874761402607,
+   "mass at z' < -12.9 mm": 0.04849200323224068
+  },
+  "p=2.0": {
+   "mass in cells outside every training slab": 0.006490766070783138,
+   "mass at z' < -12.9 mm": 0.027991734445095062
+  },
+  "p=4.5": {
+   "mass in cells outside every training slab": 0.004786238074302673,
+   "mass at z' < -12.9 mm": 0.023266490548849106
+  },
+  "p=14.5": {
+   "mass in cells outside every training slab": 0.0022621233947575092,
+   "mass at z' < -12.9 mm": 0.012878308072686195
+  }
+ },
+ "report_mlp": {
+  "p=0.5": {
+   "mass in cells outside every training slab": 2.5641661522968207e-06,
+   "mass at z' < -12.9 mm": 0.03686240315437317
+  },
+  "p=1.0": {
+   "mass in cells outside every training slab": 3.4969873468071455e-06,
+   "mass at z' < -12.9 mm": 0.009578769095242023
+  },
+  "p=2.0": {
+   "mass in cells outside every training slab": 7.142411504901247e-06,
+   "mass at z' < -12.9 mm": 0.0165224839001894
+  },
+  "p=4.5": {
+   "mass in cells outside every training slab": 3.767614543903619e-06,
+   "mass at z' < -12.9 mm": 0.014838002622127533
+  },
+  "p=14.5": {
+   "mass in cells outside every training slab": 1.1383671107978444e-06,
+   "mass at z' < -12.9 mm": 0.01057217363268137
+  }
+ },
+ "new_slab_gce_n6": {
+  "p=0.5": {
+   "mass in cells outside every training slab": 0.11345672607421875,
+   "mass at z' < -12.9 mm": 0.4524381756782532
+  },
+  "p=1.0": {
+   "mass in cells outside every training slab": 0.0801403820514679,
+   "mass at z' < -12.9 mm": 0.2249603271484375
+  },
+  "p=2.0": {
+   "mass in cells outside every training slab": 0.18517908453941345,
+   "mass at z' < -12.9 mm": 0.28927016258239746
+  },
+  "p=4.5": {
+   "mass in cells outside every training slab": 0.15469622611999512,
+   "mass at z' < -12.9 mm": 0.23476822674274445
+  },
+  "p=14.5": {
+   "mass in cells outside every training slab": 0.11028861254453659,
+   "mass at z' < -12.9 mm": 0.1661643385887146
+  }
+ },
+ "new_stdacc_gce_n6": {
+  "p=0.5": {
+   "mass in cells outside every training slab": 1.559915290272329e-07,
+   "mass at z' < -12.9 mm": 0.04437994584441185
+  },
+  "p=1.0": {
+   "mass in cells outside every training slab": 6.220349746399734e-08,
+   "mass at z' < -12.9 mm": 0.007501262240111828
+  },
+  "p=2.0": {
+   "mass in cells outside every training slab": 1.8355711972617428e-07,
+   "mass at z' < -12.9 mm": 0.01782880909740925
+  },
+  "p=4.5": {
+   "mass in cells outside every training slab": 1.4226326072730444e-07,
+   "mass at z' < -12.9 mm": 0.015970997512340546
+  },
+  "p=14.5": {
+   "mass in cells outside every training slab": 9.541202672380678e-08,
+   "mass at z' < -12.9 mm": 0.009966426528990269
+  }
+ },
+ "ref_slab_gflash_n6": {
+  "p=0.5": {
+   "mass in cells outside every training slab": 0.5441523790359497,
+   "mass at z' < -12.9 mm": 0.7922488451004028
+  },
+  "p=1.0": {
+   "mass in cells outside every training slab": 0.32213130593299866,
+   "mass at z' < -12.9 mm": 0.4647550582885742
+  },
+  "p=2.0": {
+   "mass in cells outside every training slab": 0.17287161946296692,
+   "mass at z' < -12.9 mm": 0.26136869192123413
+  },
+  "p=4.5": {
+   "mass in cells outside every training slab": 0.1031520664691925,
+   "mass at z' < -12.9 mm": 0.16893547773361206
+  },
+  "p=14.5": {
+   "mass in cells outside every training slab": 0.03667546063661575,
+   "mass at z' < -12.9 mm": 0.06893555074930191
+  }
+ },
+ "ref_slab_mlp": {
+  "p=0.5": {
+   "mass in cells outside every training slab": 0.31724750995635986,
+   "mass at z' < -12.9 mm": 0.7630249261856079
+  },
+  "p=1.0": {
+   "mass in cells outside every training slab": 0.08914703875780106,
+   "mass at z' < -12.9 mm": 0.3052639961242676
+  },
+  "p=2.0": {
+   "mass in cells outside every training slab": 0.3304668962955475,
+   "mass at z' < -12.9 mm": 0.4388996660709381
+  },
+  "p=4.5": {
+   "mass in cells outside every training slab": 0.275410532951355,
+   "mass at z' < -12.9 mm": 0.35215479135513306
+  },
+  "p=14.5": {
+   "mass in cells outside every training slab": 0.12575140595436096,
+   "mass at z' < -12.9 mm": 0.1772390455007553
+  }
+ }
+}
