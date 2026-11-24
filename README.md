@@ -62,12 +62,15 @@ notebooks/                         our notebooks:
   08_shape3d_proton.ipynb            proton analysis with figures (built from notebooks/nb_src/)
   09_axis_core.ipynb                 particle issue #1, Q1–Q2: axis, core and halo of the shower
   10_mip_segment.ipynb               particle issue #1, Q3: MIP segment, hadron identification
+  11_density.ipynb                   particle issue #2, Q4–Q5: energy density of the showers (Sofiya Kolesnyk's notebook, integrated)
+  sofiya/energy_density.ipynb        her original notebook, as attached to issue #2
 report_notebooks/                  the report's notebooks 00–07, each extended with a section 8;
                                    results/ = the report's saved models and exports
 results/particles/<particle>/      final formula (round 3): models, test and s2 results, formula cards (formula.md),
                                    coefficients, shapes, cross-checks; also the earlier rounds and variant candidates
 results/features/                  per-event core / MIP-segment features (issue #1), MIP calibration, finder parameters
 results/core_mip/                  answers to issue #1: Q1–Q3 pages (EN/HU), figures, tables, the finder scan
+results/density/                   issue #2: density figures and tables, per-event density features, comparison with f_core
 results/formula_maps.png           density of the final formula; results/isobody/, results/detektor_*: bodies, figures
 results/data.sha256                checksums of the input simulation files
 scripts/                           pipeline, measurements, figures, generators of the docs and the notebooks
@@ -213,7 +216,30 @@ the data, but no separate measurement was made for it.
 - **Checks.** The independent second sample (s2; same finder, its own MIP calibration) reproduces all 258 compared numbers within their statistical errors (98 % within 2σ, largest difference 2.9σ; `s2_check.csv`); the MIP calibration agrees to 0.3 % per tile (median).
 <!-- ISSUE1 END -->
 
-Contents: Per particle · Physical interpretation · Particle issue #1 · 1. Terms · 2. The formula · 3. Accuracy · 4. Shapes · 5. Cross-checks · 6. Angle-dependent extension · 7. Further results
+<!-- ISSUE2 BEGIN -->
+## Particle issue #2 – energy density of the showers
+
+[Issue #2](https://github.com/EgyipTomi425/particle/issues/2) (Sofiya Kolesnyk) asks how dense the showers are and what the density can be used for. Her notebook is part of
+the repository as `notebooks/11_density.ipynb` (her original: `notebooks/sofiya/energy_density.ipynb`); figures and tables are in
+`results/density/`, per-event density features in `results/density/<particle>.parquet`. The numbers below are written by
+`scripts/density_pages.py` from `results/density/`.
+
+- **Global density (Q4).** ρ̄95 = E95 / V95 with 5 × 5 × 10 cm boxes (visible energy): median at 9–10 GeV/c 84.9 MeV/L
+  for electrons, 17.8 for pions, 13.5 for protons and 10.5 for muons (flat, one MIP). From 4 GeV/c electron
+  showers are 4.1–7.8 times denser than hadron showers.
+- **Electron-like dense boxes (Q5).** A box denser than the 10th percentile of the electrons' densest box (same momentum) occurs in
+  13.2 % / 9.9 % / 8.1 % of the pion and 7.4 % / 3.4 % /
+  1.6 % of the proton events (4–5 / 9–10 / 19–20 GeV/c): more candidate EM sub-showers (π⁰) in pion showers.
+- **Checks.** The run in this repository reproduces her numbers (80 medians within 0.00 MeV/L,
+  12 shares within 0.04 percentage points); the samples s1 and s2 agree (largest
+  difference 2.4σ for the medians, 1.7σ for the shares).
+- **ρ̄95 as a feature** (test split, 2–20 GeV/c, AUC): electron vs. pion 0.98–1.00 (f_core of issue #1:
+  0.99–1.00, both: 0.99–1.00); pion vs. proton 0.58–0.74 – protons
+  are less dense; this separates them better than f_core (0.56–0.67), both together 0.59–0.74;
+  muon vs. the rest 0.64–0.96.
+<!-- ISSUE2 END -->
+
+Contents: Per particle · Physical interpretation · Particle issue #1 · Particle issue #2 · 1. Terms · 2. The formula · 3. Accuracy · 4. Shapes · 5. Cross-checks · 6. Angle-dependent extension · 7. Further results
 (time separation, fluctuation) · 8. Conclusions · 9. Limitations · 10. Files.
 
 ## 1. Terms – what the numbers mean
@@ -688,6 +714,8 @@ generator needs a separate, non-Gaussian fluctuation model.
   `python scripts/build_core_mip_notebooks.py` (notebooks 09 and 10). Checks: the same chain on the second sample
   (`build`/`features <particle> s2`, then `CORE_MIP_SAMPLE=s2 python scripts/core_mip_answers.py` and `scripts/core_mip_s2_check.py`)
   and an independent second implementation, `scripts/verify_core_mip.py`.
+- Particle issue #2: `python scripts/build_density_notebook.py` builds and runs `notebooks/11_density.ipynb` from Sofiya's original
+  (needs `duckdb`); then `python scripts/density_pages.py` writes the README block.
 - Archived, not runnable from this repository (their inputs belong to the earlier proton-only stage): `review/` (independent review of
   the likelihood and of the numbers) and `results/isobody/` (iso-density bodies used for the 90%/90% comparison in the 08 notebook).
 - `results/detektor_es_alakok/`, `results/detektor_*.png` and `docs/Protonmodell-Tamas.pdf` are presentation figures (in Hungarian) made from

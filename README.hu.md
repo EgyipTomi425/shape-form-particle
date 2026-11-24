@@ -61,12 +61,15 @@ notebooks/                         a saját notebookjaink:
   08_shape3d_proton.ipynb            ábrás protonelemzés (a notebooks/nb_src/-ből épül)
   09_axis_core.ipynb                 particle 1-es issue, Q1–Q2: a zápor tengelye, magja és halója
   10_mip_segment.ipynb               particle 1-es issue, Q3: MIP-szakasz, hadronazonosítás
+  11_density.ipynb                   particle 2-es issue, Q4–Q5: a záporok energiasűrűsége (Kolesnyk Szófia notebookja, beépítve)
+  sofiya/energy_density.ipynb        az eredeti notebookja, ahogy a 2-es issue-hoz csatolta
 report_notebooks/                  a report 00–07-es notebookjai, mindegyik egy 8. fejezettel kiegészítve;
                                    results/ = a report mentett modelljei és exportjai
 results/particles/<részecske>/     a végleges formula (3. kör): modellek, teszt- és s2-eredmények, formulakártyák (formula.hu.md),
                                    együtthatók, alakok, ellenőrzések; a korábbi körök és a változatjelöltek is
 results/features/                  eseményenkénti mag- és MIP-szakasz-jellemzők (1-es issue), MIP-kalibráció, a kereső paraméterei
 results/core_mip/                  válaszok az 1-es issue-ra: Q1–Q3 oldalak (angol/magyar), ábrák, táblázatok, a kereső-pásztázás
+results/density/                   2-es issue: sűrűség-ábrák és -táblázatok, eseményenkénti sűrűségjellemzők, összevetés f_core-ral
 results/formula_maps.png           a végleges formula sűrűsége; results/isobody/, results/detektor_*: testek, ábrák
 results/data.sha256                a bemeneti szimulációs fájlok ellenőrzőösszegei
 scripts/                           pipeline, mérések, ábrák, a leírások és notebookok generátorai
@@ -197,7 +200,30 @@ használatra: `results/features/<particle>.parquet`. Az alábbi számokat a `scr
 - **Ellenőrzések.** A független második minta (s2; ugyanaz a kereső, saját MIP-kalibráció) a 258 összevetett számot a statisztikai hibán belül megismétli (98 % 2σ-n belül, a legnagyobb eltérés 2,9σ; `s2_check.csv`); a MIP-kalibráció csempénként mediánban 0,3 %-ra egyezik.
 <!-- ISSUE1 END -->
 
-Tartalom: Részecskénként · Fizikai értelmezés · Részecske-issue #1 · 1. Fogalmak · 2. A formula · 3. Pontosság · 4. Alakok · 5. Ellenőrző mérések · 6. Szögfüggő kiegészítés · 7. Továbbiak
+<!-- ISSUE2 BEGIN -->
+## Részecske-issue #2 – a záporok energiasűrűsége
+
+A [2-es issue](https://github.com/EgyipTomi425/particle/issues/2) (Kolesnyk Szófia) azt kérdezi, mennyire sűrűek a záporok, és mire használható a sűrűség. A notebookja a repó
+része `notebooks/11_density.ipynb` néven (az eredetije: `notebooks/sofiya/energy_density.ipynb`); az ábrák és táblázatok a
+`results/density/` mappában, az eseményenkénti sűrűségjellemzők a `results/density/<particle>.parquet` fájlokban vannak. Az alábbi
+számokat a `scripts/density_pages.py` írja a `results/density/` alapján.
+
+- **Globális sűrűség (Q4).** ρ̄95 = E95 / V95 5 × 5 × 10 cm-es dobozokkal (látható energia): mediánja 9–10 GeV/c-n 84,9 MeV/L
+  az elektronra, 17,8 a pionra, 13,5 a protonra és 10,5 a müonra (állandó, egy MIP). 4 GeV/c-től az
+  elektronzápor 4,1–7,8-szor sűrűbb a hadronzápornál.
+- **Elektronszerű sűrű dobozok (Q5).** Az elektronok legsűrűbb dobozának 10. percentilisénél (azonos impulzusnál) sűrűbb doboz a pion-
+  események 13,2 % / 9,9 % / 8,1 %-ában, a protonesemények 7,4 % /
+  3,4 % / 1,6 %-ában fordul elő (4–5 / 9–10 / 19–20 GeV/c): a pionzáporban több az EM-alzápor-jelölt (π⁰).
+- **Ellenőrzések.** A repóbeli futás megismétli a számait (80 medián 0,00 MeV/L-en, 12
+  arány 0,04 százalékponton belül); az s1 és s2 minta egyezik (a legnagyobb eltérés a mediánoknál
+  2,4σ, az arányoknál 1,7σ).
+- **ρ̄95 mint jellemző** (tesztminta, 2–20 GeV/c, AUC): elektron–pion 0,98–1,00 (az 1-es issue f_core-ja:
+  0,99–1,00, együtt: 0,99–1,00); pion–proton 0,58–0,74 – a proton
+  ritkább; ez jobban szétválasztja őket, mint az f_core (0,56–0,67), a kettő együtt 0,59–0,74;
+  müon a többiekkel szemben 0,64–0,96.
+<!-- ISSUE2 END -->
+
+Tartalom: Részecskénként · Fizikai értelmezés · Részecske-issue #1 · Részecske-issue #2 · 1. Fogalmak · 2. A formula · 3. Pontosság · 4. Alakok · 5. Ellenőrző mérések · 6. Szögfüggő kiegészítés · 7. Továbbiak
 (időbeli szétválasztás, ingadozás) · 8. Megállapítások · 9. Korlátok · 10. Fájlok.
 
 ## 1. Fogalmak – mit jelentenek a számok
@@ -650,6 +676,8 @@ elektronnál és müonnál ~3/4-ét, hadronoknál 2 GeV felett csak ~40–50 %-�
   `python scripts/build_core_mip_notebooks.py` (a 09-es és 10-es notebook). Ellenőrzések: ugyanez a lánc a második mintán
   (`build`/`features <részecske> s2`, majd `CORE_MIP_SAMPLE=s2 python scripts/core_mip_answers.py` és `scripts/core_mip_s2_check.py`)
   és egy független második implementáció, a `scripts/verify_core_mip.py`.
+- Részecske-issue #2: a `python scripts/build_density_notebook.py` Szófia eredetijéből építi és futtatja a `notebooks/11_density.ipynb`-t
+  (kell hozzá a `duckdb`); utána a `python scripts/density_pages.py` írja a README-blokkot.
 - Archivált, ebből a repóból nem futtatható (a bemeneteik a korábbi, csak protonos szakaszhoz tartoznak): `review/` (a likelihood és a
   számok független ellenőrzése) és `results/isobody/` (a 08-as notebook 90 %/90 %-os összevetésének izoszint-testei).
 - A `results/detektor_es_alakok/`, a `results/detektor_*.png` és a `docs/Protonmodell-Tamas.pdf` a mentett illesztésekből készült bemutató-
