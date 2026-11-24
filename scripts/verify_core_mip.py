@@ -2,7 +2,7 @@
 src/core_mip*.py). Part A: simulation truth, finder start tile and truth interaction length from the raw CSVs on a random subset of
 20 000 events (pion, proton, muon); part B: headline numbers recomputed from the parquet files.
     python scripts/verify_core_mip.py      -> results/core_mip/verification.csv (one line per check)"""
-import json, os, sys
+import json, os
 import numpy as np, pandas as pd, pyarrow as pa, pyarrow.csv as pc, pyarrow.compute as pcc
 from sklearn.metrics import roc_auc_score
 

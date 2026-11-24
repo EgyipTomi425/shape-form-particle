@@ -267,7 +267,7 @@ def q3_truth_agreement(F, ver="strict"):
 def scores(f, feat, pair):
     """Feature oriented so that the second particle of the pair scores high."""
     a, b = pair
-    sign = {"f_core": -1.0 if a == "electron" else -1.0, "L_MIP": 1.0, "seg1": -1.0}.get(feat, 1.0)
+    sign = {"f_core": -1.0, "L_MIP": 1.0, "seg1": -1.0}.get(feat, 1.0)   # hadrons (and protons against pions) have less core
     if feat == "seg1":
         return sign * (f.seg1_core_mip.values + f.seg1_halo_mip.values)
     col = {"f_core": "f_core_strict", "L_MIP": "L_MIP_strict"}[feat]

@@ -14,8 +14,10 @@ md = nbformat.v4.new_markdown_cell
 code = nbformat.v4.new_code_cell
 
 SETUP = r'''import os, sys, json
-if os.path.basename(os.getcwd()) == "notebooks":            # run from the repository root
-    os.chdir("..")
+_d = os.getcwd()                                              # find the repository root, so that the notebook runs from any folder
+while not os.path.exists(os.path.join(_d, "ALL-README.md")) and os.path.dirname(_d) != _d:
+    _d = os.path.dirname(_d)
+os.chdir(_d)
 sys.path.insert(0, os.path.abspath("src"))
 import numpy as np, pandas as pd
 from IPython.display import display
@@ -23,7 +25,10 @@ import core_mip as cm, core_mip_analysis as A, core_mip_figures as G
 pd.set_option("display.width", 220); pd.set_option("display.max_columns", 40)
 F = A.load_all()                                              # fiducial events with E_vis > 0
 FINDER = json.load(open(os.path.join(cm.FEAT, "mip_finder.json")))
-print({p: len(f) for p, f in F.items()}, "events;  finder:", FINDER["versions"]["strict"])'''
+HAVE_CACHE = all(os.path.exists(os.path.join(cm.CACHE_DIR, f"{p}_s1.npz")) for p in A.PARTICLES)
+NO_CACHE = ("needs the per-layer cache, which is not in git: python src/core_mip.py build <particle> (muon first; "
+            "reads the simulation CSVs from $LFHCAL_DATA)")
+print({p: len(f) for p, f in F.items()}, "events;  finder:", FINDER["versions"]["strict"], ";  per-layer cache:", HAVE_CACHE)'''
 
 DEFS = """**Definitions** (issue #1). The **axis** is the straight line of the incoming direction (θ, φ) from the vertex (0, 0, 0); it enters
 the calorimeter at the front face z = 3620.0 mm (ePIC `LFHCAL_zmin`). In front of the first tile there are 40.4 mm of steel (25.4 mm
@@ -84,10 +89,11 @@ NB10 = [
     md("## MIP calibration with muons\n\nPer tile: the most probable value (MPV, 1 MIP) and the half widths at half maximum of the core "
        "energy times cos θ (path-length correction), muons with p ≥ 2 GeV/c; the first tile is calibrated on its own like every other tile. "
        "Right: the MPV in bins of θ, raw and corrected."),
-    code('CAL = json.load(open(os.path.join(cm.FEAT, "mip_calibration.json")))\nTH = A.calibration_theta_check()\nG.q3_calibration(CAL, TH)\n'
+    code('CAL = json.load(open(os.path.join(cm.FEAT, "mip_calibration.json")))\n'
          'print(f"MPV tile 1: {CAL[\'mpv\'][0]*1e3:.4f} MeV, median of the tiles: {np.median(CAL[\'mpv\'])*1e3:.4f} MeV")\n'
          'print("core energy of muon tiles in MIP units, quantiles:", {k: round(v, 2) for k, v in CAL["core_quantiles_mip"].items()})\n'
-         'display(TH.round(4))'),
+         'if HAVE_CACHE:\n    TH = A.calibration_theta_check()\n    G.q3_calibration(CAL, TH)\n    display(TH.round(4))\n'
+         'else:\n    print("theta check of the calibration:", NO_CACHE)'),
     md("## The MIP-segment finder\n\nA tile is **MIP-like** if its core energy is at most `core_up` MIP, its energy outside R at most "
        "`halo_up` MIP and at most `cells_up` cells fire (> 0.3 MIP). The shower starts at the first `n_consec` consecutive non-MIP "
        "tiles whose summed core energy exceeds `core_sum + core_sum_per_gev · p` MIP (p is known from the tracker); empty tiles do not "
@@ -122,7 +128,7 @@ NB10 = [
        "found. The second table shows why low momenta are hard: the core energy in the two tiles after the true interaction, compared "
        "with the start threshold."),
     code('AGR = A.q3_truth_agreement(F)\nG.q3_truth(AGR)\ndisplay(AGR.round(3))\n'
-         'display(pd.concat([A.start_visibility(p) for p in A.HADRONS]).round(3))'),
+         'display(pd.concat([A.start_visibility(p) for p in A.HADRONS]).round(3)) if HAVE_CACHE else print("visibility of the start:", NO_CACHE)'),
     md("## Hadron identification\n\nTest split: AUC and hadron efficiency at 99 % electron rejection for `f_core`, `L_MIP`, the "
        "readout-segment variable `seg1` (energy of tiles 1–5, which the ePIC LFHCal reads out as one channel) and the combination "
        "(logistic regression on `f_core` and `L_MIP`, trained on the train split). `eff99_truth_bound` applies the electron threshold "
@@ -137,7 +143,7 @@ NB10 = [
        "the primary crossed before its interaction (truth);\n4. *8–10 cm or longer is a very powerful hadron indicator* – probabilities "
        "for electrons and hadrons and the likelihood ratio."),
     code('display(CL["claim2_starts_at_entry"].round(3))\n'
-         'display(pd.DataFrame({p: A.claim3_pre_interaction(p) for p in A.HADRONS}).round(3))\n'
+         'display(pd.DataFrame({p: A.claim3_pre_interaction(p) for p in A.HADRONS}).round(3)) if HAVE_CACHE else print("claim 3:", NO_CACHE)\n'
          'display(CL["claim4_indicator"].round(3))'),
 ]
 

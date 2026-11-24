@@ -406,7 +406,8 @@ Muons with p ≥ 2 GeV/c, every tile on its own: most probable value of the core
 ({pct(th.mpv_raw_MeV.iloc[-1] / th.mpv_raw_MeV.iloc[0] - 1, 0)}); after the 1/cos θ correction it changes by
 {pct(th.mpv_cos_MeV.iloc[-1] / th.mpv_cos_MeV.iloc[0] - 1, 1)}, about half of which is expected because the most probable loss grows
 slightly faster than the path length (Landau–Vavilov, ≈ 1 % at θ = 0.57 rad).
-This agrees with the PDG Landau–Vavilov most probable value for a 4 mm polystyrene tile (≈ 0.62 MeV). About {pct(cal['zero_frac_median'], 0)} of the crossed
+This agrees with the PDG Landau–Vavilov most probable value for a 4 mm tile of the ePIC polystyrene (1.032 g/cm³): 0.615–0.624 MeV
+for 2–20 GeV/c muons. About {pct(cal['zero_frac_median'], 0)} of the crossed
 tiles have no energy (gaps between tiles), so empty tiles must not end a segment.
 
 ## The finder
@@ -541,7 +542,8 @@ mediánja; az első csempe {n(cal['mpv_layer1_MeV'], 3)} MeV), a félértékszé
 ({pct(th.mpv_raw_MeV.iloc[-1] / th.mpv_raw_MeV.iloc[0] - 1, 0, lang)}); az 1/cos θ korrekció után csak
 {pct(th.mpv_cos_MeV.iloc[-1] / th.mpv_cos_MeV.iloc[0] - 1, 1, lang)}-ot változik, és ennek kb. fele várható, mert a legvalószínűbb
 energiaveszteség kicsit gyorsabban nő, mint az úthossz (Landau–Vavilov, θ = 0,57 rad-nál ≈ 1 %). Ez egyezik a PDG
-Landau–Vavilov-képlet szerinti legvalószínűbb értékkel 4 mm-es polisztirol csempére (≈ 0,62 MeV). Az átszelt csempék kb.
+Landau–Vavilov-képlet szerinti legvalószínűbb értékkel az ePIC 4 mm-es polisztirol csempéjére (1,032 g/cm³): 0,615–0,624 MeV a
+2–20 GeV/c-s müonokra. Az átszelt csempék kb.
 {pct(cal['zero_frac_median'], 0, lang)}-ában nincs energia (rések a csempék között), ezért üres csempe nem zárhatja le a szakaszt.
 
 ## A kereső
@@ -633,13 +635,6 @@ a kereső kezdő csempéjét és a fő számokat (`verification.csv`).
 
 {REFS}
 """
-
-
-if __name__ == "__main__":
-    for q, fn in (("Q1", page_q1), ("Q2", page_q2), ("Q3", page_q3)):
-        for lang, suffix in (("en", ".md"), ("hu", ".hu.md")):
-            open(os.path.join(D, q + suffix), "w", encoding="utf-8").write(fn(lang))
-    print("written:", sorted(f for f in os.listdir(D) if f.endswith(".md")))
 
 
 # ------------------------------------------------------------------------------------------------------------------- README block
@@ -734,6 +729,10 @@ def put_block(path, block):
 
 
 if __name__ == "__main__":
+    for q, fn in (("Q1", page_q1), ("Q2", page_q2), ("Q3", page_q3)):
+        for lang, suffix in (("en", ".md"), ("hu", ".hu.md")):
+            open(os.path.join(D, q + suffix), "w", encoding="utf-8").write(fn(lang))
+    print("written:", sorted(f for f in os.listdir(D) if f.endswith(".md")))
     put_block(os.path.join(ROOT, "README.md"), readme_block("en"))
     put_block(os.path.join(ROOT, "README.hu.md"), readme_block("hu"))
     print("README blocks written")

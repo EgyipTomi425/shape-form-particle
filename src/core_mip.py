@@ -134,7 +134,7 @@ def primary_truth(particle, sample, ev):
     for c in ("k_first", "k_last", "n_prim_layers", "k_first_product"):
         out[c] = t[c].fillna(-1).values.astype(np.int16)
     for c in ("inelastic", "mu_daughter"):
-        out[c] = t[c].fillna(False).values.astype(bool)
+        out[c] = t[c].eq(True).values                    # events without a primary cell: False
     return out
 
 
@@ -251,7 +251,8 @@ def build(particle, sample="s1"):
     fired = H["e"] > thr
     arr = {"core": core, "all": layer_sums(H, n, H["e"]), "prim_core": layer_sums(H, n, H["e"] * H["frac"][:, j] * H["prim"]),
            "ncell": layer_sums(H, n, fired.double()), "ncell_out": layer_sums(H, n, (fired & ~H["centre"]).double())}
-    tot = lambda w: torch.zeros(n, dtype=torch.float64, device=DEV).index_add_(0, H["eidx"], w.double()).cpu().numpy()
+    def tot(w, eidx=H["eidx"]):                                         # per-event sum of a per-hit quantity
+        return torch.zeros(n, dtype=torch.float64, device=DEV).index_add_(0, eidx, w.double()).cpu().numpy()
     evs = {"E_vis": tot(H["e"]), "E_prim": tot(H["e"] * H["prim"]), "E_prim_near_R50": tot(H["e"] * H["prim"] * H["frac"][:, j]),
            "near_centre_R50": tot(H["e"] * H["centre"])}
     for jj, R in enumerate(R_LIST):

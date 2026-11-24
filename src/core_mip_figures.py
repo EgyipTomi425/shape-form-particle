@@ -8,7 +8,7 @@ if "ipykernel" not in sys.modules:          # scripts: no display; notebooks kee
 import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 
-from core_mip_analysis import ANS, COLORS, PARTICLES, WINDOWS  # noqa: E402
+from core_mip_analysis import ANS, COLORS, PARTICLES  # noqa: E402
 
 COMP = {"MIP": "#E69F00", "core": "#56B4E9", "halo": "#BBBBBB"}
 plt.rcParams.update({"font.size": 10, "axes.spines.top": False, "axes.spines.right": False, "axes.grid": True, "grid.alpha": 0.3,

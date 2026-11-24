@@ -36,7 +36,7 @@ Colour: decimal logarithm of the density (6 decades); line: the iso-density cont
 depth: at 1 GeV/c it stops, above 5 GeV/c it passes through the detector. The pion and the proton give broad hadronic showers, with the
 stopping axial term at low momentum. The 98% envelope bodies (super-egg):
 [results/detektor_es_alakok/osszehasonlitas.png](results/detektor_es_alakok/osszehasonlitas.png); a two-page summary (in Hungarian):
-[Protonmodell-Tamas.pdf](Protonmodell-Tamas.pdf).
+[Protonmodell-Tamas.pdf](docs/Protonmodell-Tamas.pdf).
 
 ## Per particle in brief
 

@@ -33,7 +33,7 @@ A szín a sűrűség tízes alapú logaritmusa (6 nagyságrend), a vonal az ener
 Az elektron kompakt EM-zápor. A müon főleg egy keskeny, a mélységgel szélesedő tengelytag: 1 GeV/c-nél megáll, 5 GeV/c felett átmegy a
 detektoron. A pion és a proton széles hadronzápor, kis impulzuson a megálló tengelytaggal. A 98 %-os burkok (szuper-tojás):
 [results/detektor_es_alakok/osszehasonlitas.png](results/detektor_es_alakok/osszehasonlitas.png); kétoldalas összefoglaló:
-[Protonmodell-Tamas.pdf](Protonmodell-Tamas.pdf).
+[Protonmodell-Tamas.pdf](docs/Protonmodell-Tamas.pdf).
 
 ## Részecskénként röviden
 
