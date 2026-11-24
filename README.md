@@ -237,6 +237,9 @@ the repository as `notebooks/11_density.ipynb` (her original: `notebooks/sofiya/
   0.99–1.00, both: 0.99–1.00); pion vs. proton 0.58–0.74 – protons
   are less dense; this separates them better than f_core (0.56–0.67), both together 0.59–0.74;
   muon vs. the rest 0.64–0.96.
+- **To run it yourself** (laptop or server): open `notebooks/11_density.ipynb`, set `DATA_DIR` in the first code cell to the folder of the
+  eight balanced s1/s2 CSVs (one folder or `regression-<particle>/` subfolders) and run all cells; it needs numpy, pandas, matplotlib
+  and duckdb (3 GB by default, `DUCKDB_MEMORY` for more).
 <!-- ISSUE2 END -->
 
 Contents: Per particle · Physical interpretation · Particle issue #1 · Particle issue #2 · 1. Terms · 2. The formula · 3. Accuracy · 4. Shapes · 5. Cross-checks · 6. Angle-dependent extension · 7. Further results

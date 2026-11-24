@@ -221,6 +221,9 @@ számokat a `scripts/density_pages.py` írja a `results/density/` alapján.
   0,99–1,00, együtt: 0,99–1,00); pion–proton 0,58–0,74 – a proton
   ritkább; ez jobban szétválasztja őket, mint az f_core (0,56–0,67), a kettő együtt 0,59–0,74;
   müon a többiekkel szemben 0,64–0,96.
+- **Saját futtatás** (laptopon vagy szerveren): nyisd meg a `notebooks/11_density.ipynb`-t, az első kódcellában állítsd a `DATA_DIR`-t a
+  nyolc kiegyensúlyozott s1/s2 CSV mappájára (egy mappa vagy `regression-<particle>/` almappák), és futtasd az összes cellát; numpy,
+  pandas, matplotlib és duckdb kell hozzá (alapból 3 GB, többhöz a `DUCKDB_MEMORY`).
 <!-- ISSUE2 END -->
 
 Tartalom: Részecskénként · Fizikai értelmezés · Részecske-issue #1 · Részecske-issue #2 · 1. Fogalmak · 2. A formula · 3. Pontosság · 4. Alakok · 5. Ellenőrző mérések · 6. Szögfüggő kiegészítés · 7. Továbbiak

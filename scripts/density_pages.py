@@ -52,6 +52,9 @@ the repository as `notebooks/11_density.ipynb` (her original: `notebooks/sofiya/
   {rng('electron vs pion', 'auc_fcore')}, both: {rng('electron vs pion', 'auc_both')}); pion vs. proton {sep('pion vs proton', 'auc_rho95')} – protons
   are less dense; this separates them better than f_core ({sep('pion vs proton', 'auc_fcore')}), both together {rng('pion vs proton', 'auc_both')};
   muon vs. the rest {rng('muon vs rest', 'auc_rho95')}.
+- **To run it yourself** (laptop or server): open `notebooks/11_density.ipynb`, set `DATA_DIR` in the first code cell to the folder of the
+  eight balanced s1/s2 CSVs (one folder or `regression-<particle>/` subfolders) and run all cells; it needs numpy, pandas, matplotlib
+  and duckdb (3 GB by default, `DUCKDB_MEMORY` for more).
 """
     return f"""## Részecske-issue #2 – a záporok energiasűrűsége
 
@@ -73,6 +76,9 @@ számokat a `scripts/density_pages.py` írja a `results/density/` alapján.
   {rng('electron vs pion', 'auc_fcore')}, együtt: {rng('electron vs pion', 'auc_both')}); pion–proton {sep('pion vs proton', 'auc_rho95')} – a proton
   ritkább; ez jobban szétválasztja őket, mint az f_core ({sep('pion vs proton', 'auc_fcore')}), a kettő együtt {rng('pion vs proton', 'auc_both')};
   müon a többiekkel szemben {rng('muon vs rest', 'auc_rho95')}.
+- **Saját futtatás** (laptopon vagy szerveren): nyisd meg a `notebooks/11_density.ipynb`-t, az első kódcellában állítsd a `DATA_DIR`-t a
+  nyolc kiegyensúlyozott s1/s2 CSV mappájára (egy mappa vagy `regression-<particle>/` almappák), és futtasd az összes cellát; numpy,
+  pandas, matplotlib és duckdb kell hozzá (alapból 3 GB, többhöz a `DUCKDB_MEMORY`).
 """
 
 
