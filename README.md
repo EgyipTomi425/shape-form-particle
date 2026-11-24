@@ -713,7 +713,7 @@ generator needs a separate, non-Gaussian fluctuation model.
 - Particle issue #1: `python src/core_mip.py build <particle>` (muon first: MIP calibration; per-layer arrays and simulation truth in
   `cache/core_mip/`) → `python scripts/core_mip_tune.py` (finder parameters on the train split against the truth) →
   `python src/core_mip.py features <particle>` (`results/features/<particle>.parquet`) → `python scripts/core_mip_answers.py`
-  (tables, figures, `answers.json`) → `python scripts/core_mip_pages.py` (answer pages and the README block) →
+  (tables, figures, `answers.json`; the Q1 picture first needs `python scripts/core_mip_region_map.py`) → `python scripts/core_mip_pages.py` (answer pages and the README block) →
   `python scripts/build_core_mip_notebooks.py` (notebooks 09 and 10). Checks: the same chain on the second sample
   (`build`/`features <particle> s2`, then `CORE_MIP_SAMPLE=s2 python scripts/core_mip_answers.py` and `scripts/core_mip_s2_check.py`)
   and an independent second implementation, `scripts/verify_core_mip.py`.

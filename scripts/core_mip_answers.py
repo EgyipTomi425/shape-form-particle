@@ -33,6 +33,8 @@ def main():
     # Q1
     q1 = A.q1_fractions(F); csv(q1, "q1_fractions.csv"); G.q1_fractions(q1)
     cont, rs = A.q1_rscan(F); csv(rs, "q1_rscan_auc.csv"); G.q1_rscan(cont, rs)
+    if A.SAMPLE == "s1" and os.path.exists(os.path.join(A.ANS, "q1_region_map.npz")):     # scripts/core_mip_region_map.py
+        G.q1_region_map()
     ans["q1"] = {"containment": cont}
     sep = rs[(rs.bin >= 2) & (rs.R_mm != "centre50")].assign(sep=lambda d: 1 - d.auc).groupby(["pair", "R_mm"]).sep.mean()
     ans["q1"]["e_h_separation_2_20GeV"] = {f"{a}|R{b}": float(v) for (a, b), v in sep.items() if a.startswith("electron")}

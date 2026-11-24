@@ -56,6 +56,10 @@ NB09 = [
     code('Q1 = A.q1_fractions(F)\nG.q1_fractions(Q1)\n'
          't = Q1[Q1.version == "strict"].pivot_table(index=["particle", "bin"], columns="component", values=["ratio_of_sums", "event_mean"])\n'
          'display(t.loc[(slice(None), [0, 1, 2, 4, 9, 14, 19]), :].round(3))'),
+    md("### Where the energy goes\n\nMean energy density per event against the depth along the axis and the distance from it, "
+       "4.5–5.5 GeV/c (cell centres; computed from the CSVs by `scripts/core_mip_region_map.py`). Dashed: R = 5 cm; orange: the "
+       "median shower start of pions and protons. Inside 5 cm before the mark lies the MIP segment, after it the core, outside the halo."),
+    code('_ = G.q1_region_map() if os.path.exists("results/core_mip/q1_region_map.npz") else print("run scripts/core_mip_region_map.py first")'),
     md("### Why R = 5 cm\n\nThe energy within R of the axis (folding), and the separation of electrons from hadrons by that energy "
        "(AUC averaged over 2–20 GeV/c). One cell is 48.6 mm wide: below about 5 cm the folding assumption (uniform energy in a cell) "
        "dominates, so R = 2.5 cm is a statement about the granularity rather than about the shower."),

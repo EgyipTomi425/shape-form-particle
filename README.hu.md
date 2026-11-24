@@ -675,7 +675,7 @@ elektronnál és müonnál ~3/4-ét, hadronoknál 2 GeV felett csak ~40–50 %-�
 - Részecske-issue #1: `python src/core_mip.py build <részecske>` (először a müon: MIP-kalibráció; rétegenkénti tömbök és szimulációs
   igazság a `cache/core_mip/`-ban) → `python scripts/core_mip_tune.py` (a kereső paraméterei a tanító mintán, az igazsághoz mérve) →
   `python src/core_mip.py features <részecske>` (`results/features/<részecske>.parquet`) → `python scripts/core_mip_answers.py`
-  (táblázatok, ábrák, `answers.json`) → `python scripts/core_mip_pages.py` (válaszoldalak és a README-blokk) →
+  (táblázatok, ábrák, `answers.json`; a Q1-képhez előbb a `python scripts/core_mip_region_map.py` kell) → `python scripts/core_mip_pages.py` (válaszoldalak és a README-blokk) →
   `python scripts/build_core_mip_notebooks.py` (a 09-es és 10-es notebook). Ellenőrzések: ugyanez a lánc a második mintán
   (`build`/`features <részecske> s2`, majd `CORE_MIP_SAMPLE=s2 python scripts/core_mip_answers.py` és `scripts/core_mip_s2_check.py`)
   és egy független második implementáció, a `scripts/verify_core_mip.py`.

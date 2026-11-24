@@ -128,6 +128,11 @@ grows with momentum (pion {g['pion', 1, 'core']} → {g['pion', 19, 'core']}, pr
 1–2 to 19–20 GeV/c) while the MIP segment shrinks (pion {g['pion', 1, 'MIP']} → {g['pion', 19, 'MIP']}, proton {g['proton', 1, 'MIP']} →
 {g['proton', 19, 'MIP']}); from 2 GeV/c on the halo holds {n(h_halo[0])}–{n(h_halo[1])} of the energy.
 
+![Where the energy goes: depth along the axis against distance from it](q1_region_map.png)
+
+*Where the energy goes* (4.5–5.5 GeV/c, mean energy density per event): the dashed line is R = 5 cm, the orange mark the median
+shower start of pions and protons. Inside 5 cm, before the mark: MIP segment; after it: core; outside 5 cm: halo.
+
 ![MIP segment, core and halo](q1_fractions.png)
 
 Shares of `E_vis` (ratio of sums; the event means are in the notebook and in `q1_fractions.csv`):
@@ -172,6 +177,11 @@ müon nagyrészt MIP-szakasz (1 GeV/c-től {n(mu_mip[0])}–{n(mu_mip[1])}). A p
 {g['pion', 1, 'core']} → {g['pion', 19, 'core']}, proton {g['proton', 1, 'core']} → {g['proton', 19, 'core']} az 1–2 és a 19–20 GeV/c között),
 a MIP-szakasz csökken (pion {g['pion', 1, 'MIP']} → {g['pion', 19, 'MIP']}, proton {g['proton', 1, 'MIP']} → {g['proton', 19, 'MIP']}); 2 GeV/c-től a
 halo az energia {n(h_halo[0])}–{n(h_halo[1])} részét viszi.
+
+![Hová kerül az energia: mélység a tengely mentén és távolság a tengelytől](q1_region_map.png)
+
+*Hová kerül az energia* (4,5–5,5 GeV/c, eseményenkénti átlagos energiasűrűség): a szaggatott vonal R = 5 cm, a narancssárga jel a
+pionok és protonok zápor-kezdetének mediánja. 5 cm-en belül a jel előtt: MIP-szakasz; utána: mag; 5 cm-en kívül: halo.
 
 ![MIP-szakasz, mag és halo](q1_fractions.png)
 

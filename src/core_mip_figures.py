@@ -171,3 +171,37 @@ def q3_calibration(cal, th):
     b.plot(x, th.mpv_cos_MeV, "o-", color="#0072B2", ms=6, label="x cos(theta)")
     b.set_xlabel("theta [rad]"); b.set_ylabel("most probable value [MeV]"); b.legend(fontsize=8); b.set_title("path-length correction")
     return save(fig, "q3_calibration.png")
+
+
+def q1_region_map(path=os.path.join(ANS, "q1_region_map.npz")):
+    """Mean energy density against depth along the axis and distance from it, with the regions of issue #1."""
+    from matplotlib.colors import LogNorm
+    z = np.load(path)
+    D, R = z["depth_edges"], z["r_edges"]
+    vmax = max(z[f"{p}_density"].max() for p in PARTICLES)
+    cmap = plt.get_cmap("viridis").copy()
+    cmap.set_bad(cmap(0.0))                                    # empty bins = no energy
+    fig, axs = plt.subplots(1, 4, figsize=(17, 3.7), sharey=True)
+    for ax, p in zip(axs, PARTICLES):
+        d = np.where(z[f"{p}_density"] > 0, z[f"{p}_density"], np.nan)
+        im = ax.pcolormesh(D, R, d.T, norm=LogNorm(vmin=vmax * 1e-5, vmax=vmax), cmap=cmap, shading="flat")
+        ax.axhline(5.0, color="white", lw=1.8, ls="--")
+        zs = float(z[f"{p}_z_start_median"])
+        kw = dict(color="white", ha="center", va="center", fontsize=10, fontweight="bold")
+        if p in ("pion", "proton"):
+            ax.plot([zs, zs], [0, 5], color="#E69F00", lw=4)
+            ax.annotate("MIP segment", xy=(zs / 2, 2.5), xytext=(30, 12), color="white", fontsize=9, ha="left",
+                        arrowprops=dict(arrowstyle="->", color="white", lw=1.2))
+            ax.text(70, 2.5, "core", **kw)
+        elif p == "electron":
+            ax.text(30, 2.5, "core", color="0.1", ha="center", va="center", fontsize=10, fontweight="bold")
+        else:
+            ax.text(70, 2.5, "MIP segment", **kw)
+        ax.text(95, 20, "halo", **kw)
+        ax.set_title(p, fontsize=12)
+        ax.set_xlabel("depth along the axis [cm]"); ax.set_xlim(0, 140); ax.set_ylim(0, 30); ax.grid(False)
+    axs[0].set_ylabel("distance from the axis [cm]")
+    fig.colorbar(im, ax=axs, label="energy density per event [MeV/cm³]", pad=0.01)
+    fig.suptitle(f"Where the energy goes, {z['p_window'][0]:g}–{z['p_window'][1]:g} GeV/c: dashed line R = 5 cm, orange mark = median "
+                 "shower start (pion, proton)", y=1.02, fontsize=11)
+    return save(fig, "q1_region_map.png")
