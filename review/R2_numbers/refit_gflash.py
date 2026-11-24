@@ -1,9 +1,11 @@
 """R2_numbers: like-with-like optimiser check. GFlash (gamma x core_tail) ladder n=1..6 refitted with exactly the ProtonShape
 budget (fit_fast steps=4000, warm start, seed 0, batch 256), in the slab metric or the standard metric x Abar.
 usage: refit_gflash.py <slab|stdacc> [steps]"""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import json, os, sys, time
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/review/R2_numbers")
-sys.path.insert(0, "/home/user/tamas/shape-form-proton")
+sys.path.insert(0, os.path.join(ROOT, "review/R2_numbers"))
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import numpy as np, torch
 import shapelab
 import r2lib

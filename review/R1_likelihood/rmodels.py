@@ -1,14 +1,15 @@
 """Model loading for the R1 audit (read-only use of the study's checkpoints)."""
 import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import sys
 
-sys.path.insert(0, "/home/user/tamas/shape-form-proton")
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import torch
 
 import shapelab
 from proton_shape import ProtonShape
 
-FINAL = "/home/user/tamas/shape-form-proton/results/final/proton"
+FINAL = os.path.join(ROOT, "results/final/proton")
 DEG = {1: dict(degree=1, degrees={"logit_tr": 2}), **{n: dict(degree=n) for n in range(2, 7)}}
 
 

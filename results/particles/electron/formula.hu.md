@@ -6,15 +6,15 @@ Tömeg m = 0.000511 GeV; változat `plateau+all+curv`; a paraméterek az x = (ln
 
 ## Röviden
 
-- **Mi ez:** Elektromágneses zápor, nyom nincs. Kis impulzuson a belépés körüli csúcs jelentős, nagyobb impulzuson a zápor dominál. A ~1 %-os távoli udvar hozta a legnagyobb javulást a kiegészítő tagok közül; a szimulációs igazság szerint ez azonnali elektromágneses (e±/γ) energia, nem neutron, és a modell 5–20 GeV-en ~30 %-kal alulbecsli.
+- **Mi ez:** Elektromágneses zápor, tengelytag nincs. Kis impulzuson a belépés körüli csúcs jelentős, nagyobb impulzuson a zápor dominál. A ~1 %-os távoli udvar hozta a legnagyobb javulást a kiegészítő tagok közül; a szimulációs igazság szerint ez azonnali elektromágneses (e±/γ) energia, nem neutron, és a modell 5–20 GeV-en ~30 %-kal alulbecsli.
 - **Pontosság (teszt-NLL, report-mérce, kisebb = jobb):** új formula 14,8167, az ugyanígy illesztett baseline × Ā 14,8406, a finomhangolt háló 14,8067. A baseline és a háló közti rés 70 %-át zárja be (3D-mérce: 68 %; független s2 minta: 73 % / 71 %).
 - **A detektorba eső energia megoszlása, 1 GeV → 20 GeV** (3D-mérce): zápor 82 % → 99 %; csúcs 17 % → 0,35 %; távoli udvar 0,67 % → 0,95 %.
-- **Keresztmetszet z' = 100 mm-en, 1 → 20 GeV:** Gauss-mag σ ≈ 19 → 16 mm, Cauchy-test R ≈ 35 → 21 mm, udvar λ ≈ 40 mm; arányok (mag / test / udvar) 0,74 / 0,13 / 0,13 → 0,85 / 0,02 / 0,13.
+- **Keresztmetszet z' = 100 mm-en, 1 → 20 GeV:** Gauss-féle keskeny komponens σ ≈ 19 → 16 mm, Cauchy-test R ≈ 35 → 21 mm, udvar λ ≈ 40 mm; arányok (mag / test / udvar) 0,74 / 0,13 / 0,13 → 0,85 / 0,02 / 0,13.
 - **98 %-os burkok** (a legkisebb test, amelyben a záporok 98 %-ában az energia ≥ 95 %-a bent van; 20 bin átlaga): szuper-tojás 25,9 L (24,2 L a detektorban, lefedés 0,98); csepp 25,9 L (24,4 L a detektorban, lefedés 0,98); kalibrált izoszint 31,7 L (30,7 L a detektorban, lefedés 0,98).
 - **Átlagos profilok** (független s2 minta, szeparációs erő × 10⁻³, mélység / sugár, kisebb = jobb): új formula 0,88 / 4,97, háló 0,56 / 4,55, régi képlet 0,76 / 6,51; statisztikai padló 0,16 / 0,11.
 - **A belépés előtti tartomány (z' < 0) energiája a beesési szöggel** (θ ≈ 0,25 → 0,57 rad, p ≥ 2 GeV): adat 3,0 → 6,2 %, új formula 3,9 → 4,7 %, háló 4,1 → 5,3 %.
 - **Szimulációs igazság** (s2, 0–20 GeV négy impulzus-tartományában): a beeső részecske saját lerakódása 1–4 %, a neutronok leányaié 0 %; a 100 ns után érkező (a fitből kihagyott) energia 0,0–0,1 %. Az r ≥ 300 mm-es tartomány az energia 0,56–0,91 %-a (a modellben 0,56–0,65 %), ennek 1–2 %-a neutronból, 96–98 %-a elektromágneses és 99 %-a azonnali (< 5 ns); a modellben ennek 67–86 %-át viszi a távoli udvar tag.
-- **Szögfüggő kiegészítés – nem modellpredikció.** A beesési szöget eseményenként bemenetként megadjuk, és 6 belépési paraméter (csúcs, zápor- és nyomkezdet) a szöggel lineárisan változhat: P + β·(1/cosθ − 1,1). A β-kat az adatra illesztettük (empirikus korrekció, a formula fizikája nem jósolja); a többi szám ezen a kártyán szög nélküli. 3D teszt-NLL: 14,8072 → 14,8047 (s2: -0,0024 ± 0,0001 nat/esemény). A belépés előtti energia (θ ≈ 0,25 → 0,57 rad): adat 3,0 → 6,2 %, végleges formula 3,9 → 4,7 %, szögfüggő 3,4 → 5,7 %.
+- **Szögfüggő kiegészítés – nem modellpredikció.** A beesési szöget eseményenként bemenetként megadjuk, és 6 belépési paraméter (csúcs, zápor- és tengelytag-kezdet) a szöggel lineárisan változhat: P + β·(1/cosθ − 1,1). A β-kat az adatra illesztettük (empirikus korrekció, a formula fizikája nem jósolja); a többi szám ezen a kártyán szög nélküli. 3D teszt-NLL: 14,8072 → 14,8047 (s2: -0,0024 ± 0,0001 nat/esemény). A belépés előtti energia (θ ≈ 0,25 → 0,57 rad): adat 3,0 → 6,2 %, végleges formula 3,9 → 4,7 %, szögfüggő 3,4 → 5,7 %.
 - **Záporonkénti ingadozás** (PCA az eseményenkénti profilokon): az első 3 főkomponens a variancia 72–74 %-a. Az eseményenkénti mennyiségek szeparációs ereje (× 10⁻³, a két félminta padlója 3–13): bármely átlag-modell 923 (binelési állandó), 3 főkomponens Gauss-együtthatókkal 106–176, 10 főkomponens a tanító együtthatóiból 16–56.
 
 ## A képlet
@@ -22,19 +22,19 @@ Tömeg m = 0.000511 GeV; változat `plateau+all+curv`; a paraméterek az x = (ln
 ρ(z', r | p) = w_zápor·S + w_nyom·U + w_csúcs·D + w_folt·E + w_távoli·H — minden tag külön a (z', r) rácsra normálva (σ(·) = logisztikus függvény; ami ennél a részecskénél nincs bekapcsolva, az kimarad):
 
 - **Zápor** S = L(z')·T(r | z'). Plató-mélységprofil: L ∝ σ((z' − z_s)/w1)·σ((ℓ − z')/w2)·e^(κ z'/1 m); gamma: L ∝ s^(α−1)·e^(−(α−1) s/t_max), s ≈ z' − z0. Keresztmetszet: T = f1·e^(−r²/2σ²)/(2πσ²) + f2·R²/(π(r² + R²)²) + f3·e^(−r/λ)/(2πλ(r + 1 mm)); ln σ, ln R, ln λ és a keverési logitok lineárisak a mélységben (σ-nál és a logitoknál négyzetes taggal is, ha „görbület” be van kapcsolva); minden mélységben az r < 700 mm korongra normálva.
-- **Nyom** U ∝ σ((z' − z_t0)/4 mm)·σ((R(T) − z')/w_R)·e^(−κ_t z'/R)·e^(−z'/λ_att)·(1 − z'/R + 0,03)^(−q) × [(1 − f)·Gauss(r; σ(z')) + f·e^(−r/l)/(2πl(r + 1 mm))], ahol R(T) = R1·T^(k_R) − R0 (hatótáv), w_R = w·R + 3 mm, σ(z')² = σ0² + (c·(z'/1 m)^k / βp)² (többszörös szórás), βp = (T² + 2Tm)/(T + m).
+- **Tengelytag** U ∝ σ((z' − z_t0)/4 mm)·σ((R(T) − z')/w_R)·e^(−κ_t z'/R)·e^(−z'/λ_att)·(1 − z'/R + 0,03)^(−q) × [(1 − f)·Gauss(r; σ(z')) + f·e^(−r/l)/(2πl(r + 1 mm))], ahol R(T) = R1·T^(k_R) − R0 (hatótáv), w_R = w·R + 3 mm, σ(z')² = σ0² + (c·(z'/1 m)^k / βp)² (többszörös szórás), βp = (T² + 2Tm)/(T + m).
 - **Csúcs** a belépésnél: D ∝ e^(−(z' − z_sp)²/2σ_z²)·e^(−r²/2σ_r²); **folt** a hatótáv végén: E ∝ e^(−(z' − R(T))²/2σ_ez²)·e^(−r²/2σ_er²); **távoli udvar**: H ∝ σ(z'/10 mm)·e^(−z'/L)·e^(−r/R)/(r + 10 mm).
-- **Súlyok**: w_távoli = σ(a_far), w_folt = σ(a_end)·(1 − w_távoli); a zápor, a nyom és a csúcs a maradékon osztozik (a csúcs a nyomhoz kötve: f1 = d1/(d1 + L_t), L_t a nyom hossza).
+- **Súlyok**: w_távoli = σ(a_far), w_folt = σ(a_end)·(1 − w_távoli); a zápor, a tengelytag és a csúcs a maradékon osztozik (a csúcs a tengelytaghoz kötve: f1 = d1/(d1 + L_t), L_t a tengelytag hossza).
 - Minden nyers paraméter P(x) = Σ c_k x^k, x = (ln(T/GeV) − v0)/vs, T = √(p² + m²) − m; „log_” = a mennyiség logaritmusa, „logit_” = arány logitja.
 
-Tagok: zápor (plató-mélységprofil × [Gauss-mag + Cauchy-test + e^(−r/λ)/r udvar]) + csúcs a belépésnél + távoli udvar + négyzetes mélységtagok a keresztmetszetben.
+Tagok: zápor (plató-mélységprofil × [Gauss-féle keskeny komponens + Cauchy-test + e^(−r/λ)/r udvar]) + csúcs a belépésnél + távoli udvar + négyzetes mélységtagok a keresztmetszetben.
 
 ## Hogyan olvasd a táblázatokat
 
 - Oszlopok: az impulzus p [GeV]; minden sor egy illesztett mennyiség értéke ennél az impulzusnál.
 - **w …**: a komponens súlya a vágatlan forgástestben. **a detektorban: …**: a komponens aránya a detektorba (a ferde belépési sík mögé) eső energiában – ez a fizikailag értelmezhető energiaarány.
 - **z_s, w1, ℓ, w2, κ** (plató) ill. **z0, t_max, α−1** (gamma): a zápor mélységprofilja. **σ mag, R Cauchy, λ udvar** és **f mag / test / udvar**: a keresztmetszet három tagjának szélessége és aránya az adott mélységben.
-- **R(T)**: a nyom hossza (hatótáv); **σ0**: a nyom szélessége a belépésnél; **c_ms, k_ms**: a többszörös szórás miatti szélesedés; **λ_att**: csillapítási hossz; **f, l delta-udvar**: a nyom körüli udvar aránya és hossza; **q Bragg**: a Bragg-felfutás kitevője; **csúcs …, folt …**: a két Gauss-folt helye és szélessége; **távoli udvar L, R**: mélységi és sugárirányú hossz (R → ∞: sugárirányban nincs levágás).
+- **R(T)**: a tengelytag hossza (hatótáv); **σ0**: a tengelytag szélessége a belépésnél; **c_ms, k_ms**: a többszörös szórás miatti szélesedés; **λ_att**: csillapítási hossz; **f, l delta-udvar**: a tengelytag körüli udvar aránya és hossza; **q Bragg**: a Bragg-felfutás kitevője; **csúcs …, folt …**: a két Gauss-folt helye és szélessége; **távoli udvar L, R**: mélységi és sugárirányú hossz (R → ∞: sugárirányban nincs levágás).
 - Két illesztés van: a **3D-mérce** (eseményenként a detektor-szeletre normálva; ez írja le a forgástestet) és a **report-mérce** (× Ā; ebből számolódik az r95- és az izoszint-alak). A kettő értékei kissé eltérnek.
 
 ## 3D-mérce (eseményenként a detektor-szeletre normálva) – ez a forgástest

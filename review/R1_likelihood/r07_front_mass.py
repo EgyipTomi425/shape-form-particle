@@ -1,9 +1,11 @@
 """R1 audit, step 7: where the slab-trained models put the mass that the slab likelihood does not constrain (by momentum)."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import json, math, os, sys
-sys.path.insert(0, "/home/user/tamas/shape-form-proton"); sys.path.insert(0, "/home/user/tamas/shape-form-proton/review/R1_likelihood")
+sys.path.insert(0, os.path.join(ROOT, "src")); sys.path.insert(0, os.path.join(ROOT, "review/R1_likelihood"))
 import numpy as np, torch
 import shapelab, rmodels
-OUT = "/home/user/tamas/shape-form-proton/review/R1_likelihood"
+OUT = os.path.join(ROOT, "review/R1_likelihood")
 C, geo, data = shapelab.setup(batch=256, out_dir=OUT + "/scratch", slab=False)
 dev = C["DEVICE"]
 models = rmodels.load_all(C, data, which=["report_gflash_n6", "report_mlp", "new_slab_gce_n6", "new_stdacc_gce_n6", "ref_slab_gflash_n6", "ref_slab_mlp"])

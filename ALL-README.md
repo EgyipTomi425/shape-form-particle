@@ -11,7 +11,7 @@ hits (maximum likelihood). Accuracy, comparisons and checks are in the [README](
 
 `ρ(z', r | p) = w_zápor·S + w_nyom·U + w_csúcs·D + w_folt·E + w_távoli·H`
 
-The subscripts are the Hungarian names of the terms: zápor = shower, nyom = track, csúcs = entry spike, folt = end-of-range blob,
+The subscripts are the Hungarian names of the terms: zápor = shower, nyom = axial term (formerly “track”), csúcs = entry spike, folt = end-of-range blob,
 távoli = far halo. Each term is a separately normalised distribution, and the weights w are the energy shares of the terms (they sum
 to 1). Every parameter is a polynomial in `x = (ln T − v0)/vs`, where T = √(p² + m²) − m is the kinetic energy; σ(·) is the logistic
 step.
@@ -20,9 +20,9 @@ step.
 |---|---|---|
 | shower S | `L(z')·T(r│z')` | the hadronic or electromagnetic shower of the secondary particles |
 | – depth profile | plateau: `σ((z'−z_s)/w1)·σ((ℓ−z')/w2)·e^(κz')`; muon: gamma `s^(α−1)e^(−(α−1)s/t_max)` | z_s start, w1 rise, ℓ end, w2 fall-off, κ slow slope |
-| – cross-section | `f1·Gauss(r;σ) + f2·R²/(π(r²+R²)²) + f3·e^(−r/λ)/(2πλ(r+1 mm))` | narrow core (σ), Cauchy body (R), exponential halo (λ); all vary with depth |
-| track U | `σ((z'−z_t0)/4 mm)·σ((R(T)−z')/w_R)·e^(−z'/λ_att)·e^(−κ_t·z'/R)·(1−z'/R+0.03)^(−q)` × cross-section | ionisation track of the incoming particle: R(T) range (smoothly floored at ~1 mm), w_R = w·R + 3 mm end width, λ_att attenuation (nuclear interaction), κ_t gradual fading along the range, q Bragg rise |
-| – track width | `σ(z')² = σ0² + (c·(z'/1 m)^k / βp)²`, plus `f·e^(−r/l)/(2πl(r+1 mm))` | widening by multiple scattering (c, k), delta-electron halo (f, l) |
+| – cross-section | `f1·Gauss(r;σ) + f2·R²/(π(r²+R²)²) + f3·e^(−r/λ)/(2πλ(r+1 mm))` | narrow component (σ), Cauchy body (R), exponential halo (λ); all vary with depth |
+| axial term U | `σ((z'−z_t0)/4 mm)·σ((R(T)−z')/w_R)·e^(−z'/λ_att)·e^(−κ_t·z'/R)·(1−z'/R+0.03)^(−q)` × cross-section | ionisation deposit of the incoming particle: R(T) range (smoothly floored at ~1 mm), w_R = w·R + 3 mm end width, λ_att attenuation (nuclear interaction), κ_t gradual fading along the range, q Bragg rise |
+| – width of the axial term | `σ(z')² = σ0² + (c·(z'/1 m)^k / βp)²`, plus `f·e^(−r/l)/(2πl(r+1 mm))` | widening by multiple scattering (c, k), delta-electron halo (f, l) |
 | spike D | Gaussian at the entrance | extra energy in the first layers |
 | blob E | Gaussian at z' = R(T) | end of a stopping particle (Bragg peak, capture) |
 | far halo H | `σ(z'/10 mm)·e^(−z'/L)/(r + 1 cm)` | diffuse energy that travels far |
@@ -32,23 +32,23 @@ step.
 ![Density of the final formula per particle at 1, 5 and 20 GeV/c](results/formula_maps.png)
 
 Colour: decimal logarithm of the density (6 decades); line: the iso-density contour that holds 95% of the energy
-(`scripts/formula_maps.py`). The electron gives a compact electromagnetic shower. The muon is mainly a narrow track that widens with
+(`scripts/formula_maps.py`). The electron gives a compact electromagnetic shower. The muon is mainly a narrow axial term that widens with
 depth: at 1 GeV/c it stops, above 5 GeV/c it passes through the detector. The pion and the proton give broad hadronic showers, with the
-stopping track at low momentum. The 98% envelope bodies (super-egg):
+stopping axial term at low momentum. The 98% envelope bodies (super-egg):
 [results/detektor_es_alakok/osszehasonlitas.png](results/detektor_es_alakok/osszehasonlitas.png); a two-page summary (in Hungarian):
 [Protonmodell-Tamas.pdf](Protonmodell-Tamas.pdf).
 
 ## Per particle in brief
 
-- **Electron** (64 parameters): shower + entry spike + far halo, no track. Core σ ≈ 16–19 mm (≈ 0.8 Molière radius); the spike is 17%
+- **Electron** (64 parameters): shower + entry spike + far halo, no axial term. Core σ ≈ 16–19 mm (≈ 0.8 Molière radius); the spike is 17%
   of the energy at 1 GeV/c and 0.35% at 20 GeV/c.
-- **Muon** (129 parameters): 87–93% of the energy is in the track. The track widens as multiple scattering predicts (k ≈ 1.41, Highland
+- **Muon** (129 parameters): 87–93% of the energy is in the axial term. The axial term widens as multiple scattering predicts (k ≈ 1.41, Highland
   estimate 1.35–1.41); range ≈ 1.06 m/GeV · T; Bragg exponent 0.42 (theory 0.43).
-- **Pion** (101 parameters): shower + track (the track carries 26–53%); attenuation length 339 mm ≈ 1.31 λ_π.
-- **Proton** (143 parameters): two regimes – at 1 GeV/c it mainly stops (track 61%, spike 24%), at 5–20 GeV/c it makes a shower
+- **Pion** (101 parameters): shower + axial term (the axial term carries 26–53%); attenuation length 339 mm ≈ 1.31 λ_π.
+- **Proton** (143 parameters): two regimes – at 1 GeV/c it mainly stops (axial term 61%, spike 24%), at 5–20 GeV/c it makes a shower
   (74–81%); attenuation length 266 mm ≈ 1.26 λ_I.
 
-For hadrons, the widening, the delta halo and the Bragg exponent of the track are effective parameters: they also describe part of the
+For hadrons, the widening, the delta halo and the Bragg exponent of the axial term are effective parameters: they also describe part of the
 core of the hadronic shower.
 
 <!-- KEPLETEK:START (scripts/readme_particle_formulas.py generates this block) -->
@@ -84,7 +84,7 @@ The general formula above, per particle: the terms it contains, the constant par
 
 - Shower depth profile, gamma: `L(z') ∝ s^(α−1)·e^(−(α−1)s/t_max)`, s = z' − z0 (values below).
 - Shower cross-section: `T(r│z') = f_core·Gauss(r; σ) + f_body·Cauchy(r; R) + f_halo·e^(−r/λ)/(2πλ(r + 1 mm))`; σ, R, λ and the fractions vary with depth (below at z' = 100 mm).
-- Track: range `R(T) = 1057 mm · (T/GeV)^1.02 − 85 mm` (smoothly floored at ~1 mm); start `σ((z' − 24.2 mm)/4 mm)`, end `σ((R − z')/w_R)` with w_R = 0.0232·R + 3 mm; attenuation `e^(−z'/1211 mm)·e^(−0.735·z'/R)`; Bragg rise `(1 − z'/R + 0.03)^(−0.42)`; width `σ(z')² = (15 mm)² + (74.4 mm · (z'/1 m)^1.41 / βp)²`; delta-electron halo `e^(−r/51.4 mm)/(2π·51.4 mm·(r + 1 mm))` (its share below).
+- Axial term: range `R(T) = 1057 mm · (T/GeV)^1.02 − 85 mm` (smoothly floored at ~1 mm); start `σ((z' − 24.2 mm)/4 mm)`, end `σ((R − z')/w_R)` with w_R = 0.0232·R + 3 mm; attenuation `e^(−z'/1211 mm)·e^(−0.735·z'/R)`; Bragg rise `(1 − z'/R + 0.03)^(−0.42)`; width `σ(z')² = (15 mm)² + (74.4 mm · (z'/1 m)^1.41 / βp)²`; delta-electron halo `e^(−r/51.4 mm)/(2π·51.4 mm·(r + 1 mm))` (its share below).
 - End-of-range blob: Gaussian, σ_z = 73.1 mm, σ_r = 85.6 mm.
 - Entry spike: Gaussian (position and widths below). Far halo: `H ∝ σ(z'/10 mm)·e^(−z'/1309 mm)/(r + 1 cm)`.
 
@@ -101,7 +101,7 @@ The general formula above, per particle: the terms it contains, the constant par
 | shape α − 1 | 0.0747 | 0.00916 | 0.0508 |
 | core σ / Cauchy R / halo λ (z' = 100 mm) | 11.2 / 9.51 / 52.3 mm | 11.7 / 16.6 / 51.4 mm | 16 / 295 / 50 mm |
 | fractions core / body / halo (z' = 100 mm) | 0.93 / 0.04 / 0.03 | 0.81 / 0.03 / 0.17 | 0.16 / 0.00 / 0.84 |
-| track range R(T) | 864 mm | 5287 mm | 22483 mm |
+| axial-term range R(T) | 864 mm | 5287 mm | 22483 mm |
 | delta-halo share | 0.899% | 0.79% | 1.3% |
 | spike position / σ_z / σ_r | −9.95 / 23 / 9.2 mm | −15.2 / 27.8 / 9.1 mm | −21.1 / 28.7 / 9.21 mm |
 
@@ -111,7 +111,7 @@ The general formula above, per particle: the terms it contains, the constant par
 
 - Shower depth profile, plateau: `L(z') ∝ σ((z' − z_s)/w1)·σ((ℓ − z')/w2)·e^(κ·z'/1 m)` (values below).
 - Shower cross-section: `T(r│z') = f_core·Gauss(r; σ) + f_body·Cauchy(r; R) + f_halo·e^(−r/λ)/(2πλ(r + 1 mm))`; σ, R, λ and the fractions vary with depth (below at z' = 100 mm).
-- Track: range `R(T) = 757 mm · (T/GeV)^1.78 − 36.5 mm` (smoothly floored at ~1 mm); start `σ((z' − 24.1 mm)/4 mm)`, end `σ((R − z')/w_R)` with w_R = 0.0579·R + 3 mm; attenuation `e^(−z'/266 mm)·e^(−2.46·z'/R)`; Bragg rise `(1 − z'/R + 0.03)^(−0.804)`; width `σ(z')² = (18.5 mm)² + (285 mm · (z'/1 m)^2.37 / βp)²`; delta-electron halo `e^(−r/81.5 mm)/(2π·81.5 mm·(r + 1 mm))` (its share below).
+- Axial term: range `R(T) = 757 mm · (T/GeV)^1.78 − 36.5 mm` (smoothly floored at ~1 mm); start `σ((z' − 24.1 mm)/4 mm)`, end `σ((R − z')/w_R)` with w_R = 0.0579·R + 3 mm; attenuation `e^(−z'/266 mm)·e^(−2.46·z'/R)`; Bragg rise `(1 − z'/R + 0.03)^(−0.804)`; width `σ(z')² = (18.5 mm)² + (285 mm · (z'/1 m)^2.37 / βp)²`; delta-electron halo `e^(−r/81.5 mm)/(2π·81.5 mm·(r + 1 mm))` (its share below).
 - End-of-range blob: Gaussian, σ_z = 76.3 mm, σ_r = 81.1 mm.
 - Entry spike: Gaussian (position and widths below). Far halo: `H ∝ σ(z'/10 mm)·e^(−z'/962 mm)/(r + 1 cm)`.
 
@@ -128,7 +128,7 @@ The general formula above, per particle: the terms it contains, the constant par
 | slow slope κ | −3.02 /m | −2.72 /m | −2.65 /m |
 | core σ / Cauchy R / halo λ (z' = 100 mm) | 84.4 / 121 / 227 mm | 58.8 / 71 / 207 mm | 38.9 / 77.6 / 203 mm |
 | fractions core / body / halo (z' = 100 mm) | 0.08 / 0.87 / 0.05 | 0.08 / 0.80 / 0.13 | 0.13 / 0.76 / 0.10 |
-| track range R(T) | 135 mm | 9485 mm | 143749 mm |
+| axial-term range R(T) | 135 mm | 9485 mm | 143749 mm |
 | delta-halo share | 3.94% | 33.4% | 20.4% |
 | spike position / σ_z / σ_r | −3.17 / 13.7 / 10.1 mm | −7.75 / 22.1 / 11.5 mm | −18.5 / 23.8 / 11.6 mm |
 
@@ -138,7 +138,7 @@ The general formula above, per particle: the terms it contains, the constant par
 
 - Shower depth profile, plateau: `L(z') ∝ σ((z' − z_s)/w1)·σ((ℓ − z')/w2)·e^(κ·z'/1 m)` (values below).
 - Shower cross-section: `T(r│z') = f_core·Gauss(r; σ) + f_body·Cauchy(r; R) + f_halo·e^(−r/λ)/(2πλ(r + 1 mm))`; σ, R, λ and the fractions vary with depth (below at z' = 100 mm).
-- Track: range `R(T) = 952 mm · (T/GeV)^1.26 − 26.9 mm` (smoothly floored at ~1 mm); start `σ((z' − 28.4 mm)/4 mm)`, end `σ((R − z')/w_R)` with w_R = 0.0861·R + 3 mm; attenuation `e^(−z'/339 mm)·e^(−2.25·z'/R)`; Bragg rise `(1 − z'/R + 0.03)^(−0.526)`; width `σ(z')² = (20.1 mm)² + (135 mm · (z'/1 m)^1.72 / βp)²`; delta-electron halo `e^(−r/69.4 mm)/(2π·69.4 mm·(r + 1 mm))` (its share below).
+- Axial term: range `R(T) = 952 mm · (T/GeV)^1.26 − 26.9 mm` (smoothly floored at ~1 mm); start `σ((z' − 28.4 mm)/4 mm)`, end `σ((R − z')/w_R)` with w_R = 0.0861·R + 3 mm; attenuation `e^(−z'/339 mm)·e^(−2.25·z'/R)`; Bragg rise `(1 − z'/R + 0.03)^(−0.526)`; width `σ(z')² = (20.1 mm)² + (135 mm · (z'/1 m)^1.72 / βp)²`; delta-electron halo `e^(−r/69.4 mm)/(2π·69.4 mm·(r + 1 mm))` (its share below).
 - End-of-range blob: Gaussian, σ_z = 103 mm, σ_r = 130 mm.
 - Entry spike: Gaussian (position and widths below). Far halo: `H ∝ σ(z'/10 mm)·e^(−z'/701 mm)/(r + 1 cm)`.
 
@@ -155,7 +155,7 @@ The general formula above, per particle: the terms it contains, the constant par
 | slow slope κ | −1.99 /m | −2 /m | −2.03 /m |
 | core σ / Cauchy R / halo λ (z' = 100 mm) | 68 / 96.3 / 216 mm | 71.9 / 67.5 / 206 mm | 59.1 / 67.8 / 196 mm |
 | fractions core / body / halo (z' = 100 mm) | 0.27 / 0.66 / 0.07 | 0.13 / 0.77 / 0.11 | 0.12 / 0.72 / 0.16 |
-| track range R(T) | 772 mm | 6980 mm | 41375 mm |
+| axial-term range R(T) | 772 mm | 6980 mm | 41375 mm |
 | delta-halo share | 16.3% | 19.3% | 14.9% |
 | spike position / σ_z / σ_r | −5.3 / 20.8 / 11.1 mm | −7.04 / 23.9 / 11.6 mm | −9.26 / 23.5 / 11.4 mm |
 

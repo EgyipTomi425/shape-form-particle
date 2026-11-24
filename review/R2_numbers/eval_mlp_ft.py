@@ -1,6 +1,8 @@
 """R2_numbers: evaluate the fit_fast fine-tuned report MLPs (slab / std) on S1 val/test and on s2; paired vs the new formula."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import json, os, sys, time
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/review/R2_numbers")
+sys.path.insert(0, os.path.join(ROOT, "review/R2_numbers"))
 import numpy as np, torch
 import r2lib
 from r2lib import OUT, paired
@@ -9,7 +11,7 @@ C, geo, data = r2lib.setup()
 dev = C["DEVICE"]
 Z1 = np.load(f"{OUT}/per_event_s1.npz")
 Z2 = np.load(f"{OUT}/per_event_s2.npz")
-ck2 = torch.load("/home/user/tamas/shape-form-proton/cache/proton_s2_sets.pt", weights_only=False)
+ck2 = torch.load(os.path.join(ROOT, "cache/proton_s2_sets.pt"), weights_only=False)
 S2 = {k: C["Showers"](v["ev"], v["off"], v["xyz"], v["w"], v["box"]).to(dev) for k, v in ck2["sets"].items()}
 res = {}
 for metric, f in (("slab", "mlp_slab_s6000_lr0.001_report.pt"), ("std", "mlp_std_s6000_lr0.001_report.pt")):

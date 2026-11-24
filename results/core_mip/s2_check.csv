@@ -1,0 +1,263 @@
+group,quantity,s1,s2,s1_err,s2_err,z
+Q1 shares,electron bin 1 MIP,0.00923,0.00982,0.00074,0.00082,-0.53416
+Q1 shares,electron bin 1 core,0.88086,0.87824,0.00133,0.00131,1.40346
+Q1 shares,electron bin 1 halo,0.10991,0.11195,0.001,0.00094,-1.4864
+Q1 shares,electron bin 4 MIP,0.00054,0.00066,8e-05,0.0001,-0.93704
+Q1 shares,electron bin 4 core,0.8958,0.89486,0.00059,0.00059,1.12658
+Q1 shares,electron bin 4 halo,0.10366,0.10447,0.00058,0.00058,-0.98751
+Q1 shares,electron bin 9 MIP,0.00022,0.00022,4e-05,5e-05,0.0
+Q1 shares,electron bin 9 core,0.89739,0.89853,0.00046,0.00047,-1.73345
+Q1 shares,electron bin 9 halo,0.10239,0.10124,0.00046,0.00046,1.76777
+Q1 shares,electron bin 19 MIP,7e-05,0.00011,2e-05,2e-05,-1.41421
+Q1 shares,electron bin 19 core,0.89827,0.89872,0.0004,0.00044,-0.75676
+Q1 shares,electron bin 19 halo,0.10166,0.10116,0.0004,0.00044,0.84084
+Q1 shares,muon bin 1 MIP,0.63415,0.64363,0.00395,0.00381,-1.72739
+Q1 shares,muon bin 1 core,0.04063,0.03791,0.00292,0.0026,0.69569
+Q1 shares,muon bin 1 halo,0.32521,0.31846,0.00297,0.00318,1.55128
+Q1 shares,muon bin 4 MIP,0.7797,0.78664,0.00555,0.00577,-0.86685
+Q1 shares,muon bin 4 core,0.142,0.13484,0.00543,0.00564,0.91454
+Q1 shares,muon bin 4 halo,0.0783,0.07852,0.00123,0.00117,-0.1296
+Q1 shares,muon bin 9 MIP,0.81393,0.81168,0.00696,0.00706,0.22695
+Q1 shares,muon bin 9 core,0.14605,0.14993,0.00663,0.00675,-0.41008
+Q1 shares,muon bin 9 halo,0.04002,0.03839,0.00092,0.00059,1.4914
+Q1 shares,muon bin 19 MIP,0.8532,0.84985,0.0075,0.00789,0.30774
+Q1 shares,muon bin 19 core,0.113,0.11558,0.00714,0.00741,-0.25072
+Q1 shares,muon bin 19 halo,0.0338,0.03457,0.00059,0.00087,-0.7325
+Q1 shares,pion bin 1 MIP,0.23743,0.23057,0.0041,0.00425,1.16167
+Q1 shares,pion bin 1 core,0.22647,0.22891,0.00438,0.00496,-0.36874
+Q1 shares,pion bin 1 halo,0.5361,0.54052,0.00422,0.00435,-0.7293
+Q1 shares,pion bin 4 MIP,0.07618,0.07654,0.00169,0.00176,-0.14754
+Q1 shares,pion bin 4 core,0.35308,0.35474,0.00341,0.00301,-0.36496
+Q1 shares,pion bin 4 halo,0.57074,0.56872,0.00303,0.00279,0.49043
+Q1 shares,pion bin 9 MIP,0.03488,0.03338,0.00081,0.00079,1.32572
+Q1 shares,pion bin 9 core,0.45087,0.45447,0.00276,0.00277,-0.92064
+Q1 shares,pion bin 9 halo,0.51426,0.51215,0.0027,0.00278,0.54447
+Q1 shares,pion bin 19 MIP,0.01803,0.01765,0.00041,0.00039,0.67154
+Q1 shares,pion bin 19 core,0.49914,0.49774,0.00226,0.00241,0.42374
+Q1 shares,pion bin 19 halo,0.48284,0.48461,0.00228,0.00241,-0.53352
+Q1 shares,proton bin 1 MIP,0.42158,0.4252,0.00598,0.00594,-0.42948
+Q1 shares,proton bin 1 core,0.20367,0.20601,0.00525,0.00543,-0.30981
+Q1 shares,proton bin 1 halo,0.37475,0.36878,0.00503,0.00545,0.80497
+Q1 shares,proton bin 4 MIP,0.09335,0.09435,0.00181,0.00192,-0.37898
+Q1 shares,proton bin 4 core,0.29579,0.29613,0.00351,0.00345,-0.06908
+Q1 shares,proton bin 4 halo,0.61085,0.60953,0.0032,0.00284,0.30852
+Q1 shares,proton bin 9 MIP,0.03565,0.03596,0.00087,0.00082,-0.2593
+Q1 shares,proton bin 9 core,0.38337,0.38249,0.00209,0.00227,0.28519
+Q1 shares,proton bin 9 halo,0.58098,0.58155,0.00217,0.00223,-0.18319
+Q1 shares,proton bin 19 MIP,0.01661,0.01631,0.00039,0.00038,0.55095
+Q1 shares,proton bin 19 core,0.42752,0.4275,0.00183,0.00189,0.0076
+Q1 shares,proton bin 19 halo,0.55586,0.5562,0.00178,0.0019,-0.13059
+Q2 f_core,electron 0.9-1.1 GeV/c,0.84795,0.85574,0.0056,0.00514,-1.02483
+Q2 truth,electron 0.9-1.1 truth_before_layer1,0.58861,0.63682,0.01957,0.01977,-1.73307
+Q2 truth,electron 0.9-1.1 truth_stops,0.41139,0.36318,0.01957,0.01977,1.73307
+Q2 f_core,electron 4.75-5.25 GeV/c,0.89667,0.89461,0.00078,0.00082,1.82023
+Q2 truth,electron 4.75-5.25 truth_before_layer1,0.68528,0.70691,0.0119,0.01179,-1.29111
+Q2 truth,electron 4.75-5.25 truth_stops,0.31472,0.29309,0.0119,0.01179,1.29111
+Q2 f_core,electron 19.5-20.0 GeV/c,0.89774,0.89924,0.00059,0.00055,-1.85966
+Q2 truth,electron 19.5-20.0 truth_before_layer1,0.78057,0.78533,0.01094,0.01065,-0.31174
+Q2 truth,electron 19.5-20.0 truth_stops,0.21943,0.214,0.01094,0.01064,0.35582
+Q2 f_core,muon 0.9-1.1 GeV/c,0.01991,0.02595,0.00425,0.00484,-0.93772
+Q2 truth,muon 0.9-1.1 truth_inelastic,0.5122,0.4896,0.02016,0.02,0.79601
+Q2 truth,muon 0.9-1.1 truth_stops,0.4878,0.5104,0.02016,0.02,-0.79601
+Q2 f_core,muon 4.75-5.25 GeV/c,0.14769,0.14336,0.00722,0.00772,0.40965
+Q2 truth,muon 4.75-5.25 truth_stops,0.13811,0.11906,0.00881,0.00862,1.54576
+Q2 f_core,muon 19.5-20.0 GeV/c,0.11214,0.10718,0.00939,0.01106,0.34187
+Q2 truth,muon 19.5-20.0 truth_stops,0.14906,0.13098,0.00921,0.0087,1.42726
+Q2 f_core,pion 0.9-1.1 GeV/c,0.19134,0.16802,0.01028,0.0113,1.52654
+Q2 truth,pion 0.9-1.1 truth_before_layer1,0.29155,0.28387,0.01735,0.01811,0.30623
+Q2 truth,pion 0.9-1.1 truth_inelastic,0.69242,0.70323,0.01762,0.01835,-0.42496
+Q2 f_core,pion 4.75-5.25 GeV/c,0.37164,0.36559,0.00454,0.00471,0.92482
+Q2 truth,pion 4.75-5.25 truth_before_layer1,0.22005,0.20933,0.01075,0.01066,0.70825
+Q2 truth,pion 4.75-5.25 truth_inelastic,0.77658,0.78861,0.01081,0.0107,-0.79122
+Q2 f_core,pion 19.5-20.0 GeV/c,0.49983,0.49672,0.00366,0.00358,0.60745
+Q2 truth,pion 19.5-20.0 truth_before_layer1,0.21754,0.22304,0.01084,0.01074,-0.36037
+Q2 truth,pion 19.5-20.0 truth_inelastic,0.77624,0.7743,0.01095,0.01079,0.1262
+Q2 f_core,proton 0.9-1.1 GeV/c,0.39649,0.38253,0.00992,0.00912,1.03598
+Q2 truth,proton 0.9-1.1 truth_before_layer1,0.24978,0.23243,0.01286,0.01268,0.96075
+Q2 truth,proton 0.9-1.1 truth_inelastic,0.35305,0.38919,0.0142,0.01463,-1.77243
+Q2 truth,proton 0.9-1.1 truth_stops,0.39718,0.37838,0.01454,0.01456,0.91385
+Q2 f_core,proton 4.75-5.25 GeV/c,0.31356,0.30533,0.00456,0.00456,1.2762
+Q2 truth,proton 4.75-5.25 truth_before_layer1,0.2558,0.24762,0.01157,0.01126,0.5068
+Q2 truth,proton 4.75-5.25 truth_inelastic,0.7428,0.75238,0.01159,0.01126,-0.59299
+Q2 f_core,proton 19.5-20.0 GeV/c,0.42611,0.42756,0.00271,0.0026,-0.3861
+Q2 truth,proton 19.5-20.0 truth_before_layer1,0.2515,0.2723,0.01119,0.01153,-1.29458
+Q2 truth,proton 19.5-20.0 truth_inelastic,0.74784,0.72502,0.0112,0.01156,1.41748
+Q2 AUC,pion vs proton bin 1,0.45142,0.4305,0.01937,0.01914,0.76824
+Q2 AUC,pion vs proton bin 4,0.4107,0.42225,0.01898,0.019,-0.43007
+Q2 AUC,pion vs proton bin 9,0.39257,0.37818,0.01894,0.01875,0.53994
+Q2 AUC,pion vs proton bin 19,0.3468,0.35422,0.01783,0.0183,-0.29041
+Q2 AUC,electron vs pion bin 1,0.98504,0.99229,0.00418,0.00293,-1.42028
+Q2 AUC,electron vs pion bin 4,0.99838,0.9994,0.00136,0.00082,-0.64228
+Q2 AUC,electron vs pion bin 9,0.99921,0.99506,0.00094,0.00238,1.62179
+Q2 AUC,electron vs pion bin 19,0.99589,0.99438,0.00209,0.0025,0.4634
+Q2 AUC,electron vs proton bin 1,0.97735,0.98634,0.00505,0.00397,-1.39951
+Q2 AUC,electron vs proton bin 4,0.99994,0.99991,0.00026,0.00031,0.07415
+Q2 AUC,electron vs proton bin 9,0.99997,1.0,0.00018,0.0,-0.16667
+Q2 AUC,electron vs proton bin 19,0.99992,0.99999,0.0003,0.00011,-0.21907
+Q3 P(L>=x),electron bin 1 L>=8,0.02722,0.02596,0.00297,0.00292,0.30252
+Q3 P(L>=x),electron bin 1 L>=10,0.01527,0.01618,0.00223,0.00232,-0.28279
+Q3 P(L>=x),electron bin 4 L>=8,0.00406,0.00342,0.00117,0.00108,0.40194
+Q3 P(L>=x),electron bin 4 L>=10,0.00135,0.00034,0.00068,0.00034,1.32849
+Q3 P(L>=x),electron bin 9 L>=8,0.00339,0.00069,0.00107,0.00049,2.29424
+Q3 P(L>=x),electron bin 9 L>=10,0.00136,0.00069,0.00068,0.00049,0.79938
+Q3 P(L>=x),electron bin 19 L>=8,0.001,0.00067,0.00058,0.00048,0.43833
+Q3 P(L>=x),electron bin 19 L>=10,0.001,0.00067,0.00058,0.00048,0.43833
+Q3 P(L>=x),muon bin 1 L>=8,0.99042,0.99033,0.0018,0.00179,0.03545
+Q3 P(L>=x),muon bin 1 L>=10,0.98768,0.98866,0.00204,0.00193,-0.34897
+Q3 P(L>=x),muon bin 4 L>=8,0.98539,0.98355,0.00219,0.00233,0.57542
+Q3 P(L>=x),muon bin 4 L>=10,0.98174,0.97717,0.00244,0.00274,1.24559
+Q3 P(L>=x),muon bin 9 L>=8,0.98956,0.9906,0.00187,0.00177,-0.40391
+Q3 P(L>=x),muon bin 9 L>=10,0.98653,0.98725,0.00212,0.00206,-0.24357
+Q3 P(L>=x),muon bin 19 L>=8,0.99631,0.99457,0.00111,0.00135,0.99557
+Q3 P(L>=x),muon bin 19 L>=10,0.99363,0.99254,0.00146,0.00158,0.50668
+Q3 P(L>=x),pion bin 1 L>=8,0.74782,0.73643,0.00795,0.00814,1.00104
+Q3 P(L>=x),pion bin 1 L>=10,0.69658,0.67224,0.00841,0.00867,2.0151
+Q3 P(L>=x),pion bin 4 L>=8,0.67193,0.67357,0.0086,0.00857,-0.13508
+Q3 P(L>=x),pion bin 4 L>=10,0.61921,0.61644,0.0089,0.00889,0.2202
+Q3 P(L>=x),pion bin 9 L>=8,0.65311,0.64349,0.00887,0.00884,0.76819
+Q3 P(L>=x),pion bin 9 L>=10,0.59437,0.59168,0.00915,0.00907,0.20879
+Q3 P(L>=x),pion bin 19 L>=8,0.65972,0.65577,0.00862,0.00872,0.32215
+Q3 P(L>=x),pion bin 19 L>=10,0.60841,0.60688,0.00888,0.00897,0.12122
+Q3 P(L>=x),proton bin 1 L>=8,0.76943,0.75958,0.00766,0.00784,0.89865
+Q3 P(L>=x),proton bin 1 L>=10,0.71121,0.69771,0.00824,0.00842,1.1459
+Q3 P(L>=x),proton bin 4 L>=8,0.68365,0.69307,0.00851,0.00854,-0.78134
+Q3 P(L>=x),proton bin 4 L>=10,0.62634,0.63752,0.00886,0.0089,-0.89025
+Q3 P(L>=x),proton bin 9 L>=8,0.61942,0.62651,0.00899,0.00885,-0.56202
+Q3 P(L>=x),proton bin 9 L>=10,0.55971,0.56693,0.0092,0.00906,-0.55916
+Q3 P(L>=x),proton bin 19 L>=8,0.62888,0.60222,0.00887,0.00897,2.11336
+Q3 P(L>=x),proton bin 19 L>=10,0.57085,0.55086,0.00909,0.00911,1.5533
+Q3 truth agreement,pion 1-2 within_1,0.40773,0.41398,0.00901,0.00912,-0.48758
+Q3 truth agreement,pion 1-2 early,0.0205,0.02742,0.0026,0.00302,-1.73605
+Q3 truth agreement,pion 1-2 no_start,0.50891,0.50206,0.00917,0.00926,0.52587
+Q3 truth agreement,pion 2-3 within_1,0.57472,0.59248,0.00903,0.00904,-1.38972
+Q3 truth agreement,pion 2-3 early,0.04736,0.04133,0.00388,0.00366,1.1301
+Q3 truth agreement,pion 2-3 no_start,0.26051,0.26084,0.00802,0.00808,-0.02899
+Q3 truth agreement,pion 3-5 within_1,0.71508,0.71984,0.00584,0.00585,-0.57559
+Q3 truth agreement,pion 3-5 early,0.05796,0.04604,0.00302,0.00273,2.92497
+Q3 truth agreement,pion 3-5 no_start,0.1072,0.10279,0.004,0.00396,0.78327
+Q3 truth agreement,pion 5-10 within_1,0.81916,0.82211,0.00316,0.00314,-0.66174
+Q3 truth agreement,pion 5-10 early,0.03586,0.03556,0.00153,0.00152,0.13913
+Q3 truth agreement,pion 5-10 no_start,0.02656,0.02549,0.00132,0.0013,0.5784
+Q3 truth agreement,pion 10-20 within_1,0.86738,0.86849,0.00197,0.00197,-0.39813
+Q3 truth agreement,pion 10-20 early,0.01916,0.01834,0.0008,0.00078,0.73413
+Q3 truth agreement,pion 10-20 no_start,0.01063,0.00975,0.0006,0.00057,1.06409
+Q3 truth agreement,proton 1-2 within_1,0.27591,0.29228,0.00854,0.00883,-1.33295
+Q3 truth agreement,proton 1-2 early,0.00766,0.00753,0.00167,0.00168,0.05499
+Q3 truth agreement,proton 1-2 no_start,0.65511,0.63766,0.00908,0.00933,1.34039
+Q3 truth agreement,proton 2-3 within_1,0.42572,0.43467,0.00901,0.00909,-0.69932
+Q3 truth agreement,proton 2-3 early,0.00465,0.0047,0.00124,0.00125,-0.02835
+Q3 truth agreement,proton 2-3 no_start,0.46394,0.45919,0.00909,0.00913,0.36859
+Q3 truth agreement,proton 3-5 within_1,0.59865,0.59023,0.00636,0.0064,0.93285
+Q3 truth agreement,proton 3-5 early,0.01246,0.01509,0.00144,0.00159,-1.22728
+Q3 truth agreement,proton 3-5 no_start,0.21768,0.22049,0.00535,0.0054,-0.36954
+Q3 truth agreement,proton 5-10 within_1,0.75761,0.76715,0.00354,0.00347,-1.92517
+Q3 truth agreement,proton 5-10 early,0.0128,0.01464,0.00093,0.00099,-1.35881
+Q3 truth agreement,proton 5-10 no_start,0.04175,0.04074,0.00165,0.00162,0.43622
+Q3 truth agreement,proton 10-20 within_1,0.8329,0.83521,0.00217,0.00216,-0.75396
+Q3 truth agreement,proton 10-20 early,0.00985,0.00948,0.00057,0.00056,0.45923
+Q3 truth agreement,proton 10-20 no_start,0.00721,0.007,0.00049,0.00049,0.3036
+Q3 AUC,electron_vs_pion bin 2 f_core,0.99966,0.99931,0.00062,0.00088,0.32514
+Q3 eff99,electron_vs_pion bin 2 f_core,0.9955,0.98423,0.00364,0.00587,1.63168
+Q3 AUC,electron_vs_pion bin 2 L_MIP,0.91001,0.91975,0.01018,0.00959,-0.69642
+Q3 eff99,electron_vs_pion bin 2 L_MIP,0.74099,0.72748,0.02265,0.02284,0.42
+Q3 AUC,electron_vs_pion bin 2 seg1,0.94428,0.95424,0.00801,0.00724,-0.92247
+Q3 eff99,electron_vs_pion bin 2 seg1,0.67793,0.70946,0.02689,0.02894,-0.79814
+Q3 AUC,electron_vs_pion bin 2 combined,0.99911,0.99891,0.001,0.00111,0.13387
+Q3 eff99,electron_vs_pion bin 2 combined,0.98423,0.97748,0.00613,0.00759,0.69186
+Q3 AUC,electron_vs_pion bin 4 f_core,0.99838,0.9994,0.00136,0.00082,-0.64228
+Q3 eff99,electron_vs_pion bin 4 f_core,0.9863,0.99335,0.00587,0.00429,-0.96966
+Q3 AUC,electron_vs_pion bin 4 L_MIP,0.8924,0.89153,0.01116,0.01115,0.05515
+Q3 eff99,electron_vs_pion bin 4 L_MIP,0.75114,0.71397,0.0198,0.02459,1.17736
+Q3 AUC,electron_vs_pion bin 4 seg1,0.96006,0.96438,0.0068,0.00635,-0.46432
+Q3 eff99,electron_vs_pion bin 4 seg1,0.69178,0.69845,0.02877,0.02899,-0.16331
+Q3 AUC,electron_vs_pion bin 4 combined,0.9992,0.99964,0.00096,0.00063,-0.38319
+Q3 eff99,electron_vs_pion bin 4 combined,0.9863,0.99113,0.00775,0.00443,-0.54107
+Q3 AUC,electron_vs_pion bin 9 f_core,0.99921,0.99506,0.00094,0.00238,1.62179
+Q3 eff99,electron_vs_pion bin 9 f_core,0.98876,0.97941,0.00492,0.00711,1.08139
+Q3 AUC,electron_vs_pion bin 9 L_MIP,0.89568,0.90522,0.01095,0.01052,-0.62827
+Q3 eff99,electron_vs_pion bin 9 L_MIP,0.76629,0.79405,0.02261,0.02322,-0.85654
+Q3 AUC,electron_vs_pion bin 9 seg1,0.96183,0.97366,0.00661,0.00553,-1.37268
+Q3 eff99,electron_vs_pion bin 9 seg1,0.70787,0.75973,0.02491,0.02085,-1.59646
+Q3 AUC,electron_vs_pion bin 9 combined,0.99941,0.99895,0.00082,0.0011,0.33528
+Q3 eff99,electron_vs_pion bin 9 combined,0.99101,0.98627,0.005,0.00559,0.63201
+Q3 AUC,electron_vs_pion bin 19 f_core,0.99589,0.99438,0.00209,0.0025,0.4634
+Q3 eff99,electron_vs_pion bin 19 f_core,0.97881,0.96681,0.00667,0.00784,1.16579
+Q3 AUC,electron_vs_pion bin 19 L_MIP,0.88412,0.8988,0.01117,0.01066,-0.95076
+Q3 eff99,electron_vs_pion bin 19 L_MIP,0.76483,0.77434,0.023,0.02138,-0.30284
+Q3 AUC,electron_vs_pion bin 19 seg1,0.96268,0.96593,0.00634,0.00618,-0.36708
+Q3 eff99,electron_vs_pion bin 19 seg1,0.75,0.75885,0.02313,0.02161,-0.27958
+Q3 AUC,electron_vs_pion bin 19 combined,0.99665,0.99681,0.00189,0.00188,-0.06002
+Q3 eff99,electron_vs_pion bin 19 combined,0.97881,0.9823,0.00922,0.0065,-0.30937
+Q3 AUC,electron_vs_proton bin 2 f_core,0.99732,0.99941,0.00171,0.00078,-1.112
+Q3 eff99,electron_vs_proton bin 2 f_core,0.97821,0.98354,0.00718,0.00664,-0.54501
+Q3 AUC,electron_vs_proton bin 2 L_MIP,0.94335,0.93251,0.00795,0.00845,0.93433
+Q3 eff99,electron_vs_proton bin 2 L_MIP,0.80174,0.74691,0.02147,0.02255,1.76097
+Q3 AUC,electron_vs_proton bin 2 seg1,0.98198,0.97969,0.00446,0.0046,0.35741
+Q3 eff99,electron_vs_proton bin 2 seg1,0.8061,0.74486,0.02395,0.03322,1.49536
+Q3 AUC,electron_vs_proton bin 2 combined,0.99772,0.99911,0.00158,0.00096,-0.75185
+Q3 eff99,electron_vs_proton bin 2 combined,0.97821,0.96914,0.00622,0.00965,0.79001
+Q3 AUC,electron_vs_proton bin 4 f_core,0.99994,0.99991,0.00026,0.00031,0.07415
+Q3 eff99,electron_vs_proton bin 4 f_core,0.9978,0.99776,0.00235,0.00244,0.01181
+Q3 AUC,electron_vs_proton bin 4 L_MIP,0.90101,0.89927,0.01054,0.0108,0.1153
+Q3 eff99,electron_vs_proton bin 4 L_MIP,0.76484,0.70852,0.01965,0.02466,1.78615
+Q3 AUC,electron_vs_proton bin 4 seg1,0.97178,0.97504,0.00561,0.00533,-0.42128
+Q3 eff99,electron_vs_proton bin 4 seg1,0.72088,0.73094,0.03203,0.03386,-0.21584
+Q3 AUC,electron_vs_proton bin 4 combined,0.99984,0.99991,0.00042,0.00031,-0.1341
+Q3 eff99,electron_vs_proton bin 4 combined,0.9978,0.99552,0.00236,0.00303,0.59365
+Q3 AUC,electron_vs_proton bin 9 f_core,0.99997,1.0,0.00018,0.0,-0.16667
+Q3 eff99,electron_vs_proton bin 9 f_core,1.0,1.0,0.0,0.0,
+Q3 AUC,electron_vs_proton bin 9 L_MIP,0.88136,0.87221,0.01182,0.01209,0.54116
+Q3 eff99,electron_vs_proton bin 9 L_MIP,0.71926,0.72135,0.02597,0.02176,-0.06169
+Q3 AUC,electron_vs_proton bin 9 seg1,0.97113,0.97882,0.00583,0.00491,-1.0089
+Q3 eff99,electron_vs_proton bin 9 seg1,0.67749,0.72584,0.03041,0.02217,-1.28476
+Q3 AUC,electron_vs_proton bin 9 combined,0.99996,0.99999,0.00021,8e-05,-0.1335
+Q3 eff99,electron_vs_proton bin 9 combined,1.0,1.0,0.0,0.0,
+Q3 AUC,electron_vs_proton bin 19 f_core,0.99992,0.99999,0.0003,0.00011,-0.21907
+Q3 eff99,electron_vs_proton bin 19 f_core,1.0,1.0,0.0,0.0,
+Q3 AUC,electron_vs_proton bin 19 L_MIP,0.86675,0.86699,0.01212,0.0123,-0.0139
+Q3 eff99,electron_vs_proton bin 19 L_MIP,0.73904,0.70909,0.02354,0.0245,0.8815
+Q3 AUC,electron_vs_proton bin 19 seg1,0.96494,0.96758,0.00624,0.0061,-0.30254
+Q3 eff99,electron_vs_proton bin 19 seg1,0.75658,0.71364,0.02992,0.03019,1.01024
+Q3 AUC,electron_vs_proton bin 19 combined,0.99942,0.99985,0.0008,0.00042,-0.4759
+Q3 eff99,electron_vs_proton bin 19 combined,1.0,1.0,0.0,0.0,
+Q3 AUC,pion_vs_proton bin 2 f_core,0.5928,0.57636,0.0188,0.01865,0.62081
+Q3 AUC,pion_vs_proton bin 2 L_MIP,0.53168,0.49584,0.01917,0.01896,1.32926
+Q3 AUC,pion_vs_proton bin 2 seg1,0.56836,0.52472,0.01899,0.01892,1.62797
+Q3 AUC,pion_vs_proton bin 2 combined,0.60215,0.60007,0.01871,0.01844,0.07918
+Q3 AUC,pion_vs_proton bin 4 f_core,0.5893,0.57775,0.01893,0.01901,0.43053
+Q3 AUC,pion_vs_proton bin 4 L_MIP,0.51895,0.50632,0.01931,0.01929,0.46273
+Q3 AUC,pion_vs_proton bin 4 seg1,0.52036,0.51026,0.01931,0.01928,0.37014
+Q3 AUC,pion_vs_proton bin 4 combined,0.59017,0.58615,0.01893,0.01894,0.15012
+Q3 AUC,pion_vs_proton bin 9 f_core,0.60743,0.62182,0.01899,0.01873,-0.5395
+Q3 AUC,pion_vs_proton bin 9 L_MIP,0.45854,0.45259,0.01943,0.01935,0.21698
+Q3 AUC,pion_vs_proton bin 9 seg1,0.4604,0.46354,0.01944,0.01939,-0.11436
+Q3 AUC,pion_vs_proton bin 9 combined,0.6182,0.63287,0.01887,0.01859,-0.55382
+Q3 AUC,pion_vs_proton bin 19 f_core,0.6532,0.64578,0.0179,0.01835,0.28945
+Q3 AUC,pion_vs_proton bin 19 L_MIP,0.46748,0.43887,0.01891,0.01916,1.06277
+Q3 AUC,pion_vs_proton bin 19 seg1,0.47201,0.44845,0.01892,0.01921,0.8738
+Q3 AUC,pion_vs_proton bin 19 combined,0.65616,0.65694,0.01785,0.01819,-0.03061
+Q3 lambda,pion 3-20 truth,24.38513,24.4482,0.13695,0.13761,-0.32489
+Q3 lambda,pion 3-20 strict,27.88869,27.67987,0.15844,0.15721,0.93561
+Q3 lambda,pion 3-20 narrow,26.61644,26.47886,0.15276,0.15191,0.63861
+Q3 lambda,pion 3-5 truth,22.69179,23.62852,0.37356,0.39305,-1.72751
+Q3 lambda,pion 3-5 strict,30.95657,31.61361,0.52881,0.54003,-0.86931
+Q3 lambda,pion 3-5 narrow,25.84787,26.73361,0.41772,0.43528,-1.46819
+Q3 lambda,pion 5-10 truth,23.85856,23.93584,0.2467,0.24856,-0.22066
+Q3 lambda,pion 5-10 strict,27.66052,27.36496,0.28832,0.2858,0.72805
+Q3 lambda,pion 5-10 narrow,26.83221,26.5824,0.27867,0.27654,0.63629
+Q3 lambda,pion 10-20 truth,24.98385,24.86115,0.18289,0.1819,0.47569
+Q3 lambda,pion 10-20 strict,27.43026,27.1043,0.20248,0.19978,1.14596
+Q3 lambda,pion 10-20 narrow,26.67104,26.36847,0.20302,0.20006,1.06156
+Q3 lambda,proton 3-20 truth,19.88823,19.98546,0.11455,0.11552,-0.59763
+Q3 lambda,proton 3-20 strict,25.73091,25.76367,0.14879,0.14966,-0.15523
+Q3 lambda,proton 3-20 narrow,22.38935,22.39003,0.1315,0.13215,-0.00364
+Q3 lambda,proton 3-5 truth,19.14952,19.00085,0.3248,0.32359,0.32427
+Q3 lambda,proton 3-5 strict,35.52165,35.55229,0.64016,0.64726,-0.03366
+Q3 lambda,proton 3-5 narrow,23.6144,23.8573,0.37093,0.37783,-0.45875
+Q3 lambda,proton 5-10 truth,19.48913,19.86258,0.20794,0.2119,-1.25787
+Q3 lambda,proton 5-10 strict,26.09018,26.07124,0.27691,0.27696,0.04837
+Q3 lambda,proton 5-10 narrow,22.40992,22.54181,0.23659,0.23888,-0.39229
+Q3 lambda,proton 10-20 truth,20.22783,20.23831,0.15126,0.15214,-0.04884
+Q3 lambda,proton 10-20 strict,23.87401,23.94715,0.17818,0.1797,-0.28901
+Q3 lambda,proton 10-20 narrow,22.06676,21.93466,0.17465,0.17442,0.53522
+Q3 lambda,muon false starts (lambda_fake),697.43321,713.73816,9.6633,10.02485,-1.171

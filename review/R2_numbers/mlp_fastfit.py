@@ -1,9 +1,11 @@
 """R2_numbers: is the 'MLP upper bound' under-trained? FieldModel(16,3) (881 params, the report's MLP) trained with fit_fast
 (the optimiser used for the formulas) under the slab likelihood. usage: mlp_fastfit.py <steps> <lr> <lr_end> [init] [slab|std]
 init = 'report' starts from the report's MLP weights; default = fresh init (torch.manual_seed(0))."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import json, os, sys, time
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/review/R2_numbers")
-sys.path.insert(0, "/home/user/tamas/shape-form-proton")
+sys.path.insert(0, os.path.join(ROOT, "review/R2_numbers"))
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import numpy as np, torch
 import shapelab, protonlab
 import r2lib

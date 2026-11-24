@@ -6,8 +6,8 @@
   ms     – a nyom szélessége a többszörös szórás miatt a mélységgel nő (Highland): σ² = σ0² + (c (z'/1 m)^k / βp)²   [csak nyommal]
 Választás: a legkevesebb paraméteres a legjobbtól 1 SE-n belül (a kiindulással együtt). Kimenet: results/particles/<p>/variants_v3.json"""
 import json, os, sys, time
-ROOT = "/home/user/tamas/shape-form-proton"
-sys.path.insert(0, ROOT)
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))   # repository root
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import torch
 import shapelab
 from particle_shape import MASS, ParticleShape

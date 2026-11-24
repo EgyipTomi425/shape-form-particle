@@ -1,8 +1,8 @@
 """Elektron: a GFlash EM laterális profilja (két Cauchy-tag, Grindhammer–Peters) a mi szerkezetünkben, a választott változattal
 (plató-zápor + csúcs) és gamma-zápor + csúcs mellett, report-mérce × Ā, n = 2, validáció."""
 import json, os, sys, time
-ROOT = "/home/user/tamas/shape-form-proton"
-sys.path.insert(0, ROOT)
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))   # repository root
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import torch
 import shapelab
 from particle_shape import MASS, ParticleShape

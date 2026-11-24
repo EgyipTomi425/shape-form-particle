@@ -1,9 +1,9 @@
 #!/bin/bash
 # végleges kör: a 3. körös kiegészítésekkel (variants_v3.json) a teljes pipeline, majd alakok, ellenőrzés, táblák, paraméterek
-cd /home/user/tamas/shape-form-proton
+cd "$(dirname "$0")/.."
 mkdir -p logs
 export MPLBACKEND=Agg
-PY=/home/user/.venv/bin/python
+PY=${PYTHON:-python3}
 for p in electron muon proton pion; do
   ( ROUND=3 $PY scripts/particle_pipeline.py $p > logs/pipeline_v3_$p.log 2>&1
     $PY scripts/particle_shapes.py $p > logs/shapes_v3_$p.log 2>&1 ) &

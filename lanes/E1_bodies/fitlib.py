@@ -1,8 +1,9 @@
 """fitlib - per-bin fitting of bodies of revolution with the report's criterion (exact K = 8 points, fast sort).
 Used by s02_fit.py.  Results: results/fits/<crit>/<family>/bin<bb>.json"""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import json
 import math
-import os
 import sys
 import time
 
@@ -10,8 +11,8 @@ import numpy as np
 import torch
 from scipy.optimize import minimize
 
-sys.path.insert(0, "/home/user/tamas/shape-form-proton")
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/lanes/E1_bodies")
+sys.path.insert(0, os.path.join(ROOT, "src"))
+sys.path.insert(0, os.path.join(ROOT, "lanes/E1_bodies"))
 import bodylab as bl  # noqa: E402
 import envlab  # noqa: E402
 import fam  # noqa: E402

@@ -3,6 +3,8 @@
 Read-only on the data; writes one parquet file into the review directory.  Used by r01_raw_frame.py to check the frame
 definition (origin, rotation, z_trans) on the raw columns, independently of the cached tensors."""
 import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
+DATA_ROOT = os.environ.get("LFHCAL_DATA", "/home/user/data/simulations")   # simulation CSVs
 import sys
 import time
 
@@ -13,9 +15,9 @@ import pyarrow.csv as pacsv
 import pyarrow.parquet as pq
 import torch
 
-OUT = "/home/user/tamas/shape-form-proton/review/R1_likelihood"
-SRC = "/home/user/data/simulations/regression-proton/proton_standalone_N100000_M0_20GeV_reg_balanced_s1_v3.csv"
-G = torch.load("/home/user/tamas/shape-form-proton/cache/proton_geometry.pt", weights_only=False)
+OUT = os.path.join(ROOT, "review/R1_likelihood")
+SRC = os.path.join(DATA_ROOT, "regression-proton/proton_standalone_N100000_M0_20GeV_reg_balanced_s1_v3.csv")
+G = torch.load(os.path.join(ROOT, "cache/proton_geometry.pt"), weights_only=False)
 want = np.concatenate([G["sets"]["test"]["event_number"].numpy()])
 print("events wanted:", len(want), flush=True)
 cols = ["event_number", "x", "y", "z", "x_local", "y_local", "z_local", "x_trans", "y_trans", "z_trans", "energy",

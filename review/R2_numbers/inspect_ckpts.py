@@ -1,6 +1,8 @@
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import sys, torch, numpy as np
-F = "/home/user/tamas/shape-form-proton/results/final/proton"
-S = "/home/user/tamas/shape-form-proton/review/R2_numbers/snapshot"
+F = os.path.join(ROOT, "results/final/proton")
+S = os.path.join(ROOT, "review/R2_numbers/snapshot")
 def ld(p): return torch.load(p, map_location="cpu", weights_only=False)
 for tag in ("slab", "stdacc"):
     ch = ld(f"{F}/{tag}_gce_chosen.pt")

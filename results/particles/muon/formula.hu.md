@@ -6,16 +6,16 @@ Tömeg m = 0.105658 GeV; változat `full_att+all+all4`; a paraméterek az x = (l
 
 ## Röviden
 
-- **Mi ez:** Minimálisan ionizáló nyom: az energia nagy része a nyomban van (a primer saját ionizációja és a közeli delta-elektronok). A nyom a mélységgel a többszörös szórás szerint szélesedik; a Highland-képlet az LFHCal rétegeire a 40 mm-es acél előlappal ≈ 62–63 mm-t és 1,35–1,41-es kitevőt ad. A végén Bragg-felfutás (Bragg–Kleeman: q ≈ 0,43); a hatótáv közel lineáris T-ben.
+- **Mi ez:** Minimálisan ionizáló áthaladás: az energia nagy része a tengelytagban van (a primer saját ionizációja és a közeli delta-elektronok). A tengelytag a mélységgel a többszörös szórás szerint szélesedik; a Highland-képlet az LFHCal rétegeire a 40 mm-es acél előlappal ≈ 62–63 mm-t és 1,35–1,41-es kitevőt ad. A végén Bragg-felfutás (Bragg–Kleeman: q ≈ 0,43); a hatótáv közel lineáris T-ben.
 - **Pontosság (teszt-NLL, report-mérce, kisebb = jobb):** új formula 16,0120, az ugyanígy illesztett baseline × Ā 16,0846, a finomhangolt háló 16,0034. A baseline és a háló közti rés 89 %-át zárja be (3D-mérce: 83 %; független s2 minta: 90 % / 84 %).
 - **A detektorba eső energia megoszlása, 1 GeV → 20 GeV** (3D-mérce): zápor 2 % → 1 %; nyom 91 % → 93 %; csúcs 6 % → 6 %; folt 0,24 % → < 0,01 %; távoli udvar 0,085 % → 0,094 %.
-- **Nyom:** hatótáv R ≈ 864 mm 1 GeV-en (kitevő k_R ≈ 1,02); csillapítási hossz λ_att ≈ 1211 mm; szélesedés c ≈ 74 mm, k ≈ 1,41; Bragg-kitevő q ≈ 0,42.
-- **Keresztmetszet z' = 100 mm-en, 1 → 20 GeV:** Gauss-mag σ ≈ 11 → 16 mm, Cauchy-test R ≈ 10 → 295 mm, udvar λ ≈ 52 mm; arányok (mag / test / udvar) 0,93 / 0,04 / 0,03 → 0,16 / 0,00 / 0,84.
+- **Tengelytag:** hatótáv R ≈ 864 mm 1 GeV-en (kitevő k_R ≈ 1,02); csillapítási hossz λ_att ≈ 1211 mm; szélesedés c ≈ 74 mm, k ≈ 1,41; Bragg-kitevő q ≈ 0,42.
+- **Keresztmetszet z' = 100 mm-en, 1 → 20 GeV:** Gauss-féle keskeny komponens σ ≈ 11 → 16 mm, Cauchy-test R ≈ 10 → 295 mm, udvar λ ≈ 52 mm; arányok (mag / test / udvar) 0,93 / 0,04 / 0,03 → 0,16 / 0,00 / 0,84.
 - **98 %-os burkok** (a legkisebb test, amelyben a záporok 98 %-ában az energia ≥ 95 %-a bent van; 20 bin átlaga): szuper-tojás 37,7 L (35,8 L a detektorban, lefedés 0,98); csepp 46,5 L (43,5 L a detektorban, lefedés 0,98); kapszula 38,7 L (36,8 L a detektorban, lefedés 0,98); kalibrált izoszint 48,9 L (44,9 L a detektorban, lefedés 0,98).
 - **Átlagos profilok** (független s2 minta, szeparációs erő × 10⁻³, mélység / sugár, kisebb = jobb): új formula 4,19 / 1,88, háló 0,31 / 2,09, régi képlet 5,28 / 15,92; statisztikai padló 0,07 / 0,08.
 - **A belépés előtti tartomány (z' < 0) energiája a beesési szöggel** (θ ≈ 0,25 → 0,57 rad, p ≥ 2 GeV): adat 1,0 → 4,2 %, új formula 2,1 → 2,3 %, háló 2,1 → 2,4 %.
 - **Szimulációs igazság** (s2, 0–20 GeV négy impulzus-tartományában): a beeső részecske saját lerakódása 79–91 %, a neutronok leányaié 0–1 %; a 100 ns után érkező (a fitből kihagyott) energia 0,0–1,7 %. Az r ≥ 300 mm-es tartomány az energia 0,05–0,09 %-a (a modellben 0,06–0,07 %), ennek 2–20 %-a neutronból, 11–36 %-a elektromágneses és 72–96 %-a azonnali (< 5 ns); a modellben ennek 89–91 %-át viszi a távoli udvar tag.
-- **Szögfüggő kiegészítés – nem modellpredikció.** A beesési szöget eseményenként bemenetként megadjuk, és 7 belépési paraméter (csúcs, zápor- és nyomkezdet) a szöggel lineárisan változhat: P + β·(1/cosθ − 1,1). A β-kat az adatra illesztettük (empirikus korrekció, a formula fizikája nem jósolja); a többi szám ezen a kártyán szög nélküli. 3D teszt-NLL: 16,0144 → 15,9690 (s2: -0,0454 ± 0,0005 nat/esemény). A belépés előtti energia (θ ≈ 0,25 → 0,57 rad): adat 1,0 → 4,2 %, végleges formula 2,1 → 2,3 %, szögfüggő 1,0 → 2,5 %. Müonnál az illesztés átrendezi a tagokat, ott a tagok fizikailag nem értelmezhetők.
+- **Szögfüggő kiegészítés – nem modellpredikció.** A beesési szöget eseményenként bemenetként megadjuk, és 7 belépési paraméter (csúcs, zápor- és tengelytag-kezdet) a szöggel lineárisan változhat: P + β·(1/cosθ − 1,1). A β-kat az adatra illesztettük (empirikus korrekció, a formula fizikája nem jósolja); a többi szám ezen a kártyán szög nélküli. 3D teszt-NLL: 16,0144 → 15,9690 (s2: -0,0454 ± 0,0005 nat/esemény). A belépés előtti energia (θ ≈ 0,25 → 0,57 rad): adat 1,0 → 4,2 %, végleges formula 2,1 → 2,3 %, szögfüggő 1,0 → 2,5 %. Müonnál az illesztés átrendezi a tagokat, ott a tagok fizikailag nem értelmezhetők.
 - **Záporonkénti ingadozás** (PCA az eseményenkénti profilokon): az első 3 főkomponens a variancia 73–78 %-a. Az eseményenkénti mennyiségek szeparációs ereje (× 10⁻³, a két félminta padlója 3–15): bármely átlag-modell 923 (binelési állandó), 3 főkomponens Gauss-együtthatókkal 137–196, 10 főkomponens a tanító együtthatóiból 52–76.
 
 ## A képlet
@@ -23,19 +23,19 @@ Tömeg m = 0.105658 GeV; változat `full_att+all+all4`; a paraméterek az x = (l
 ρ(z', r | p) = w_zápor·S + w_nyom·U + w_csúcs·D + w_folt·E + w_távoli·H — minden tag külön a (z', r) rácsra normálva (σ(·) = logisztikus függvény; ami ennél a részecskénél nincs bekapcsolva, az kimarad):
 
 - **Zápor** S = L(z')·T(r | z'). Plató-mélységprofil: L ∝ σ((z' − z_s)/w1)·σ((ℓ − z')/w2)·e^(κ z'/1 m); gamma: L ∝ s^(α−1)·e^(−(α−1) s/t_max), s ≈ z' − z0. Keresztmetszet: T = f1·e^(−r²/2σ²)/(2πσ²) + f2·R²/(π(r² + R²)²) + f3·e^(−r/λ)/(2πλ(r + 1 mm)); ln σ, ln R, ln λ és a keverési logitok lineárisak a mélységben (σ-nál és a logitoknál négyzetes taggal is, ha „görbület” be van kapcsolva); minden mélységben az r < 700 mm korongra normálva.
-- **Nyom** U ∝ σ((z' − z_t0)/4 mm)·σ((R(T) − z')/w_R)·e^(−κ_t z'/R)·e^(−z'/λ_att)·(1 − z'/R + 0,03)^(−q) × [(1 − f)·Gauss(r; σ(z')) + f·e^(−r/l)/(2πl(r + 1 mm))], ahol R(T) = R1·T^(k_R) − R0 (hatótáv), w_R = w·R + 3 mm, σ(z')² = σ0² + (c·(z'/1 m)^k / βp)² (többszörös szórás), βp = (T² + 2Tm)/(T + m).
+- **Tengelytag** U ∝ σ((z' − z_t0)/4 mm)·σ((R(T) − z')/w_R)·e^(−κ_t z'/R)·e^(−z'/λ_att)·(1 − z'/R + 0,03)^(−q) × [(1 − f)·Gauss(r; σ(z')) + f·e^(−r/l)/(2πl(r + 1 mm))], ahol R(T) = R1·T^(k_R) − R0 (hatótáv), w_R = w·R + 3 mm, σ(z')² = σ0² + (c·(z'/1 m)^k / βp)² (többszörös szórás), βp = (T² + 2Tm)/(T + m).
 - **Csúcs** a belépésnél: D ∝ e^(−(z' − z_sp)²/2σ_z²)·e^(−r²/2σ_r²); **folt** a hatótáv végén: E ∝ e^(−(z' − R(T))²/2σ_ez²)·e^(−r²/2σ_er²); **távoli udvar**: H ∝ σ(z'/10 mm)·e^(−z'/L)·e^(−r/R)/(r + 10 mm).
-- **Súlyok**: w_távoli = σ(a_far), w_folt = σ(a_end)·(1 − w_távoli); a zápor, a nyom és a csúcs a maradékon osztozik (a csúcs a nyomhoz kötve: f1 = d1/(d1 + L_t), L_t a nyom hossza).
+- **Súlyok**: w_távoli = σ(a_far), w_folt = σ(a_end)·(1 − w_távoli); a zápor, a tengelytag és a csúcs a maradékon osztozik (a csúcs a tengelytaghoz kötve: f1 = d1/(d1 + L_t), L_t a tengelytag hossza).
 - Minden nyers paraméter P(x) = Σ c_k x^k, x = (ln(T/GeV) − v0)/vs, T = √(p² + m²) − m; „log_” = a mennyiség logaritmusa, „logit_” = arány logitja.
 
-Tagok: zápor (gamma-mélységprofil × [Gauss-mag + Cauchy-test + e^(−r/λ)/r udvar]) + nyom (hatótáv, csillapítás) + csúcs a belépésnél + távoli udvar + folt a hatótáv végén + többszörös szórás (a nyom szélesedése) + delta-elektron-udvar a nyom körül + Bragg-felfutás + négyzetes mélységtagok a keresztmetszetben.
+Tagok: zápor (gamma-mélységprofil × [Gauss-féle keskeny komponens + Cauchy-test + e^(−r/λ)/r udvar]) + tengelytag (hatótáv, csillapítás) + csúcs a belépésnél + távoli udvar + folt a hatótáv végén + többszörös szórás (a tengelytag szélesedése) + delta-elektron-udvar a tengelytag körül + Bragg-felfutás + négyzetes mélységtagok a keresztmetszetben.
 
 ## Hogyan olvasd a táblázatokat
 
 - Oszlopok: az impulzus p [GeV]; minden sor egy illesztett mennyiség értéke ennél az impulzusnál.
 - **w …**: a komponens súlya a vágatlan forgástestben. **a detektorban: …**: a komponens aránya a detektorba (a ferde belépési sík mögé) eső energiában – ez a fizikailag értelmezhető energiaarány.
 - **z_s, w1, ℓ, w2, κ** (plató) ill. **z0, t_max, α−1** (gamma): a zápor mélységprofilja. **σ mag, R Cauchy, λ udvar** és **f mag / test / udvar**: a keresztmetszet három tagjának szélessége és aránya az adott mélységben.
-- **R(T)**: a nyom hossza (hatótáv); **σ0**: a nyom szélessége a belépésnél; **c_ms, k_ms**: a többszörös szórás miatti szélesedés; **λ_att**: csillapítási hossz; **f, l delta-udvar**: a nyom körüli udvar aránya és hossza; **q Bragg**: a Bragg-felfutás kitevője; **csúcs …, folt …**: a két Gauss-folt helye és szélessége; **távoli udvar L, R**: mélységi és sugárirányú hossz (R → ∞: sugárirányban nincs levágás).
+- **R(T)**: a tengelytag hossza (hatótáv); **σ0**: a tengelytag szélessége a belépésnél; **c_ms, k_ms**: a többszörös szórás miatti szélesedés; **λ_att**: csillapítási hossz; **f, l delta-udvar**: a tengelytag körüli udvar aránya és hossza; **q Bragg**: a Bragg-felfutás kitevője; **csúcs …, folt …**: a két Gauss-folt helye és szélessége; **távoli udvar L, R**: mélységi és sugárirányú hossz (R → ∞: sugárirányban nincs levágás).
 - Két illesztés van: a **3D-mérce** (eseményenként a detektor-szeletre normálva; ez írja le a forgástestet) és a **report-mérce** (× Ā; ebből számolódik az r95- és az izoszint-alak). A kettő értékei kissé eltérnek.
 
 ## 3D-mérce (eseményenként a detektor-szeletre normálva) – ez a forgástest
@@ -67,7 +67,7 @@ Fokszám n = 6, 129 paraméter; v0 = -0.6642, vs = 3.6546. A „w” sorok a vá
 | λ udvar, z'=600 [mm] | 61.5 | 60.5 | 58.4 | 54.3 | 50.5 | 46.2 |
 | f mag / test / udvar, z'=600 | 0.97 / 0.01 / 0.02 | 0.96 / 0.01 / 0.03 | 0.94 / 0.00 / 0.06 | 0.83 / 0.00 / 0.17 | 0.54 / 0.00 / 0.46 | 0.12 / 0.00 / 0.88 |
 | R(T) hatótáv [mm] | 335 | 864 | 1951 | 5287 | 1.1e+04 | 2.25e+04 |
-| σ0 nyom [mm] | 15 | 15 | 15 | 15 | 15 | 15 |
+| σ0 tengelytag [mm] | 15 | 15 | 15 | 15 | 15 | 15 |
 | λ_att [mm] | 1211 | 1211 | 1211 | 1211 | 1211 | 1211 |
 | c_ms [mm] | 74.4 | 74.4 | 74.4 | 74.4 | 74.4 | 74.4 |
 | k_ms | 1.41 | 1.41 | 1.41 | 1.41 | 1.41 | 1.41 |
@@ -113,7 +113,7 @@ Fokszám n = 6, 129 paraméter; v0 = -0.6642, vs = 3.6546. A „w” sorok a vá
 | λ udvar, z'=600 [mm] | 59.9 | 58.4 | 56.2 | 52.4 | 49 | 45.2 |
 | f mag / test / udvar, z'=600 | 0.94 / 0.00 / 0.06 | 0.93 / 0.00 / 0.06 | 0.92 / 0.00 / 0.08 | 0.86 / 0.00 / 0.14 | 0.71 / 0.00 / 0.29 | 0.35 / 0.00 / 0.65 |
 | R(T) hatótáv [mm] | 329 | 852 | 1930 | 5253 | 1.09e+04 | 2.25e+04 |
-| σ0 nyom [mm] | 14.9 | 14.9 | 14.9 | 14.9 | 14.9 | 14.9 |
+| σ0 tengelytag [mm] | 14.9 | 14.9 | 14.9 | 14.9 | 14.9 | 14.9 |
 | λ_att [mm] | 1353 | 1353 | 1353 | 1353 | 1353 | 1353 |
 | c_ms [mm] | 75.2 | 75.2 | 75.2 | 75.2 | 75.2 | 75.2 |
 | k_ms | 1.42 | 1.42 | 1.42 | 1.42 | 1.42 | 1.42 |

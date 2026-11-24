@@ -1,5 +1,7 @@
 """Per-bin fits of the body families (exact K = 8 points).  usage: s02_fit.py --bins 0,4,8 --fam drop,gendrop [--fe 0.95 --fev 0.98]
 Knot families (name starts with "knots") are started from the best already fitted closed-form bodies of the bin."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import argparse
 import math
 import sys
@@ -8,7 +10,7 @@ import time
 import numpy as np
 import torch
 
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/lanes/E1_bodies")
+sys.path.insert(0, os.path.join(ROOT, "lanes/E1_bodies"))
 import bodylab as bl
 import fitlib as fl
 import fam

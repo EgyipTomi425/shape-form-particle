@@ -1,8 +1,8 @@
 """Kontroll a szimbolikus korrekcióhoz: ugyanaz a finomhangolás (3000 lépés, lr 3e-3 -> 3e-4) korrekciós tag NÉLKÜL.
 Ha ez ugyanannyit javít, a korrekció nyeresége csak a hosszabb tanításból jön.  Kimenet: results/particles/<p>/sr_control.json"""
 import json, os, sys
-ROOT = "/home/user/tamas/shape-form-proton"
-sys.path.insert(0, ROOT)
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))   # repository root
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import torch
 import shapelab
 from particle_shape import MASS, ParticleShape

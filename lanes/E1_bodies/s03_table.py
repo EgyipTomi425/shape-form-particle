@@ -1,9 +1,11 @@
 """Aggregate the per-bin fits: per family mean V (analytic, whole body), V inside the data domain, coverage, calibrated volumes.
 usage: s03_table.py [crit_tag]   -> prints the table, writes results/table_<tag>.csv (per family) and results/perbin_<tag>.csv"""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import csv, glob, json, os, sys
 import numpy as np
 import torch
-LANE = "/home/user/tamas/shape-form-proton/lanes/E1_bodies"
+LANE = os.path.join(ROOT, "lanes/E1_bodies")
 tag = sys.argv[1] if len(sys.argv) > 1 else "E95_EV98"
 root = os.path.join(LANE, "results", "fits", tag)
 rows, per = [], []
@@ -43,7 +45,7 @@ for name, rr in (("table", rows), ("perbin", per)):
             w = csv.DictWriter(fh, fieldnames=list(rr[0].keys()))
             w.writeheader(); w.writerows(rr)
 if tag == "E95_EV98":
-    ENV = torch.load("/home/user/sofiya/shape-form/results/proton/envelope.pt", weights_only=False)
-    DROP = torch.load("/home/user/sofiya/shape-form/results/proton/drop.pt", weights_only=False)
+    ENV = torch.load(os.path.join(ROOT, "report_notebooks/results/proton/envelope.pt"), weights_only=False)
+    DROP = torch.load(os.path.join(ROOT, "report_notebooks/results/proton/drop.pt"), weights_only=False)
     print("report saved: envelope mean V", np.mean([ENV[b]["V_L"] for b in range(20)]), " drop mean V", np.mean([DROP[b]["V_L"] for b in range(20)]))
     print("keys env", list(ENV[0].keys()), "drop", list(DROP[0].keys()))

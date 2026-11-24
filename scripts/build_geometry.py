@@ -2,8 +2,10 @@
 
 A gyorsítótár (proton_sets.pt) nem tárolja a globális koordinátákat; itt a `load_data` felosztását pontosan megismételjük
 (ugyanazok a vágások, SEED = 1), és ellenőrizzük, hogy az impulzusok egyeznek a gyorsítótáréval."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))   # repository root
 import os, sys, time
-sys.path.insert(0, "/home/user/tamas/shape-form-proton")
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import numpy as np, pandas as pd, torch
 import protonlab
 

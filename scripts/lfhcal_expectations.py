@@ -7,13 +7,14 @@ több mélységtartományban), az elektron zápormaximumát (PDG: t_max = ln(E/E
 A CSDA-hatótávokat (proton, müon) nem számolja: azok a NIST PSTAR / PDG-táblákból homogenizálva készültek (független ellenőrzés,
 2026-11-17), és itt dokumentált bemenetként szerepelnek.
     python lfhcal_expectations.py          kimenet: results/particles/lfhcal_expectations.json"""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))   # repository root
 import json
 import math
-import os
 
 import numpy as np
 
-OUT = "/home/user/tamas/shape-form-proton/results/particles/lfhcal_expectations.json"
+OUT = os.path.join(ROOT, "results/particles/lfhcal_expectations.json")
 # PDG 2025: X0, lambda_I, lambda_pi, R_M [g/cm2], Ec (e-) [MeV], minimum dE/dx [MeV cm2/g]
 PDG = {"Fe": (13.84, 132.1, 160.7, 13.53, 21.68, 1.451), "C": (42.70, 85.8, 117.8, 11.08, 81.74, 1.742),
        "PVT": (43.90, 81.3, 113.6, 9.89, 94.11, 1.956), "Kapton": (40.58, 85.5, 117.5, 10.62, 81.01, 1.820),

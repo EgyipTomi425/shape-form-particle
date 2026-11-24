@@ -1,7 +1,9 @@
 """Unit test of fam.py: analytic log_i2 against numerical integration of the radius; print the report's saved per-bin fits."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import math, sys
 import numpy as np, torch
-sys.path.insert(0, "/home/user/tamas/shape-form-proton"); sys.path.insert(0, "/home/user/tamas/shape-form-proton/lanes/E1_bodies")
+sys.path.insert(0, os.path.join(ROOT, "src")); sys.path.insert(0, os.path.join(ROOT, "lanes/E1_bodies"))
 import fam
 rng = np.random.default_rng(0)
 z = np.linspace(-400, 12000, 2_000_001)
@@ -21,8 +23,8 @@ for name, (body, desc) in fam.registry().items():
     bad += worst >= 2e-3
     print(f"{name:18s} npar/bin {len(body.names) + 1}  max rel. diff analytic vs numeric {worst:.2e}{flag}")
 print("bad:", bad)
-ENV = torch.load("/home/user/sofiya/shape-form/results/proton/envelope.pt", weights_only=False)
-DROP = torch.load("/home/user/sofiya/shape-form/results/proton/drop.pt", weights_only=False)
+ENV = torch.load(os.path.join(ROOT, "report_notebooks/results/proton/envelope.pt"), weights_only=False)
+DROP = torch.load(os.path.join(ROOT, "report_notebooks/results/proton/drop.pt"), weights_only=False)
 print(type(ENV), list(ENV.keys())[:5] if isinstance(ENV, dict) else "")
 print("ENV[0]:", ENV[0]); print("DROP[0]:", DROP[0])
 print("bin |  env: a  z_env  z0  A  V | drop: L z0 A V")

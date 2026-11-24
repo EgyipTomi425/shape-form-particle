@@ -1,10 +1,12 @@
 """R1 audit, step 8: contribution of events whose origin layer has no hit after the cuts (origin set by late hits) and of
 events whose first hit layer is not layer 0, to the per-model NLL and to paired differences (test set, terms from r04)."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import json, os, sys
-sys.path.insert(0, "/home/user/tamas/shape-form-proton")
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import numpy as np, torch
 import shapelab
-OUT = "/home/user/tamas/shape-form-proton/review/R1_likelihood"
+OUT = os.path.join(ROOT, "review/R1_likelihood")
 C, geo, data = shapelab.setup(batch=256, out_dir=OUT + "/scratch", slab=False)
 te = data["test"]
 ev = torch.repeat_interleave(torch.arange(len(te), device=te.off.device), te.off[1:] - te.off[:-1])

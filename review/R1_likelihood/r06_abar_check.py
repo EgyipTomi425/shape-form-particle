@@ -7,22 +7,23 @@ only, is it really fixed (not trained), and how much do the reported gains depen
  3. paired test/val differences in the report's metric: GFlash n=6 x Abar (fit_fast) vs plain GFlash n=6 refitted with the same
     fit_fast ladder (lane G2) and vs the report's own fit; and the same differences under a properly normalised likelihood
     (union of detector cells, lane G1 acceptance, see r04)."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import json
 import math
-import os
 import sys
 
-sys.path.insert(0, "/home/user/tamas/shape-form-proton")
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/review/R1_likelihood")
+sys.path.insert(0, os.path.join(ROOT, "src"))
+sys.path.insert(0, os.path.join(ROOT, "review/R1_likelihood"))
 import numpy as np
 import torch
 
 import shapelab
 import rmodels
 
-OUT = "/home/user/tamas/shape-form-proton/review/R1_likelihood"
-G2 = "/home/user/tamas/shape-form-proton/lanes/G2_reference/results_std/proton"
-FINAL = "/home/user/tamas/shape-form-proton/results/final/proton"
+OUT = os.path.join(ROOT, "review/R1_likelihood")
+G2 = os.path.join(ROOT, "lanes/G2_reference/results_std/proton")
+FINAL = os.path.join(ROOT, "results/final/proton")
 C, geo, data = shapelab.setup(batch=256, out_dir=OUT + "/scratch", slab=False)
 dev = C["DEVICE"]
 res = {}
@@ -84,7 +85,7 @@ res["3) report metric: GFlash n=6 x Abar vs plain refit with the same optimiser"
 print(json.dumps(ev, indent=1), flush=True)
 
 # the same under a properly normalised likelihood (G1 'cells' acceptance), test set
-acc = torch.load("/home/user/tamas/shape-form-proton/lanes/G1_geometry/cache/acc_cells_test.pt", weights_only=False)
+acc = torch.load(os.path.join(ROOT, "lanes/G1_geometry/cache/acc_cells_test.pt"), weights_only=False)
 te = data["test"]
 
 

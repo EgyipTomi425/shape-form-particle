@@ -4,7 +4,7 @@ import os
 
 import numpy as np
 
-ROOT = "/home/user/tamas/shape-form-proton/results/particles"
+ROOT = os.path.join(ROOT, "results/particles")
 HU = {"electron": "elektron", "pion": "pion", "proton": "proton", "muon": "müon"}
 BASE = {"electron": "GFlash", "pion": "GFlash", "proton": "GFlash", "muon": "henger"}
 VAR = {"full": "zápor + nyom + csúcs", "full_att": "zápor + nyom (csillapítással) + csúcs", "notrack": "zápor + csúcs",

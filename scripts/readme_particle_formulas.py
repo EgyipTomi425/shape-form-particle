@@ -10,7 +10,7 @@ import math
 import os
 import re
 
-ROOT = "/home/user/tamas/shape-form-proton"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))   # repository root
 NPAR = {"electron": "n = 3, 64", "muon": "n = 6, 129", "proton": "n = 6, 143", "pion": "n = 3, 101"}
 MASS = {"electron": 0.511, "muon": 105.7, "proton": 938.3, "pion": 139.6}          # MeV
 P_COLS = [1.0, 5.0, 20.0]
@@ -32,7 +32,7 @@ T = {
         plateau="- Shower depth profile, plateau: `L(z') ∝ σ((z' − z_s)/w1)·σ((ℓ − z')/w2)·e^(κ·z'/1 m)` (values below).",
         lateral="- Shower cross-section: `T(r│z') = f_core·Gauss(r; σ) + f_body·Cauchy(r; R) + f_halo·e^(−r/λ)/(2πλ(r + 1 mm))`; "
                 "σ, R, λ and the fractions vary with depth (below at z' = 100 mm).",
-        track="- Track: range `R(T) = {R1} mm · (T/GeV)^{kR} − {R0} mm` (smoothly floored at ~1 mm); start `σ((z' − {zt0} mm)/4 mm)`, "
+        track="- Axial term: range `R(T) = {R1} mm · (T/GeV)^{kR} − {R0} mm` (smoothly floored at ~1 mm); start `σ((z' − {zt0} mm)/4 mm)`, "
               "end `σ((R − z')/w_R)` with w_R = {w}·R + 3 mm; attenuation `e^(−z'/{lat} mm)·e^(−{kap}·z'/R)`; Bragg rise "
               "`(1 − z'/R + {eps})^(−{q})`; width `σ(z')² = ({s0} mm)² + ({c} mm · (z'/1 m)^{k} / βp)²`; delta-electron halo "
               "`e^(−r/{l} mm)/(2π·{l} mm·(r + 1 mm))` (its share below).",
@@ -41,7 +41,7 @@ T = {
         rows=dict(T="T (kinetic energy)", share="energy share: {c}", z0="shower start z0", tmax="shower maximum t_max",
                   am1="shape α − 1", zs="shower start z_s / rise w1", ell="shower end ℓ / fall-off w2", kappa="slow slope κ",
                   lat="core σ / Cauchy R / halo λ (z' = 100 mm)", frac="fractions core / body / halo (z' = 100 mm)",
-                  range="track range R(T)", dhalo="delta-halo share", spike="spike position / σ_z / σ_r"),
+                  range="axial-term range R(T)", dhalo="delta-halo share", spike="spike position / σ_z / σ_r"),
         gen="(scripts/readme_particle_formulas.py generates this block)"),
     "hu": dict(
         files=("README.hu.md", "ALL-README.hu.md"), dec=",", pct=" %",
@@ -57,7 +57,7 @@ T = {
         plateau="- Zápor mélységprofilja plató: `L(z') ∝ σ((z' − z_s)/w1)·σ((ℓ − z')/w2)·e^(κ·z'/1 m)` (értékek lent).",
         lateral="- Zápor keresztmetszete: `T(r│z') = f_mag·Gauss(r; σ) + f_test·Cauchy(r; R) + f_udvar·e^(−r/λ)/(2πλ(r + 1 mm))`; "
                 "σ, R, λ és az arányok a mélységgel változnak (lent z' = 100 mm-en).",
-        track="- Nyom: hatótáv `R(T) = {R1} mm · (T/GeV)^{kR} − {R0} mm` (~1 mm-nél simán levágva); kezdet `σ((z' − {zt0} mm)/4 mm)`, "
+        track="- Tengelytag: hatótáv `R(T) = {R1} mm · (T/GeV)^{kR} − {R0} mm` (~1 mm-nél simán levágva); kezdet `σ((z' − {zt0} mm)/4 mm)`, "
               "vég `σ((R − z')/w_R)`, w_R = {w}·R + 3 mm; csillapítás `e^(−z'/{lat} mm)·e^(−{kap}·z'/R)`; Bragg-felfutás "
               "`(1 − z'/R + {eps})^(−{q})`; szélesség `σ(z')² = ({s0} mm)² + ({c} mm · (z'/1 m)^{k} / βp)²`; delta-elektron-udvar "
               "`e^(−r/{l} mm)/(2π·{l} mm·(r + 1 mm))` (aránya lent).",
@@ -105,7 +105,7 @@ def block(particle, L):
         out.append(L["track"].format(R1=num(math.exp(c["log_R1"]), L), kR=num(c["k_R"], L), R0=num(c["R0"], L),
                                      zt0=num(c["zt0"], L), w=num(math.exp(c["log_wR"]), L), kap=num(c["kap"], L),
                                      lat=num(first("λ_att [mm]"), L), eps=num(0.03, L), q=num(first("q Bragg"), L),
-                                     s0=num(first("σ0 nyom [mm]"), L), c=num(first("c_ms [mm]"), L), k=num(first("k_ms"), L),
+                                     s0=num(first("σ0 tengelytag [mm]"), L), c=num(first("c_ms [mm]"), L), k=num(first("k_ms"), L),
                                      l=num(first("l delta-udvar [mm]"), L)))
     if end:
         out.append(L["blob"].format(sz=num(first("folt σ_z [mm]"), L), sr=num(first("folt σ_r [mm]"), L)))

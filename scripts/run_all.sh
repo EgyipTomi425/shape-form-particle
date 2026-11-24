@@ -1,9 +1,9 @@
 #!/bin/bash
 # Mind a négy részecske elemzése a háttérben, a modellkvótától függetlenül; minden lépés folytatható (újraindításkor kihagyja a kész lépéseket).
-cd /home/user/tamas/shape-form-proton
+cd "$(dirname "$0")/.."
 mkdir -p logs
 export MPLBACKEND=Agg
-PY=/home/user/.venv/bin/python
+PY=${PYTHON:-python3}
 # the data caches (cache/) are built from the CSVs on first use
 for p in electron muon proton pion; do
   nohup $PY scripts/particle_pipeline.py $p > logs/pipeline_$p.log 2>&1 &

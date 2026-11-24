@@ -4,8 +4,8 @@ Utána a formula kiegészítése:  ln P' = log_softmax(ln P_formula + a · g),  
 (fit_fast, a 2. körös checkpointból), validáción összevetve a kiindulással.  A tesztet nem használja.
     python sr_residual.py <particle>          kimenet: results/particles/<p>/sr_residual.json (+ checkpoint)"""
 import json, math, os, sys, time
-ROOT = "/home/user/tamas/shape-form-proton"
-sys.path.insert(0, ROOT)
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))   # repository root
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import numpy as np, sympy, torch
 import torch.nn.functional as F
 import shapelab

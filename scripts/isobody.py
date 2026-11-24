@@ -16,8 +16,8 @@ import math
 import os
 import sys
 
-ROOT = "/home/user/tamas/shape-form-proton"
-sys.path.insert(0, ROOT)
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))   # repository root
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import numpy as np
 import torch
 

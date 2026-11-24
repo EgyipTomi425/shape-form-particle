@@ -6,18 +6,19 @@ Everything is built on envlab (the report's functions).  Additions:
   * EventHist: per-event energy histograms on a fine (z', r) grid -> containment as a cumulative sum over cells sorted
     by score (surrogate for exploration).
 """
-import math
 import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
+import math
 import sys
 
 import numpy as np
 import torch
 
-sys.path.insert(0, "/home/user/tamas/shape-form-proton")
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import envlab  # noqa: E402
 import shapelab  # noqa: E402
 
-LANE = "/home/user/tamas/shape-form-proton/lanes/E1_bodies"
+LANE = os.path.join(ROOT, "lanes/E1_bodies")
 F_E, F_EV = envlab.F_E, envlab.F_EV
 S_INF = 60.0            # score used for "never inside" in the fast sort key
 

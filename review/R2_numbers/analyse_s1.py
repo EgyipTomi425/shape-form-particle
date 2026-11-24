@@ -1,6 +1,8 @@
 """R2_numbers: tables / paired differences / ladder re-selection / per-bin / gap fractions from per_event_s1.npz."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import json, sys
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/review/R2_numbers")
+sys.path.insert(0, os.path.join(ROOT, "review/R2_numbers"))
 import numpy as np
 from r2lib import OUT, FINAL, paired
 

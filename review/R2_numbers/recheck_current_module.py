@@ -1,6 +1,8 @@
 """Re-check that the CURRENT proton_shape.py (modified 06:30, new lat_norm option) still reproduces the chosen checkpoints."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import sys, json, importlib
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/review/R2_numbers")
+sys.path.insert(0, os.path.join(ROOT, "review/R2_numbers"))
 import numpy as np, torch
 import r2lib, shapelab
 C, geo, data = r2lib.setup()

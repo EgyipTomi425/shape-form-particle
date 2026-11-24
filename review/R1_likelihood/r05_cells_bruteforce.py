@@ -8,27 +8,28 @@ acceptances per grid cell (uniform random points in the cell volume, 128 per cel
   outline   : slab AND inside a tower box enlarged to +-28.8 mm   (module gaps of 3.8 / 8.5 mm closed; outer edge, beam hole)
   cells     : slab AND inside a +-24.3 mm tower box AND that cell's centre passes the report's cuts
   cells_ng  : as cells but with the enlarged (gap-closing) boxes"""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import json
 import math
-import os
 import sys
 import time
 
-sys.path.insert(0, "/home/user/tamas/shape-form-proton")
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/review/R1_likelihood")
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/lanes/G1_geometry")
+sys.path.insert(0, os.path.join(ROOT, "src"))
+sys.path.insert(0, os.path.join(ROOT, "review/R1_likelihood"))
+sys.path.insert(0, os.path.join(ROOT, "lanes/G1_geometry"))
 import numpy as np
 import torch
 
 import shapelab
 import rmodels
 
-OUT = "/home/user/tamas/shape-form-proton/review/R1_likelihood"
-ACC = "/home/user/tamas/shape-form-proton/lanes/G1_geometry/cache"
+OUT = os.path.join(ROOT, "review/R1_likelihood")
+ACC = os.path.join(ROOT, "lanes/G1_geometry/cache")
 t00 = time.time()
 C, geo, data = shapelab.setup(batch=256, out_dir=OUT + "/scratch", slab=False)
 dev = C["DEVICE"]
-G = torch.load("/home/user/tamas/shape-form-proton/cache/proton_geometry.pt", weights_only=False)
+G = torch.load(os.path.join(ROOT, "cache/proton_geometry.pt"), weights_only=False)
 te = data["test"]
 gte = G["sets"]["test"]
 origin = gte["origin"].to(dev).double()

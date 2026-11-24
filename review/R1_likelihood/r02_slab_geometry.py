@@ -3,19 +3,20 @@
 Uses the cached data of s1 (train/val/test) and s2, the UNCHANGED 00_common code (fold, Showers) and the exact random stream
 of test_nll (batches of 128, generator seed 12345 on the device, K = 64).  Also counts fold points that leave the grid
 (locate() clamps them to border cells) and checks the algebra of z_trans with the full rotation matrix."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import json
 import math
-import os
 import sys
 
-sys.path.insert(0, "/home/user/tamas/shape-form-proton")
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import numpy as np
 import torch
 
 import protonlab
 import shapelab
 
-OUT = "/home/user/tamas/shape-form-proton/review/R1_likelihood"
+OUT = os.path.join(ROOT, "review/R1_likelihood")
 C, geo, data = shapelab.setup(batch=256, out_dir=OUT + "/scratch", slab=False)
 dev = C["DEVICE"]
 ck2 = torch.load(os.path.join(protonlab.HERE, "cache", "proton_s2_sets.pt"), weights_only=False)

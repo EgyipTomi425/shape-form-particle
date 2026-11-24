@@ -1,0 +1,41 @@
+{
+ "comparisons": 258,
+ "within_1_sigma": 0.7286821705426356,
+ "within_2_sigma": 0.9844961240310077,
+ "within_3_sigma": 1.0,
+ "max_abs_z": 2.9249738566366927,
+ "largest": [
+  {
+   "quantity": "pion 3-5 early",
+   "s1": 0.058,
+   "s2": 0.046,
+   "z": 2.925
+  },
+  {
+   "quantity": "electron bin 9 L>=8",
+   "s1": 0.0034,
+   "s2": 0.0007,
+   "z": 2.2942
+  },
+  {
+   "quantity": "proton bin 19 L>=8",
+   "s1": 0.6289,
+   "s2": 0.6022,
+   "z": 2.1134
+  },
+  {
+   "quantity": "pion bin 1 L>=10",
+   "s1": 0.6966,
+   "s2": 0.6722,
+   "z": 2.0151
+  },
+  {
+   "quantity": "proton 5-10 within_1",
+   "s1": 0.7576,
+   "s2": 0.7672,
+   "z": -1.9252
+  }
+ ],
+ "mpv_rel_diff_median": 0.0026262370215922592,
+ "mpv_rel_diff_max": 0.025820760773470175
+}

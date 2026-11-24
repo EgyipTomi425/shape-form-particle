@@ -1,9 +1,9 @@
 #!/bin/bash
-cd /home/user/tamas/shape-form-proton
+cd "$(dirname "$0")/.."
 mkdir -p logs
 export MPLBACKEND=Agg
 for p in electron muon proton pion; do
-  ( /home/user/.venv/bin/python scripts/profile_metrics.py $p > logs/profile_$p.log 2>&1 ) &
+  ( ${PYTHON:-python3} scripts/profile_metrics.py $p > logs/profile_$p.log 2>&1 ) &
 done
 wait
 echo PROF_DONE >> logs/profiles_done.log

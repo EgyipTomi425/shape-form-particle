@@ -1,6 +1,8 @@
 """R2_numbers: evaluation on the independent second sample (cache/proton_s2_sets.pt, all ~100k events), both metrics."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import json, math, sys, time
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/review/R2_numbers")
+sys.path.insert(0, os.path.join(ROOT, "review/R2_numbers"))
 import numpy as np, torch
 import r2lib, shapelab
 from r2lib import paired
@@ -12,7 +14,7 @@ A_bar = shapelab.mean_acceptance(C, data["train"], front=True, back=True)       
 M = r2lib.build_models(C, data, A_bar, rungs=True)
 keep = ["PS_slab_chosen", "PS_slab_n1", "PS_slab_n2", "PS_stdacc_chosen", "PS_stdacc_n1", "PS_stdacc_n2", "report_gflash_n6",
         "report_mlp", "ref_std_gflash_acc_n6", "ref_slab_gflash_n6", "ref_slab_mlp_L3xH16", "g2_std_mlp_acc"]
-ck2 = torch.load("/home/user/tamas/shape-form-proton/cache/proton_s2_sets.pt", weights_only=False)
+ck2 = torch.load(os.path.join(ROOT, "cache/proton_s2_sets.pt"), weights_only=False)
 res = {"s2 geo": ck2["geo"], "s1 geo": geo}
 S2 = {k: C["Showers"](v["ev"], v["off"], v["xyz"], v["w"], v["box"]).to(dev) for k, v in ck2["sets"].items()}
 res["s2 sets"] = {k: len(v) for k, v in S2.items()}

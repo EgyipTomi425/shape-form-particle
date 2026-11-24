@@ -1,5 +1,7 @@
 """Step (i): do envlab.Envelope / envlab.BetaDrop(fixed=(0.5, 1.5)) reproduce the report's saved per-bin volumes?
 Also: timing of the exact objective, agreement of the fast sort and of the histogram surrogate."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import math
 import sys
 import time
@@ -7,13 +9,13 @@ import time
 import numpy as np
 import torch
 
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/lanes/E1_bodies")
+sys.path.insert(0, os.path.join(ROOT, "lanes/E1_bodies"))
 import bodylab as bl
 import envlab
 
 C, geo, data = bl.load()
-ENV = torch.load("/home/user/sofiya/shape-form/results/proton/envelope.pt", weights_only=False)
-DROP = torch.load("/home/user/sofiya/shape-form/results/proton/drop.pt", weights_only=False)
+ENV = torch.load(os.path.join(ROOT, "report_notebooks/results/proton/envelope.pt"), weights_only=False)
+DROP = torch.load(os.path.join(ROOT, "report_notebooks/results/proton/drop.pt"), weights_only=False)
 env, drop = envlab.Envelope(), envlab.BetaDrop(fixed=(0.5, 1.5))
 bins = [int(v) for v in sys.argv[1:]] or [1, 10, 18]
 for b in bins:

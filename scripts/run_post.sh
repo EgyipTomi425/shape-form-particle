@@ -1,9 +1,9 @@
 #!/bin/bash
 # Utómunka részecskénként (alakok), ha a pipeline és a burok-illesztések elkészültek; végül ellenőrzés és README-táblák.
-cd /home/user/tamas/shape-form-proton
+cd "$(dirname "$0")/.."
 mkdir -p logs
 export MPLBACKEND=Agg
-PY=/home/user/.venv/bin/python
+PY=${PYTHON:-python3}
 nbody() { ls results/particles/$1/bodies_E95_EV98/*.json 2>/dev/null | wc -l; }
 need() { case $1 in muon) echo 100;; *) echo 60;; esac; }
 for p in electron muon proton pion; do

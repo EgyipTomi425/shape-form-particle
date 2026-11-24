@@ -7,21 +7,22 @@
 
 Then the error of ln M (nat, = error of the per-event NLL) for every model, per event, on the whole test set.
 Outputs: r03_accept_check.json, r03_lnM_test.npz (per-event ln M under every normalisation, every model)."""
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import json
 import math
-import os
 import sys
 import time
 
-sys.path.insert(0, "/home/user/tamas/shape-form-proton")
-sys.path.insert(0, "/home/user/tamas/shape-form-proton/review/R1_likelihood")
+sys.path.insert(0, os.path.join(ROOT, "src"))
+sys.path.insert(0, os.path.join(ROOT, "review/R1_likelihood"))
 import numpy as np
 import torch
 
 import shapelab
 import rmodels
 
-OUT = "/home/user/tamas/shape-form-proton/review/R1_likelihood"
+OUT = os.path.join(ROOT, "review/R1_likelihood")
 t00 = time.time()
 C, geo, data = shapelab.setup(batch=256, out_dir=OUT + "/scratch", slab=False)
 dev = C["DEVICE"]

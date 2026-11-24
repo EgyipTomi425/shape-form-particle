@@ -1,8 +1,8 @@
 """A végleges formula kiegészítő tagjainak illesztett értékei (energiahányad és skálák) néhány impulzusnál – a README értelmezéséhez.
 Kimenet: results/particles/extension_params.json"""
 import json, math, os, sys
-ROOT = "/home/user/tamas/shape-form-proton"
-sys.path.insert(0, ROOT)
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))   # repository root
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import torch
 import shapelab
 from particle_shape import MASS, ParticleShape

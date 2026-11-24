@@ -7,9 +7,30 @@ eseményenkénti NLL; a közös kód (`00_common.ipynb`) változatlan. Az adat a
 szcintillátor + 15,2 mm acél + 1,3 mm Kapton/levegő], előtte 40,4 mm acél; a rétegszerkezetre X₀ = 23,5 mm, λ_I = 212 mm, λ_π = 260 mm,
 R_M = 21,9 mm; forrás: eic/epic `compact/hcal/lfhcal.xml`).
 
+## A főeszme
+
+A csapat reportja (Sofiya `shape-form` notebookjai) minden részecske átlagos záporát egyszerű képlettel (GFlash; müonra henger) és
+neurális hálókkal (MLP, CNN) írta le, majd a hálókat képletekbe desztillálta; hadronoknál a desztillált képletek rosszabbak lettek a
+baseline-nál. Ez a repó azt vizsgálja, hogy **a zápor fizikájából felépített zárt képlet** elérheti-e a háló pontosságát jóval kevesebb
+paraméterrel, és mit árul el a záporokról.
+
+- **Mit.** Részecskénként egy képlet az átlagos lerakottenergia-sűrűségre, ρ(z', r | p), a zápor saját koordinátáiban, 0–20 GeV/c-re:
+  tagok összege, mindegyik egy fizikai folyamatra – a másodlagos részecskék zápora, a beeső részecske által a tengely mentén leadott
+  energia a megállásig vagy az első kölcsönhatásig (tengelytag), a belépési többletenergia, a hatótáv vége és a diffúz távoli energia.
+- **Hogyan.** Minden paraméter ln T polinomja, **közvetlenül a szimulált találatokra** illesztve maximum likelihooddal, a report
+  detektor-konvolúciójával, felosztásával és eseményenkénti likelihoodjával; a tagokat és a fokszámot a validáció választja, egy
+  független második minta ellenőriz. A háló csak mérce és diagnosztika: ahol jobb, ott hiányzik egy tag (a különbségre futtatott
+  szimbolikus regresszió kettőre mutatott rá).
+- **Miért.** Az adat likelihoodja számít, ezért a formula az adatra illeszkedik, nem egy háló térképére, amely a háló hibáit is
+  hordozná. A fizikai tagok paraméterei a detektor anyagából várt értékekkel ellenőrizhetők (hatótáv, csillapítási hossz, többszörös
+  szórás), és a formula 6–38-szor kisebb a hálónál.
+- **A képleten túl.** Minimális burok-testek (szuper-tojás) a report 98 %-os kritériumára, szimulációs igazság-ellenőrzések, a report
+  notebookjai ezekkel a módszerekkel kiegészítve (`report_notebooks/`), és a `particle` 1-es issue-jának mag- és MIP-szakasz-elemzése
+  (tengely, magarány, a MIP-szakasz mint hadronjelző; lásd lent: *Részecske-issue #1*).
+
 ## Röviden
 
-- **A formula.** Fizikailag külön tagok összege (zápor + nyom + belépési csúcs + hatótáv-végi folt + távoli udvar), 75–143 paraméter,
+- **A formula.** Fizikailag külön tagok összege (zápor + tengelytag + belépési csúcs + hatótáv-végi folt + távoli udvar), 75–143 paraméter,
   közvetlenül a szimulált találatokra illesztve. A régi képlet és a háló közti rés **70–90 %-át** zárja be; egy független második
   mintán (s2) ugyanez jön ki.
 - **Mennyire írja le a záport.** Az átlagos profil sugárirányban elektronnál és protonnál a hálóhoz közeli, müonnál jobb nála; mélységben
@@ -24,11 +45,42 @@ R_M = 21,9 mm; forrás: eic/epic `compact/hcal/lfhcal.xml`).
 - **Ami hiányzik.** A záporonkénti ingadozás (a formula átlag), a belépés pontos szögfüggése, és a 100 ns után érkező energia
   (hadronoknál legalább 3–5 %).
 
+## A repó szerkezete
+
+```
+README.md, README.hu.md            ez a leírás (angolul / magyarul)
+ALL-README.md, ALL-README.hu.md    az összes képlet az illesztett értékekkel, ábrával
+src/                               Python-modulok:
+  particle_shape.py                  a formula (minden tag); proton_shape.py, families.py: az építőelemei
+  shapelab.py, protonlab.py          a report közös kódjának és adatának betöltése, mércék, illesztés, a végleges modellek
+  envlab.py, protocol.py             a burok-testek eszközei, a fokszámválasztás protokollja
+  core_mip.py                        tengely, mag, MIP-szakasz, halo: eseményenkénti jellemzők és szimulációs igazság (1-es issue)
+  core_mip_analysis.py, core_mip_figures.py   az 1-es issue válaszainak minden száma és ábrája
+  paths.py                           a repó gyökere, az adatmappa ($LFHCAL_DATA)
+notebooks/                         a saját notebookjaink:
+  08_shape3d_proton.ipynb            ábrás protonelemzés (a notebooks/nb_src/-ből épül)
+  09_axis_core.ipynb                 particle 1-es issue, Q1–Q2: a zápor tengelye, magja és halója
+  10_mip_segment.ipynb               particle 1-es issue, Q3: MIP-szakasz, hadronazonosítás
+report_notebooks/                  a report 00–07-es notebookjai, mindegyik egy 8. fejezettel kiegészítve;
+                                   results/ = a report mentett modelljei és exportjai
+results/particles/<részecske>/     a végleges formula (3. kör): modellek, teszt- és s2-eredmények, formulakártyák (formula.hu.md),
+                                   együtthatók, alakok, ellenőrzések; a korábbi körök és a változatjelöltek is
+results/features/                  eseményenkénti mag- és MIP-szakasz-jellemzők (1-es issue), MIP-kalibráció, a kereső paraméterei
+results/core_mip/                  válaszok az 1-es issue-ra: Q1–Q3 oldalak (angol/magyar), ábrák, táblázatok, a kereső-pásztázás
+results/formula_maps.png           a végleges formula sűrűsége; results/isobody/, results/detektor_*: testek, ábrák
+results/data.sha256                a bemeneti szimulációs fájlok ellenőrzőösszegei
+scripts/                           pipeline, mérések, ábrák, a leírások és notebookok generátorai
+lanes/E1_bodies/                   a burok-testek illesztése (szuper-tojás és a többi család)
+review/                            a csak protonos szakasz archivált független ellenőrzése
+docs/Protonmodell-Tamas.pdf        kétoldalas összefoglaló (az infografika; a régi „Nyom” kifejezés = tengelytag)
+requirements.txt                   csomagverziók
+```
+
 ## Részecskénként – mi jött ki, mi következik belőle
 
 (A fogalmak magyarázata az 1. fejezetben, a számok forrása a 2–7. fejezet.)
 
-**Elektron** – zápor + belépési csúcs + távoli udvar, nyom nincs (64 paraméter).
+**Elektron** – zápor + belépési csúcs + távoli udvar, tengelytag nincs (64 paraméter).
 - Kis energián az első réteg sok energiát kap: a belépési csúcs 1 GeV-en az energia 17 %-a, 20 GeV-en már csak 0,35 %; a többi a zápor.
 - A zápor magja σ ≈ 16–19 mm, kb. 0,8 Molière-sugár: a keresztmetszet a várt elektromágneses záporé.
 - A zápor maximuma 35 → 76 mm (1 → 20 GeV), a PDG-becslés 23 → 94 mm: az irány jó, de a formula energiafüggése gyengébb a vártnál.
@@ -38,23 +90,23 @@ R_M = 21,9 mm; forrás: eic/epic `compact/hcal/lfhcal.xml`).
 - A szög alig számít (−0,002 nat); az ingadozást 3 főkomponens ~73 %-ban leírja; a legjobb burok kb. akkora, mint a csepp (26 L).
 - **Megállapítás:** az elektronzáport a klasszikus EM-alak jól leírja, a hiány a részletekben (maximum helye, mély farok) van.
 
-**Müon** – kis zápor + nyom, minden kiegészítéssel (129 paraméter); az energia 87–93 %-a a nyomban.
-- Itt a legnagyobb a nyereség (−0,073 nat a régi képlethez, rés 89 %): a régi képletben nem volt nyom.
-- A nyom szélesedése többszörös szórásból jön: k ≈ 1,41 egyezik a Highland-becsléssel (1,35–1,41), c ≈ 74 mm 17 %-kal nagyobb a vártnál.
+**Müon** – kis zápor + tengelytag, minden kiegészítéssel (129 paraméter); az energia 87–93 %-a a tengelytagban.
+- Itt a legnagyobb a nyereség (−0,073 nat a régi képlethez, rés 89 %): a régi képletben nem volt tengelytag.
+- A tengelytag szélesedése többszörös szórásból jön: k ≈ 1,41 egyezik a Highland-becsléssel (1,35–1,41), c ≈ 74 mm 17 %-kal nagyobb a vártnál.
 - A Bragg-felfutás kitevője 0,42 (elmélet 0,43), a hatótáv ≈ 1,06 m/GeV · T, egyezik a CSDA-táblával; T ≳ 1,3 GeV felett a müon
   átmegy a detektoron.
 - A megálló μ⁻ a vasban befogódik (neutronok, gammák), ezért kis impulzuson a távoli energia akár 20 %-a neutronból jön.
-- Sugárirányban jobb a hálónál, mélységben rosszabb: a legmélyebb ~13 cm-en az adat leesik (a nyomok egy része a peremen távozik),
+- Sugárirányban jobb a hálónál, mélységben rosszabb: a legmélyebb ~13 cm-en az adat leesik (a müonok egy része a peremen távozik),
   a formula nem.
 - A szögfüggő kiegészítés itt hozza a legtöbbet (−0,045 nat), de csak úgy, hogy a tagok szerepet cserélnek, ezért fizikailag nem értelmezhető.
 - Legjobb burok: szuper-tojás vagy kapszula (~38 L), 19 %-kal kisebb a cseppnél.
-- **Megállapítás:** a müon „alakja” valójában egy fizikailag jól leírható nyom; az illesztett paraméterek tankönyvi értékeket adnak vissza.
+- **Megállapítás:** a müon „alakja” valójában egy fizikailag jól leírható áthaladás; az illesztett paraméterek tankönyvi értékeket adnak vissza.
 
-**Proton** – zápor + nyom, minden kiegészítéssel (143 paraméter).
-- Két rezsim: 1 GeV-en a proton főleg megáll (nyom 61 %, belépési csúcs 24 %, zápor 15 %), 5–20 GeV-en záport kelt (zápor 74–81 %).
+**Proton** – zápor + tengelytag, minden kiegészítéssel (143 paraméter).
+- Két rezsim: 1 GeV-en a proton főleg megáll (tengelytag 61 %, belépési csúcs 24 %, zápor 15 %), 5–20 GeV-en záport kelt (zápor 74–81 %).
 - A nyereség (−0,039 nat, rés 90 %) zöme a megálló protonoké; ami a hálóhoz képest maradt, annak ~60 %-a is p < 2 GeV-en van.
 - A hatótáv T = 0,5 / 1 GeV-en 185 / 722 mm (CSDA: 219 / 694 mm); a csillapítási hossz 266 mm ≈ 1,26 λ_I.
-- 2 GeV felett a „nyom” már effektív: több energiát visz (17–27 %), mint a proton saját ionizációja (5–12 %), mert a hadronmag egy
+- 2 GeV felett a tengelytag már effektív: több energiát visz (17–27 %), mint a proton saját ionizációja (5–12 %), mert a hadronmag egy
   részét is leírja.
 - A távoli energia fele–háromnegyede neutronoktól jön; ezt a zápor exponenciális udvara viszi. A később (≥ 5 ns) elsőként talált
   cellák az energia legalább 8–11 %-át adják, és 2,5–3-szor szélesebben vannak: két (gyors + lassú) udvar-tag lenne a következő lépés.
@@ -63,8 +115,8 @@ R_M = 21,9 mm; forrás: eic/epic `compact/hcal/lfhcal.xml`).
 - **Megállapítás:** a megálló proton fizikája (hatótáv, csillapítás) jól megfogható a formulában, a nagy energiás hadronzápor átlaga
   is; az eseményenkénti ingadozása viszont nem (3 főkomponens csak a variancia 40–66 %-a).
 
-**Pion** – mint a proton (101 paraméter); a nyom 26–53 %.
-- Rés 88 %; a kiegészítő tagok itt alig adnak (~0,001 nat), a lényeg a zápor + nyom.
+**Pion** – mint a proton (101 paraméter); a tengelytag 26–53 %.
+- Rés 88 %; a kiegészítő tagok itt alig adnak (~0,001 nat), a lényeg a zápor + tengelytag.
 - A csillapítási hossz 339 mm ≈ 1,31 λ_π; a pion/proton arány 1,28 (várt 1,23): a pion mélyebbre jut a protonnál, ahogy kell.
 - A profil tömbjében itt a legkisebb az eltérés (1,5 %).
 - A távoli energia 45–60 %-a neutronból jön; a később talált cellák az energia legalább 6–8 %-át adják.
@@ -82,19 +134,19 @@ külön mérés nem készült rá.
   megálló müonnál a valódi Bragg-felfutást tanulta meg.
 - **A müon hatótáva lineáris T-ben (✓),** mert a vizsgált tartományban (T ≈ 0,15–1,3 GeV, βγ ≈ 2,2–13) a müon a minimálisan ionizáló
   tartomány közelében van, ahol dE/dx közel állandó. Ezért R ≈ T / (dE/dx) – az illesztett 1,06 m/GeV a CSDA-táblával egyezik.
-- **A többszörös szórás kitevője az előlap miatt kisebb 1,5-nél (✓).** Vékony anyagban a nyom oldalirányú eltérése ∝ z'^1,5
+- **A többszörös szórás kitevője az előlap miatt kisebb 1,5-nél (✓).** Vékony anyagban a tengelytag oldalirányú eltérése ∝ z'^1,5
   (Highland). A 40 mm-es acél előlap már a detektor előtt szögszórást ad, és ez négyzetesen hozzáadódik: az effektív kitevő 1,35–1,41
   lesz. A c 17 %-kal nagyobb a vártnál; ez valószínűleg a pálya menti energiaveszteség (a müon lassul, és a szórás ∝ 1/p nő), amit a
   becslés nem tartalmaz.
 - **A proton illesztett hatótáva kis energián rövidebb a CSDA-nál (−16 %, T = 0,5 GeV).** A CSDA azt feltételezi, hogy a proton
   kölcsönhatás nélkül fékeződik le. A 219 mm-es pálya azonban összemérhető a magkölcsönhatási hosszal (212 mm): a protonok kb.
-  55–65 %-a a pálya vége előtt magkölcsönhatásba lép, ezért az átlagos „nyom” hamarabb véget ér.
+  55–65 %-a a pálya vége előtt magkölcsönhatásba lép, ezért az átlagos tengelytag hamarabb véget ér.
 - **A csillapítási hossz ~1,3-szorosa a magkölcsönhatási hossznak.** A λ_att nem azt méri, mikor szűnik meg a primer, hanem azt, hogy
-  mikor fogy el a tengely menti, nyomszerű energia. Rugalmas és kvázirugalmas ütközés után, illetve ha egy vezető részecske viszi
+  mikor fogy el a tengely menti, tengely menti energia. Rugalmas és kvázirugalmas ütközés után, illetve ha egy vezető részecske viszi
   tovább az energia nagy részét, a tengely menti lerakódás folytatódik. Ezért természetes, hogy λ_att > λ_I. A pion/proton arány
   (1,28, várt 1,23) a kisebb pion–mag hatáskeresztmetszetet követi.
 - **Két rezsim a protonnál.** p = 1 GeV/c-nél (T = 0,43 GeV) a CSDA-hatótáv az előlap mögött 165 mm (≈ 8 réteg; az illesztett
-  hatótáv 135 mm ≈ 6–7 réteg). A proton tehát az első néhány rétegben megáll, ezért a belépési csúcs és a nyom viszi az energiát. 5 GeV felett a magkölcsönhatás dominál, és
+  hatótáv 135 mm ≈ 6–7 réteg). A proton tehát az első néhány rétegben megáll, ezért a belépési csúcs és a tengelytag viszi az energiát. 5 GeV felett a magkölcsönhatás dominál, és
   hadronzápor lesz.
 - **Neutronok és a lassú, széles udvar.** A neutronok töltés nélküliek: messzire jutnak, és csak közvetve (meglökött protonok a
   hidrogéndús szcintillátorban, befogási gammák) adnak le energiát. A MeV-es neutronok lelassulása és befogása ns–µs-os folyamat. Ez
@@ -117,7 +169,35 @@ külön mérés nem készült rá.
 - **Elektron: a távoli udvar** azonnali e±/γ energia. Valószínűleg néhány MeV-es fotonokról van szó: ezek a legkevésbé elnyelt
   fotonok (a Compton-tartomány elnyelési minimuma közelében), ezért jutnak messzire.
 
-Tartalom: Részecskénként · Fizikai értelmezés · 1. Fogalmak · 2. A formula · 3. Pontosság · 4. Alakok · 5. Ellenőrző mérések · 6. Szögfüggő kiegészítés · 7. Továbbiak
+<!-- ISSUE1 BEGIN -->
+## Részecske-issue #1 – mag, MIP-szakasz és halo
+
+Az [issue #1](https://github.com/EgyipTomi425/particle/issues/1) a zápor tengelye körüli tartományról kérdezett (fogalmak: tengely, mag, MIP-szakasz, halo). Válaszoldalak
+ábrákkal: [Q1](results/core_mip/Q1.hu.md) · [Q2](results/core_mip/Q2.hu.md) · [Q3](results/core_mip/Q3.hu.md); notebookok: `notebooks/09_axis_core.ipynb` és `notebooks/10_mip_segment.ipynb`; eseményenkénti jellemzők további
+használatra: `results/features/<particle>.parquet`. Az alábbi számokat a `scripts/core_mip_pages.py` írja a `results/core_mip/` alapján.
+
+- **Q1 – a mag** a tengelytől (a front belépési pontjától, z = 3620 mm) R = 5 cm-en belüli energia a zápor kezdetétől. Az 5 cm a müon
+  10 cm-en belüli energiájának 94 %-át és az elektronzápor 90 %-át tartalmazza, és a
+  2,5–10 cm közül ez választja szét legjobban az elektront a hadrontól. Az elektronzápor mag (≥ 0,89), a müon MIP-szakasz
+  (0,63–0,85); a hadronoknál a mag 0,20–0,23-ról (1–2 GeV/c) 0,43–0,50-ra (19–20 GeV/c)
+  nő, a halo 0,48–0,61 részt visz.
+- **Q2 – az infografika 60 %-a / 43 %-a** a képlet tengelytagjának részaránya, nem magarány. Mérve 1 GeV/c-n: f_core =
+  0,40 ± 0,01 (proton) és 0,19 ± 0,01 (pion); a proton 0,40-es magjából
+  0,26 a proton saját lerakódása a MIP-szakasza után (főleg a hatótávolsága végén). Pion–proton szétválasztás f_core-ral: AUC 0,55–0,67 (gyenge, de nem nulla).
+- **Q3 – a MIP-szakasz** a hadronesemények 75 %–89 %-ában van jelen. L_MIP ≥ 8 cm a hadronok
+  62 %–77 %-ánál és az elektronok 0,1 %–2,7 %-ánál fordul elő (valószínűségi hányados
+  27–471); 99 % elektron-elutasításnál 2 GeV/c-től a hadronok 66 %–80 %-át tartja meg (f_core:
+  97 %–100 %). Gábor négy állítása a primerre igaz, két pontosítással: az események 9 %–13 %-ában egy
+  másodlagos részecske későbbi MIP-szerű szakaszt húz, és a kölcsönhatás előtti csempék 5 cm-en kívül csempénként 0,60–0,77 MIP
+  visszaszórást kapnak. Ezért a zápor kezdetét a mag-energiából keressük (két nem MIP-szerű csempe több mint 6 +
+  0,5·p MIP-pel), a szimulációs igazsághoz hangolva: 5 GeV/c-től az események 76 %–87 %-ában ±1 csempén
+  belül van a valódi kölcsönhatástól (az issue eredeti szabálya a pionesemények negyedében túl korán jelez). Valódi kölcsönhatási hosszak
+  (Geant4, 3–20 GeV/c): λ_π = 24,4 cm, λ_p = 19,9 cm. Az ePIC LFHCal az 1–5. csempét egy csatornán olvassa
+  ki, így a csempénkénti L_MIP csak a szimulációban létezik; az „első szegmens MIP-szerű” jel majdnem ugyanolyan jó.
+- **Ellenőrzések.** A független második minta (s2; ugyanaz a kereső, saját MIP-kalibráció) a 258 összevetett számot a statisztikai hibán belül megismétli (98 % 2σ-n belül, a legnagyobb eltérés 2,9σ; `s2_check.csv`); a MIP-kalibráció csempénként mediánban 0,3 %-ra egyezik.
+<!-- ISSUE1 END -->
+
+Tartalom: Részecskénként · Fizikai értelmezés · Részecske-issue #1 · 1. Fogalmak · 2. A formula · 3. Pontosság · 4. Alakok · 5. Ellenőrző mérések · 6. Szögfüggő kiegészítés · 7. Továbbiak
 (időbeli szétválasztás, ingadozás) · 8. Megállapítások · 9. Korlátok · 10. Fájlok.
 
 ## 1. Fogalmak – mit jelentenek a számok
@@ -150,15 +230,15 @@ Minden tag külön 1-re normált eloszlás; a w súlyok a tagok energiarészesed
 |---|---|---|
 | zápor S | `L(z')·T(r│z')` | a hadron- vagy EM-zápor |
 | – mélységprofil | plató: `σ((z'−z_s)/w1)·σ((ℓ−z')/w2)·e^(κz')`; müon: gamma `s^(α−1)e^(−(α−1)s/t_max)` | z_s: kezdet, w1: felfutás, ℓ: vég, w2: lecsengés, κ: lassú meredekség |
-| – keresztmetszet | `f1·Gauss(r;σ) + f2·R²/(π(r²+R²)²) + f3·e^(−r/λ)/(2πλ(r+1 mm))` | keskeny mag (σ), Cauchy-test (R), exponenciális udvar (λ); f1–f3 arányok; mind a mélységgel változik |
-| nyom U | `σ((z'−z_t0)/4 mm)·σ((R(T)−z')/w_R)·e^(−z'/λ_att)·e^(−κ_t·z'/R)·(1−z'/R+0,03)^(−q)` × keresztmetszet | a primer részecske nyoma: R(T) = R1·T^k_R − R0 a hatótáv (~1 mm-nél simán levágva), w_R = w·R + 3 mm a vége szélessége, λ_att a csillapítás (első magkölcsönhatás), κ_t a hatótáv menti fokozatos fogyás, q a Bragg-felfutás |
-| – a nyom szélessége | `σ(z')² = σ0² + (c·(z'/1 m)^k / βp)²`, plusz `f·e^(−r/l)/(2πl(r+1 mm))` udvar | többszörös szórás miatti szélesedés (c, k), delta-elektron-udvar (f, l) |
+| – keresztmetszet | `f1·Gauss(r;σ) + f2·R²/(π(r²+R²)²) + f3·e^(−r/λ)/(2πλ(r+1 mm))` | keskeny komponens (σ), Cauchy-test (R), exponenciális udvar (λ); f1–f3 arányok; mind a mélységgel változik |
+| tengelytag U | `σ((z'−z_t0)/4 mm)·σ((R(T)−z')/w_R)·e^(−z'/λ_att)·e^(−κ_t·z'/R)·(1−z'/R+0,03)^(−q)` × keresztmetszet | a primer részecske tengely menti lerakódása: R(T) = R1·T^k_R − R0 a hatótáv (~1 mm-nél simán levágva), w_R = w·R + 3 mm a vége szélessége, λ_att a csillapítás (első magkölcsönhatás), κ_t a hatótáv menti fokozatos fogyás, q a Bragg-felfutás |
+| – a tengelytag szélessége | `σ(z')² = σ0² + (c·(z'/1 m)^k / βp)²`, plusz `f·e^(−r/l)/(2πl(r+1 mm))` udvar | többszörös szórás miatti szélesedés (c, k), delta-elektron-udvar (f, l) |
 | csúcs D | Gauss a belépésnél | az első réteg energiája |
 | folt E | Gauss a z' = R(T) helyen | megálló részecske vége (Bragg-csúcs, befogás) |
 | távoli udvar H | `σ(z'/10 mm)·e^(−z'/L)/(r+1 cm)` | diffúz, messzire jutó energia |
 
 Minden paraméter az `x = (ln T − v0)/vs` polinomja: a súlyok és a fő alakparaméterek n-edfokúak, a mélységi meredekségek és a
-belépési csúcs paraméterei másodfokúak, a nyom, az udvarok és a folt paraméterei állandók (müonnál és a hadronoknál 21 darab). Részecskénként a teljes leírás, minden illesztett
+belépési csúcs paraméterei másodfokúak, a tengelytag, az udvarok és a folt paraméterei állandók (müonnál és a hadronoknál 21 darab). Részecskénként a teljes leírás, minden illesztett
 érték és együttható: `results/particles/<részecske>/formula.hu.md`.
 
 **Illesztett értékek** (3D-mérce):
@@ -166,11 +246,11 @@ belépési csúcs paraméterei másodfokúak, a nyom, az udvarok és a folt para
 | részecske | tagok | n / param. | a detektorba eső energia | fontos paraméterek (zárójelben a detektor anyagából várt érték) |
 |---|---|---|---|---|
 | elektron | plató-zápor + csúcs + távoli udvar | 3 / 64 | zápor 82 % (1 GeV) → 99 % (20 GeV); csúcs 17 % → 0,35 %; távoli udvar 0,7–1,0 % | mag σ ≈ 16–19 mm (R_M = 21,9 mm); zápormaximum 35 → 76 mm (PDG: 23 → 94 mm) |
-| müon | gamma-zápor + nyom + minden kiegészítés | 6 / 129 | nyom 87–93 % | szélesedés c ≈ 74 mm, k ≈ 1,41 (Highland: 62–63 mm, 1,35–1,41); q ≈ 0,42 (0,43); hatótáv ≈ 1,06 m/GeV · T (CSDA ≈ 1,06–1,07) |
-| proton | plató-zápor + nyom + minden kiegészítés | 6 / 143 | 1 GeV: nyom 61 %, csúcs 24 %, zápor 15 %; 5–20 GeV: zápor 74–81 %, nyom 17–21 % | hatótáv T = 0,5 / 1 GeV-en 185 / 722 mm (CSDA: 219 / 694 mm); λ_att ≈ 266 mm (λ_I = 212 mm) |
-| pion | mint a proton | 3 / 101 | nyom 26–53 % | λ_att ≈ 339 mm (λ_π = 260 mm) |
+| müon | gamma-zápor + tengelytag + minden kiegészítés | 6 / 129 | tengelytag 87–93 % | szélesedés c ≈ 74 mm, k ≈ 1,41 (Highland: 62–63 mm, 1,35–1,41); q ≈ 0,42 (0,43); hatótáv ≈ 1,06 m/GeV · T (CSDA ≈ 1,06–1,07) |
+| proton | plató-zápor + tengelytag + minden kiegészítés | 6 / 143 | 1 GeV: tengelytag 61 %, csúcs 24 %, zápor 15 %; 5–20 GeV: zápor 74–81 %, tengelytag 17–21 % | hatótáv T = 0,5 / 1 GeV-en 185 / 722 mm (CSDA: 219 / 694 mm); λ_att ≈ 266 mm (λ_I = 212 mm) |
+| pion | mint a proton | 3 / 101 | tengelytag 26–53 % | λ_att ≈ 339 mm (λ_π = 260 mm) |
 
-Hadronoknál a nyom szélesedése, delta-udvara és Bragg-kitevője effektív: a hadronmag egy részét is ezek írják le.
+Hadronoknál a tengelytag szélesedése, delta-udvara és Bragg-kitevője effektív: a hadronmag egy részét is ezek írják le.
 
 <!-- KEPLETEK:START (scripts/readme_particle_formulas.py generálja) -->
 
@@ -205,7 +285,7 @@ A fenti általános képlet részecskénként: melyik tag van benne, az álland�
 
 - Zápor mélységprofilja gamma: `L(z') ∝ s^(α−1)·e^(−(α−1)s/t_max)`, s = z' − z0 (értékek lent).
 - Zápor keresztmetszete: `T(r│z') = f_mag·Gauss(r; σ) + f_test·Cauchy(r; R) + f_udvar·e^(−r/λ)/(2πλ(r + 1 mm))`; σ, R, λ és az arányok a mélységgel változnak (lent z' = 100 mm-en).
-- Nyom: hatótáv `R(T) = 1057 mm · (T/GeV)^1,02 − 85 mm` (~1 mm-nél simán levágva); kezdet `σ((z' − 24,2 mm)/4 mm)`, vég `σ((R − z')/w_R)`, w_R = 0,0232·R + 3 mm; csillapítás `e^(−z'/1211 mm)·e^(−0,735·z'/R)`; Bragg-felfutás `(1 − z'/R + 0,03)^(−0,42)`; szélesség `σ(z')² = (15 mm)² + (74,4 mm · (z'/1 m)^1,41 / βp)²`; delta-elektron-udvar `e^(−r/51,4 mm)/(2π·51,4 mm·(r + 1 mm))` (aránya lent).
+- Tengelytag: hatótáv `R(T) = 1057 mm · (T/GeV)^1,02 − 85 mm` (~1 mm-nél simán levágva); kezdet `σ((z' − 24,2 mm)/4 mm)`, vég `σ((R − z')/w_R)`, w_R = 0,0232·R + 3 mm; csillapítás `e^(−z'/1211 mm)·e^(−0,735·z'/R)`; Bragg-felfutás `(1 − z'/R + 0,03)^(−0,42)`; szélesség `σ(z')² = (15 mm)² + (74,4 mm · (z'/1 m)^1,41 / βp)²`; delta-elektron-udvar `e^(−r/51,4 mm)/(2π·51,4 mm·(r + 1 mm))` (aránya lent).
 - Folt a hatótáv végén: Gauss, σ_z = 73,1 mm, σ_r = 85,6 mm.
 - Csúcs a belépésnél: Gauss (hely és szélességek lent). Távoli udvar: `H ∝ σ(z'/10 mm)·e^(−z'/1309 mm)/(r + 1 cm)`.
 
@@ -232,7 +312,7 @@ A fenti általános képlet részecskénként: melyik tag van benne, az álland�
 
 - Zápor mélységprofilja plató: `L(z') ∝ σ((z' − z_s)/w1)·σ((ℓ − z')/w2)·e^(κ·z'/1 m)` (értékek lent).
 - Zápor keresztmetszete: `T(r│z') = f_mag·Gauss(r; σ) + f_test·Cauchy(r; R) + f_udvar·e^(−r/λ)/(2πλ(r + 1 mm))`; σ, R, λ és az arányok a mélységgel változnak (lent z' = 100 mm-en).
-- Nyom: hatótáv `R(T) = 757 mm · (T/GeV)^1,78 − 36,5 mm` (~1 mm-nél simán levágva); kezdet `σ((z' − 24,1 mm)/4 mm)`, vég `σ((R − z')/w_R)`, w_R = 0,0579·R + 3 mm; csillapítás `e^(−z'/266 mm)·e^(−2,46·z'/R)`; Bragg-felfutás `(1 − z'/R + 0,03)^(−0,804)`; szélesség `σ(z')² = (18,5 mm)² + (285 mm · (z'/1 m)^2,37 / βp)²`; delta-elektron-udvar `e^(−r/81,5 mm)/(2π·81,5 mm·(r + 1 mm))` (aránya lent).
+- Tengelytag: hatótáv `R(T) = 757 mm · (T/GeV)^1,78 − 36,5 mm` (~1 mm-nél simán levágva); kezdet `σ((z' − 24,1 mm)/4 mm)`, vég `σ((R − z')/w_R)`, w_R = 0,0579·R + 3 mm; csillapítás `e^(−z'/266 mm)·e^(−2,46·z'/R)`; Bragg-felfutás `(1 − z'/R + 0,03)^(−0,804)`; szélesség `σ(z')² = (18,5 mm)² + (285 mm · (z'/1 m)^2,37 / βp)²`; delta-elektron-udvar `e^(−r/81,5 mm)/(2π·81,5 mm·(r + 1 mm))` (aránya lent).
 - Folt a hatótáv végén: Gauss, σ_z = 76,3 mm, σ_r = 81,1 mm.
 - Csúcs a belépésnél: Gauss (hely és szélességek lent). Távoli udvar: `H ∝ σ(z'/10 mm)·e^(−z'/962 mm)/(r + 1 cm)`.
 
@@ -259,7 +339,7 @@ A fenti általános képlet részecskénként: melyik tag van benne, az álland�
 
 - Zápor mélységprofilja plató: `L(z') ∝ σ((z' − z_s)/w1)·σ((ℓ − z')/w2)·e^(κ·z'/1 m)` (értékek lent).
 - Zápor keresztmetszete: `T(r│z') = f_mag·Gauss(r; σ) + f_test·Cauchy(r; R) + f_udvar·e^(−r/λ)/(2πλ(r + 1 mm))`; σ, R, λ és az arányok a mélységgel változnak (lent z' = 100 mm-en).
-- Nyom: hatótáv `R(T) = 952 mm · (T/GeV)^1,26 − 26,9 mm` (~1 mm-nél simán levágva); kezdet `σ((z' − 28,4 mm)/4 mm)`, vég `σ((R − z')/w_R)`, w_R = 0,0861·R + 3 mm; csillapítás `e^(−z'/339 mm)·e^(−2,25·z'/R)`; Bragg-felfutás `(1 − z'/R + 0,03)^(−0,526)`; szélesség `σ(z')² = (20,1 mm)² + (135 mm · (z'/1 m)^1,72 / βp)²`; delta-elektron-udvar `e^(−r/69,4 mm)/(2π·69,4 mm·(r + 1 mm))` (aránya lent).
+- Tengelytag: hatótáv `R(T) = 952 mm · (T/GeV)^1,26 − 26,9 mm` (~1 mm-nél simán levágva); kezdet `σ((z' − 28,4 mm)/4 mm)`, vég `σ((R − z')/w_R)`, w_R = 0,0861·R + 3 mm; csillapítás `e^(−z'/339 mm)·e^(−2,25·z'/R)`; Bragg-felfutás `(1 − z'/R + 0,03)^(−0,526)`; szélesség `σ(z')² = (20,1 mm)² + (135 mm · (z'/1 m)^1,72 / βp)²`; delta-elektron-udvar `e^(−r/69,4 mm)/(2π·69,4 mm·(r + 1 mm))` (aránya lent).
 - Folt a hatótáv végén: Gauss, σ_z = 103 mm, σ_r = 130 mm.
 - Csúcs a belépésnél: Gauss (hely és szélességek lent). Távoli udvar: `H ∝ σ(z'/10 mm)·e^(−z'/701 mm)/(r + 1 cm)`.
 
@@ -289,21 +369,21 @@ még valami. Három körben haladtunk; minden körben a jelölt tagokat a valid�
 javított:
 
 1. **Alap** (`scripts/run_all.sh`): a report képletéből (GFlash-zápor, müonnál henger) indultunk, és hozzáadtuk, amit a fizika
-   kézenfekvően ad: a primer részecske **nyomát** a hatótávig (hatótáv-törvény, csillapítás a magkölcsönhatás miatt), a **belépési
+   kézenfekvően ad: a primer részecske **tengelytagját** a hatótávig (hatótáv-törvény, csillapítás a magkölcsönhatás miatt), a **belépési
    csúcsot** és a plató- vagy gamma-mélységprofilt; a reportban kipróbált keresztmetszeti formákat (Gauss, Cauchy, exponenciális)
    összeadtuk.
 2. **Hol veszít még** (`scripts/diag_residual.py`): a háló és a formula NLL-különbségét (z', r)-tartományokra bontottuk, külön
    p < 2 és p ≥ 2 GeV-re. Ez megmutatta a hiány helyét: protonnál a megálló protonok a tengely közelében az első ~20 cm-en,
-   elektronnál a belépés környéke és a nagy sugár, müonnál a nyom körüli sugárirányú szerkezet.
+   elektronnál a belépés környéke és a nagy sugár, müonnál a tengelytag körüli sugárirányú szerkezet.
 3. **Szimbolikus regresszió** (`scripts/sr_residual.py`): a PySR egy g(z', r, x) kifejezést keresett a ln P_háló − ln P_formula
    különbségre, ahol x a formula impulzusváltozója. A műveletek: + − × /, exp, négyzet; legfeljebb 18 elem; 6000, a háló sűrűsége
    szerint sorsolt pont, 16 impulzuson. A talált kifejezést korrekcióként hozzáadtuk (ln P' = ln P_formula + a·g), és a formulával
    együtt az adatra illesztettük. Hogy a nyereség ne a puszta extra tanításból jöjjön, egy kontroll ugyanannyit tanult korrekció nélkül
    (`scripts/sr_control.py`).
 4. **A javaslatok fizikai tagként** (`scripts/variants_v2.py`, `variants_v3.py`): a kifejezéseket nem vettük át, hanem megkerestük
-   a fizikai jelentésüket, és annak a tagnak a fizikai alakját illesztettük. Így került be a **többszörös szórás** (a nyom
+   a fizikai jelentésüket, és annak a tagnak a fizikai alakját illesztettük. Így került be a **többszörös szórás** (a tengelytag
    z'^k-val szélesedik, Highland) és a **távoli udvar**. A megálló részecskék fizikájából jött a **folt a hatótáv végén** és a
-   **Bragg-felfutás**, a nyom körüli ionizációból a **delta-elektron-udvar**.
+   **Bragg-felfutás**, a tengelytag körüli ionizációból a **delta-elektron-udvar**.
    A Bock-féle kétgammás mélységprofil és a GFlash EM-laterális profilja is szóba került, de rosszabb volt (8. fejezet).
 5. **Újraillesztés és döntés:** egy új tag után nem csak az új tagot illesztettük, hanem az egész formulát újra, maximum
    likelihooddal az adatra, mert egy új tag a többi tag szerepét is átrendezi. Az új tag akkor maradt bent, ha a validáción javított.
@@ -312,13 +392,13 @@ javított:
 
 **A következtetési lánc tagonként** (a diagnózis minőségi; a bekerült tagok nyereségét lásd 8. fejezet):
 
-- **Nyom:** a report képletében csak zápor volt, a müon és a kis impulzusú hadronok viszont főleg egy hosszú, keskeny nyomban
-  adnak le energiát. A régi képletnél a háló a tengely mentén volt sokkal jobb, ez a fizikai várakozással együtt egy külön nyom-tagra
+- **Tengelytag:** a report képletében csak zápor volt, a müon és a kis impulzusú hadronok viszont főleg egy hosszú, keskeny tengelytagban
+  adnak le energiát. A régi képletnél a háló a tengely mentén volt sokkal jobb, ez a fizikai várakozással együtt egy külön tengelytag-tagra
   utalt: egyenes a hatótávig, a magkölcsönhatás miatti csillapítással.
 - **Belépési csúcs:** az első rétegekben a háló jobb volt (több energiát tett oda, mint egy simán felfutó zápor). Ez egy rövid,
   belépésnél ülő tagra utalt; fizikailag ez az előlapban már elindult zápor és a lassú, korán megálló részecskék energiája.
-- **Többszörös szórás:** müonnál a háló a nyom körüli sugárirányú tartományban volt jobb; a PySR is a nyom szélénél (r ≈ 12,5 mm)
-  talált szerkezetet. Vagyis a nyom a mélységgel szélesedik, ahogy a többszörös szórásból várható; ezért a nyom szélességét a Highland-
+- **Többszörös szórás:** müonnál a háló a tengelytag körüli sugárirányú tartományban volt jobb; a PySR is a tengelytag szélénél (r ≈ 12,5 mm)
+  talált szerkezetet. Vagyis a tengelytag a mélységgel szélesedik, ahogy a többszörös szórásból várható; ezért a tengelytag szélességét a Highland-
   alakkal (σ² = σ0² + (c·z'^k / βp)²) írtuk fel. Ez lett a legnagyobb egyedi javulás.
 - **Távoli udvar:** elektronnál a háló nagy sugárnál (a záportól messze) volt jobb, és a PySR is a sugártól függő korrekciót
   talált. Ez egy kis súlyú, lassan lecsengő, diffúz tagra utalt; a szimulációs igazság később megerősítette, hogy ez valódi, azonnali
@@ -326,7 +406,7 @@ javított:
 - **Folt a hatótáv végén, Bragg-felfutás:** kis impulzuson (p < 2 GeV) a protonnál a háló a tengely közelében, az első ~20 cm-en
   maradt jobb, ahol a protonok megállnak. A megálló részecskénél a pálya végén nő az energialeadás (Bragg), és ott a befogás vagy
   bomlás további energiát ad; ezt a két tagot ez a hely és ez a fizika sugallta.
-- **Delta-elektron-udvar:** a nyom körül a keskeny Gauss-szélesség mellett egy lassabban lecsengő udvar is kellett; fizikailag ezek
+- **Delta-elektron-udvar:** a tengelytag körül a keskeny Gauss-szélesség mellett egy lassabban lecsengő udvar is kellett; fizikailag ezek
   a primer által kilökött elektronok.
 
 **Mit jelent a „szimbolikus regresszió a különbségre”?** A háló és a formula ugyanarra az adatra van illesztve; ahol a háló
@@ -353,18 +433,18 @@ leírása, *hol és milyen alakban* tér el még a formula; ebből olvastuk ki, 
 
 | új tag | honnan jött | mit jelent |
 |---|---|---|
-| nyom (hatótáv, csillapítás) | a régi képletből hiányzó fizika: a müon és a lassú hadron egyenes pályán ad le energiát; a háló a tengely mentén volt jobb | a beeső részecske saját ionizációs pályája a megállásig vagy az első magkölcsönhatásig |
+| tengelytag (hatótáv, csillapítás) | a régi képletből hiányzó fizika: a müon és a lassú hadron egyenes pályán ad le energiát; a háló a tengely mentén volt jobb | a beeső részecske saját ionizációs pályája a megállásig vagy az első magkölcsönhatásig |
 | belépési csúcs | a háló az első rétegekben volt jobb | az előlapban már elindult zápor és a korán megálló részecskék energiája |
-| többszörös szórás | **szimbolikus regresszió** (müon: szerkezet a nyom szélénél) + a háló a nyom körül volt jobb | a nyom a mélységgel szélesedik, mert a részecske sok kis szögben szóródik |
+| többszörös szórás | **szimbolikus regresszió** (müon: szerkezet a tengelytag szélénél) + a háló a tengelytag körül volt jobb | a tengelytag a mélységgel szélesedik, mert a részecske sok kis szögben szóródik |
 | távoli udvar | **szimbolikus regresszió** (elektron: sugárfüggő korrekció) + a háló nagy sugárnál volt jobb | kis, diffúz, messzire jutó energia (elektronnál fotonok) |
 | folt a hatótáv végén, Bragg-felfutás | a megálló részecske fizikája; a háló a protonok megállási helyén volt jobb | a pálya végén megnövő energialeadás, illetve a befogás vagy bomlás energiája |
-| delta-elektron-udvar | a nyom fizikája (a keskeny Gauss-nyom körül lassabban lecsengő energia kellett) | a beeső részecske által kilökött elektronok |
+| delta-elektron-udvar | a tengelytag fizikája (a keskeny Gauss-tengelytag körül lassabban lecsengő energia kellett) | a beeső részecske által kilökött elektronok |
 
 A szimbolikus regresszió eredménye (validáció, nat; negatív = jobb):
 
 | részecske | a legjobb talált kifejezés jellege | nyereség a korrekcióval | ugyanez a kontrollhoz képest | amit sugallt |
 |---|---|---:|---:|---|
-| müon | ~ c / (r − 12,5 mm): szerkezet a nyom szélénél | −0,0030 | −0,0025 | a nyom szélesedik → többszörös szórás tag |
+| müon | ~ c / (r − 12,5 mm): szerkezet a tengelytag szélénél | −0,0030 | −0,0025 | a tengelytag szélesedik → többszörös szórás tag |
 | elektron | r-polinom a tengely közelében és nagy sugárnál | −0,0010 | −0,0017 | a mag alakja és a nagy sugár → távoli udvar |
 | proton | ~ c / (r + z' + …): gyenge, tengely közeli | −0,0005 | – | lényegében nincs maradék |
 | pion | ~ c / (r − 17 mm), mélységgel csökkenő | −0,0003 | – | lényegében nincs maradék |
@@ -482,17 +562,17 @@ a müon legmélyebb ~13 cm-e és mélységi meredeksége, az elektron mély fark
 | pion | 5–26 % | 11–16 % | 4,1–6,4 % (4,4–6,5 %) | 45–60 % / 55–62 % |
 
 Az elektron távoli udvara tehát azonnali elektromágneses energia (a modell ~30 %-kal alulbecsli); hadronoknál a távoli energiát a zápor
-exponenciális udvara viszi. A müon nyoma a saját ionizációja és a közeli delta-elektronok.
+exponenciális udvara viszi. A müon tengely menti lerakódása a saját ionizációja és a közeli delta-elektronok.
 
 **A detektor anyagából várt értékek** (`scripts/lfhcal_expectations.py`; Highland-képlet, CSDA-hatótáv, PDG): a müon szélesedésének
-kitevője (1,41) egyezik, mert a 40 mm-es acél előlap 1,5 alá viszi; c 17 %-kal nagyobb (a nyom menti energiaveszteség megmagyarázza);
+kitevője (1,41) egyezik, mert a 40 mm-es acél előlap 1,5 alá viszi; c 17 %-kal nagyobb (a tengelytag menti energiaveszteség megmagyarázza);
 a proton hatótáva T = 0,5–1 GeV-en 4–16 %-on belül van; a csillapítási hosszak a magkölcsönhatási hosszak ~1,3-szorosai; az elektron
 zápormaximumának energiafüggése gyengébb a vártnál.
 
 ## 6. Szögfüggő kiegészítés – nem modellpredikció
 
 **Mi ez.** A végleges formula nem tudja, milyen szögben érkezett a részecske. Ebben a kiegészítésben a beesési szöget (θ) eseményenként
-**bemenetként megadjuk** – a szimulációból ismert –, és néhány belépési paraméter (a csúcs súlya, helye, szélessége, a zápor és a nyom
+**bemenetként megadjuk** – a szimulációból ismert –, és néhány belépési paraméter (a csúcs súlya, helye, szélessége, a zápor és a tengelytag
 kezdete) a szöggel lineárisan változhat: `P(x, u) = P(x) + β·u`, u = 1/cosθ − 1,1; részecskénként 6–8 új paraméter (β).
 
 **Miért nem modellpredikció.** A szögfüggést a formula fizikája nem jósolja meg: a β együtthatókat az adatra illesztettük, ez empirikus
@@ -542,26 +622,37 @@ elektronnál és müonnál ~3/4-ét, hadronoknál 2 GeV felett csak ~40–50 %-�
 - A pion 3D-hálója degenerált (tömege gyakorlatilag a detektor-szeleten kívül van), ezért a pion 3D-háló számai nem megbízhatók.
 - A belépés előtti energia szögfüggése túl gyenge; a 100 ns után érkező energia kimarad; a formula nem ad záporonkénti ingadozást.
 - A cellákat egyenletes 48,6 × 48,6 × 20,5 mm-es dobozként kezeli a modell (a modulhatárokon a valódi osztás nagyobb).
-- Hadronoknál a nyom kiegészítőinek paraméterei effektívek.
+- Hadronoknál a tengelytag kiegészítőinek paraméterei effektívek.
 
 ## 10. Fájlok, futtatás
 
-- Modell: `particle_shape.py`; betöltés: `shapelab.build_final`. Végleges eredmények: `results/particles/<részecske>/test_v3.json`,
+- Modell: `src/particle_shape.py`; betöltés: `shapelab.build_final` (`src/`). Végleges eredmények: `results/particles/<részecske>/test_v3.json`,
   `s2_v3.json`, `shapes.json`; részecskénkénti leírás: `results/particles/<részecske>/formula.hu.md`.
 - Futtatás: `scripts/run_all.sh` → `scripts/variants_v2.py`, `variants_v3.py` → `scripts/run_round3.sh` (végleges formula, teszt, s2,
   alakok, ellenőrzés); ellenőrzés: `scripts/verify_results.py`; utána a formulakártyák és a képletblokkok (`scripts/formula_card.py`, `scripts/readme_particle_formulas.py`) és az ábra: `scripts/formula_maps.py`. A naplók a `logs/` mappába kerülnek.
 - Bemenetek: a szimulációs CSV-k (`results/data.sha256`) és a report mentett modelljei (baseline-fokszámlétrák, MLP-k, desztillált
-  formulák, exportok), ezek másolata a `report_notebooks/results/<részecske>/` mappában van (`REPORT_RESULTS` a `protonlab.py`-ban). A 08-as
-  notebook CNN-sorához a report `06_cnn_proton.ipynb` notebookjának CNN-osztálya is kell (útvonal a `shapelab.py`-ban).
+  formulák, exportok), ezek másolata a `report_notebooks/results/<részecske>/` mappában van (`REPORT_RESULTS` a `src/protonlab.py`-ban). A 08-as
+  notebook CNN-sorához a report `06_cnn_proton.ipynb` notebookjának CNN-osztálya is kell (másolata a `report_notebooks/`-ban).
+- Az útvonalak a repóhoz viszonyítottak; a szimulációs CSV-ket a `$LFHCAL_DATA` mappából olvassuk (alapértelmezés: a csoport
+  szerverének `/home/user/data/simulations` mappája); a `scripts/build_report_notebooks.py`-nak a report eredeti notebookjai is kellenek
+  (`$SOFIYA_SHAPE_FORM`). A notebookokat a `scripts/run_notebooks.py <notebook> ...` futtatja; a shell-szkriptek a `$PYTHON`-t használják.
 - A `results/particles/<részecske>/` a korábbi köröket is megőrzi (`new_*`, `new2_*`, `variant*.pt` és a JSON-összegzéseik): a későbbi
   körök, a változatválasztás és a szimbolikus regressziós diagnosztika (`scripts/sr_residual.py`, `sr_control.py`, a 2. körös formulán)
   ezekből indul.
 - Mérések: `scripts/profile_metrics.py`, `truth_decomposition.py`, `front_region.py`, `lfhcal_expectations.py`; szögfüggő kiegészítés (6. fejezet):
   `scripts/theta_entrance.py <részecske> two` (`scripts/run_theta_two.sh`); időbeli szétválasztás és ingadozás: `scripts/time_split.py`, `fluctuations_pca.py`.
-- Ábrás protonelemzés: `08_shape3d_proton.ipynb`. Az adat-gyorsítótár (`cache/`) első futáskor a CSV-kből újraépül.
+- Ábrás protonelemzés: `notebooks/08_shape3d_proton.ipynb` (`scripts/build_notebook.sh`). Az adat-gyorsítótár (`cache/`) első futáskor a
+  CSV-kből újraépül.
+- Részecske-issue #1: `python src/core_mip.py build <részecske>` (először a müon: MIP-kalibráció; rétegenkénti tömbök és szimulációs
+  igazság a `cache/core_mip/`-ban) → `python scripts/core_mip_tune.py` (a kereső paraméterei a tanító mintán, az igazsághoz mérve) →
+  `python src/core_mip.py features <részecske>` (`results/features/<részecske>.parquet`) → `python scripts/core_mip_answers.py`
+  (táblázatok, ábrák, `answers.json`) → `python scripts/core_mip_pages.py` (válaszoldalak és a README-blokk) →
+  `python scripts/build_core_mip_notebooks.py` (a 09-es és 10-es notebook). Ellenőrzések: ugyanez a lánc a második mintán
+  (`build`/`features <részecske> s2`, majd `CORE_MIP_SAMPLE=s2 python scripts/core_mip_answers.py` és `scripts/core_mip_s2_check.py`)
+  és egy független második implementáció, a `scripts/verify_core_mip.py`.
 - Archivált, ebből a repóból nem futtatható (a bemeneteik a korábbi, csak protonos szakaszhoz tartoznak): `review/` (a likelihood és a
   számok független ellenőrzése) és `results/isobody/` (a 08-as notebook 90 %/90 %-os összevetésének izoszint-testei).
-- A `results/detektor_es_alakok/`, a `results/detektor_*.png` és a `Protonmodell-Tamas.pdf` a mentett illesztésekből készült bemutató-
+- A `results/detektor_es_alakok/`, a `results/detektor_*.png` és a `docs/Protonmodell-Tamas.pdf` a mentett illesztésekből készült bemutató-
   ábrák; rajzoló szkript nincs hozzájuk.
 - A report `05_mlp_<részecske>` notebookjai a formulával kiegészítve: `report_notebooks/` (a 8. fejezet a formulát ugyanazon a teszthalmazon értékeli ki, mint a hálót és a desztillált formulát; `scripts/build_report_notebooks.py` építi).
 - Reprodukálhatóság: csomagverziók a `requirements.txt`-ben (Python 3.10); a bemeneti szimulációs fájlok SHA-256-ja a `results/data.sha256`-ban (helyi másolat ellenőrzése: `cd <szimulációs mappa> && sha256sum -c <repó>/results/data.sha256`); a felosztás `SEED = 1`.

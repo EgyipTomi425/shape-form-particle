@@ -3,8 +3,8 @@ nyommal (csillapítással) és csúccsal, ill. nyom nélkül. Ugyanaz a protokol
 n = 2, 4000 lépés, validáció). Kimenet: results/particles/<p>/variants_literature.json
     python test_literature_variants.py <particle>"""
 import json, os, sys, time
-ROOT = "/home/user/tamas/shape-form-proton"
-sys.path.insert(0, ROOT)
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))   # repository root
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import torch
 import shapelab
 from particle_shape import MASS, ParticleShape

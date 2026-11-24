@@ -6,36 +6,36 @@ Mass m = 0.105658 GeV; variant `full_att+all+all4`; the parameters are polynomia
 
 ## In brief
 
-- **What it is:** Minimum-ionising track: most of the energy is in the track (the primary's own ionisation and the nearby delta electrons). The track widens with depth as multiple scattering predicts; for the LFHCal layers with the 40 mm steel front plate, the Highland formula gives ≈ 62–63 mm and an exponent of 1.35–1.41. At the end there is a Bragg rise (Bragg–Kleeman: q ≈ 0.43); the range is nearly linear in T.
+- **What it is:** Minimum-ionising passage: most of the energy is in the axial term (the primary's own ionisation and the nearby delta electrons). The axial term widens with depth as multiple scattering predicts; for the LFHCal layers with the 40 mm steel front plate, the Highland formula gives ≈ 62–63 mm and an exponent of 1.35–1.41. At the end there is a Bragg rise (Bragg–Kleeman: q ≈ 0.43); the range is nearly linear in T.
 - **Accuracy (test NLL, report metric, lower = better):** new formula 16.0120, the baseline × Ā fitted the same way 16.0846, the fine-tuned network 16.0034. The new formula closes 89 % of the gap between the baseline and the network (3D metric: 83 %; independent s2 sample: 90 % / 84 %).
 - **Split of the energy deposited in the detector, 1 GeV → 20 GeV** (3D metric): shower 2 % → 1 %; track 91 % → 93 %; entry spike 6 % → 6 %; end-of-range blob 0.24 % → < 0.01 %; far halo 0.085 % → 0.094 %.
-- **Track:** range R ≈ 864 mm at 1 GeV (exponent k_R ≈ 1.02); attenuation length λ_att ≈ 1211 mm; widening c ≈ 74 mm, k ≈ 1.41; Bragg exponent q ≈ 0.42.
-- **Cross-section at z' = 100 mm, 1 → 20 GeV:** Gaussian core σ ≈ 11 → 16 mm, Cauchy body R ≈ 10 → 295 mm, halo λ ≈ 52 mm; fractions (core / body / halo) 0.93 / 0.04 / 0.03 → 0.16 / 0.00 / 0.84.
+- **Axial term:** range R ≈ 864 mm at 1 GeV (exponent k_R ≈ 1.02); attenuation length λ_att ≈ 1211 mm; widening c ≈ 74 mm, k ≈ 1.41; Bragg exponent q ≈ 0.42.
+- **Cross-section at z' = 100 mm, 1 → 20 GeV:** Gaussian narrow component σ ≈ 11 → 16 mm, Cauchy body R ≈ 10 → 295 mm, halo λ ≈ 52 mm; fractions (core / body / halo) 0.93 / 0.04 / 0.03 → 0.16 / 0.00 / 0.84.
 - **98 % envelope bodies** (the smallest body that, in 98 % of the showers, contains ≥ 95 % of the energy; average of 20 bins): super-egg 37.7 L (35.8 L in the detector, coverage 0.98); drop 46.5 L (43.5 L in the detector, coverage 0.98); capsule 38.7 L (36.8 L in the detector, coverage 0.98); calibrated iso-density body 48.9 L (44.9 L in the detector, coverage 0.98).
 - **Mean profiles** (independent s2 sample, separation power × 10⁻³, depth / radius, lower = better): new formula 4.19 / 1.88, network 0.31 / 2.09, old formula 5.28 / 15.92; statistical floor 0.07 / 0.08.
 - **Energy of the region before the entrance (z' < 0) versus the angle of incidence** (θ ≈ 0.25 → 0.57 rad, p ≥ 2 GeV): data 1.0 → 4.2 %, new formula 2.1 → 2.3 %, network 2.1 → 2.4 %.
 - **Simulation truth** (s2, in four momentum ranges of 0–20 GeV): deposition by the incoming particle itself 79–91 %, by the daughters of neutrons 0–1 %; energy arriving after 100 ns (left out of the fit) 0.0–1.7 %. The region r ≥ 300 mm holds 0.05–0.09 % of the energy (0.06–0.07 % in the model); of this, 2–20 % comes from neutrons, 11–36 % is electromagnetic and 72–96 % is prompt (< 5 ns); in the model, the far halo term carries 89–91 % of it.
-- **Angle-dependent extension – not a model prediction.** The angle of incidence is given per event as an input, and 7 entrance parameters (entry spike, shower and track start) may vary linearly with the angle: P + β·(1/cosθ − 1.1). The β values were fitted to the data (an empirical correction, not predicted by the physics of the formula); all other numbers on this card come from the angle-free formula. 3D test NLL: 16.0144 → 15.9690 (s2: -0.0454 ± 0.0005 nat/event). Energy before the entrance (θ ≈ 0.25 → 0.57 rad): data 1.0 → 4.2 %, final formula 2.1 → 2.3 %, angle-dependent 1.0 → 2.5 %. For the muon, the fit rearranges the terms, which then have no physical interpretation.
+- **Angle-dependent extension – not a model prediction.** The angle of incidence is given per event as an input, and 7 entrance parameters (entry spike, shower and axial-term start) may vary linearly with the angle: P + β·(1/cosθ − 1.1). The β values were fitted to the data (an empirical correction, not predicted by the physics of the formula); all other numbers on this card come from the angle-free formula. 3D test NLL: 16.0144 → 15.9690 (s2: -0.0454 ± 0.0005 nat/event). Energy before the entrance (θ ≈ 0.25 → 0.57 rad): data 1.0 → 4.2 %, final formula 2.1 → 2.3 %, angle-dependent 1.0 → 2.5 %. For the muon, the fit rearranges the terms, which then have no physical interpretation.
 - **Shower-to-shower fluctuation** (PCA on the per-event profiles): the first 3 principal components explain 73–78 % of the variance. Separation power of the per-event quantities (× 10⁻³, floor from two half-samples: 3–15): any mean model 923 (binning constant), 3 principal components with Gaussian coefficients 137–196, 10 principal components with coefficients drawn from the training set 52–76.
 
 ## The formula
 
-ρ(z', r | p) = w_zápor·S + w_nyom·U + w_csúcs·D + w_folt·E + w_távoli·H — each term is normalised separately on the (z', r) grid (σ(·) = logistic function; terms not switched on for this particle are omitted; the subscripts are the Hungarian term names: zápor = shower, nyom = track, csúcs = entry spike, folt = end-of-range blob, távoli = far halo):
+ρ(z', r | p) = w_zápor·S + w_nyom·U + w_csúcs·D + w_folt·E + w_távoli·H — each term is normalised separately on the (z', r) grid (σ(·) = logistic function; terms not switched on for this particle are omitted; the subscripts are the Hungarian term names: zápor = shower, tengelytag = axial term (formerly “track”), csúcs = entry spike, folt = end-of-range blob, távoli = far halo):
 
 - **Shower** S = L(z')·T(r | z'). Plateau depth profile: L ∝ σ((z' − z_s)/w1)·σ((ℓ − z')/w2)·e^(κ z'/1 m); gamma: L ∝ s^(α−1)·e^(−(α−1) s/t_max), s ≈ z' − z0. Cross-section: T = f1·e^(−r²/2σ²)/(2πσ²) + f2·R²/(π(r² + R²)²) + f3·e^(−r/λ)/(2πλ(r + 1 mm)); ln σ, ln R, ln λ and the mixing logits are linear in depth (σ and the logits also with a quadratic term when “curvature” is switched on); at every depth normalised on the disc r < 700 mm.
-- **Track** U ∝ σ((z' − z_t0)/4 mm)·σ((R(T) − z')/w_R)·e^(−κ_t z'/R)·e^(−z'/λ_att)·(1 − z'/R + 0.03)^(−q) × [(1 − f)·Gauss(r; σ(z')) + f·e^(−r/l)/(2πl(r + 1 mm))], where R(T) = R1·T^(k_R) − R0 (range), w_R = w·R + 3 mm, σ(z')² = σ0² + (c·(z'/1 m)^k / βp)² (multiple scattering), βp = (T² + 2Tm)/(T + m).
+- **Axial term** U ∝ σ((z' − z_t0)/4 mm)·σ((R(T) − z')/w_R)·e^(−κ_t z'/R)·e^(−z'/λ_att)·(1 − z'/R + 0.03)^(−q) × [(1 − f)·Gauss(r; σ(z')) + f·e^(−r/l)/(2πl(r + 1 mm))], where R(T) = R1·T^(k_R) − R0 (range), w_R = w·R + 3 mm, σ(z')² = σ0² + (c·(z'/1 m)^k / βp)² (multiple scattering), βp = (T² + 2Tm)/(T + m).
 - **Entry spike**: D ∝ e^(−(z' − z_sp)²/2σ_z²)·e^(−r²/2σ_r²); **end-of-range blob**: E ∝ e^(−(z' − R(T))²/2σ_ez²)·e^(−r²/2σ_er²); **far halo**: H ∝ σ(z'/10 mm)·e^(−z'/L)·e^(−r/R)/(r + 10 mm).
-- **Weights**: w_távoli = σ(a_far), w_folt = σ(a_end)·(1 − w_távoli); the shower, the track and the entry spike share the remainder (the entry spike is tied to the track: f1 = d1/(d1 + L_t), where L_t is the length of the track).
+- **Weights**: w_távoli = σ(a_far), w_folt = σ(a_end)·(1 − w_távoli); the shower, the axial term and the entry spike share the remainder (the entry spike is tied to the axial term: f1 = d1/(d1 + L_t), where L_t is the length of the axial term).
 - Every raw parameter is P(x) = Σ c_k x^k, x = (ln(T/GeV) − v0)/vs, T = √(p² + m²) − m; “log_” = logarithm of the quantity, “logit_” = logit of a fraction.
 
-Terms: shower (gamma depth profile × [Gaussian core + Cauchy body + e^(−r/λ)/r halo]) + track (range, attenuation) + entry spike + far halo + end-of-range blob + multiple scattering (track widening) + delta-electron halo around the track + Bragg rise + quadratic depth terms in the cross-section.
+Terms: shower (gamma depth profile × [Gaussian narrow component + Cauchy body + e^(−r/λ)/r halo]) + axial term (range, attenuation) + entry spike + far halo + end-of-range blob + multiple scattering (widening of the axial term) + delta-electron halo around the axial term + Bragg rise + quadratic depth terms in the cross-section.
 
 ## How to read the tables
 
 - Columns: the momentum p [GeV]; each row is the value of one fitted quantity at that momentum.
 - **w …**: weight of the component in the uncut body of revolution. **in-detector: …**: share of the component in the energy deposited in the detector (behind the tilted entrance face) – this is the physically meaningful energy share.
 - **z_s, w1, ℓ, w2, κ** (plateau) or **z0, t_max, α−1** (gamma): depth profile of the shower. **σ core, R Cauchy, λ halo** and **f core / body / halo**: widths and fractions of the three cross-section terms at the given depth.
-- **R(T)**: length of the track (range); **σ0**: width of the track at the entrance; **c_ms, k_ms**: widening due to multiple scattering; **λ_att**: attenuation length; **f, l delta halo**: fraction and length of the halo around the track; **q Bragg**: exponent of the Bragg rise; **entry spike …, end-of-range blob …**: position and width of the two Gaussians; **far halo L, R**: depth and radial length (R → ∞: no radial cut-off).
+- **R(T)**: length of the axial term (range); **σ0**: its width at the entrance; **c_ms, k_ms**: widening due to multiple scattering; **λ_att**: attenuation length; **f, l delta halo**: fraction and length of the halo around the axial term; **q Bragg**: exponent of the Bragg rise; **entry spike …, end-of-range blob …**: position and width of the two Gaussians; **far halo L, R**: depth and radial length (R → ∞: no radial cut-off).
 - There are two fits: the **3D metric** (normalised per event to the detector slab; it describes the body of revolution) and the **report metric** (× Ā; the r95 and iso-density shapes are computed from it). Their values differ slightly.
 
 ## 3D metric (normalised per event to the detector slab) – this is the body of revolution
@@ -67,7 +67,7 @@ Degree n = 6, 129 parameters; v0 = -0.6642, vs = 3.6546. The “w” rows are th
 | λ halo, z'=600 [mm] | 61.5 | 60.5 | 58.4 | 54.3 | 50.5 | 46.2 |
 | f core / body / halo, z'=600 | 0.97 / 0.01 / 0.02 | 0.96 / 0.01 / 0.03 | 0.94 / 0.00 / 0.06 | 0.83 / 0.00 / 0.17 | 0.54 / 0.00 / 0.46 | 0.12 / 0.00 / 0.88 |
 | R(T) range [mm] | 335 | 864 | 1951 | 5287 | 1.1e+04 | 2.25e+04 |
-| σ0 track [mm] | 15 | 15 | 15 | 15 | 15 | 15 |
+| σ0 tengelytag [mm] | 15 | 15 | 15 | 15 | 15 | 15 |
 | λ_att [mm] | 1211 | 1211 | 1211 | 1211 | 1211 | 1211 |
 | c_ms [mm] | 74.4 | 74.4 | 74.4 | 74.4 | 74.4 | 74.4 |
 | k_ms | 1.41 | 1.41 | 1.41 | 1.41 | 1.41 | 1.41 |
@@ -113,7 +113,7 @@ Degree n = 6, 129 parameters; v0 = -0.6642, vs = 3.6546. The “w” rows are th
 | λ halo, z'=600 [mm] | 59.9 | 58.4 | 56.2 | 52.4 | 49 | 45.2 |
 | f core / body / halo, z'=600 | 0.94 / 0.00 / 0.06 | 0.93 / 0.00 / 0.06 | 0.92 / 0.00 / 0.08 | 0.86 / 0.00 / 0.14 | 0.71 / 0.00 / 0.29 | 0.35 / 0.00 / 0.65 |
 | R(T) range [mm] | 329 | 852 | 1930 | 5253 | 1.09e+04 | 2.25e+04 |
-| σ0 track [mm] | 14.9 | 14.9 | 14.9 | 14.9 | 14.9 | 14.9 |
+| σ0 tengelytag [mm] | 14.9 | 14.9 | 14.9 | 14.9 | 14.9 | 14.9 |
 | λ_att [mm] | 1353 | 1353 | 1353 | 1353 | 1353 | 1353 |
 | c_ms [mm] | 75.2 | 75.2 | 75.2 | 75.2 | 75.2 | 75.2 |
 | k_ms | 1.42 | 1.42 | 1.42 | 1.42 | 1.42 | 1.42 |

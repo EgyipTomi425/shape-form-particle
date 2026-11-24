@@ -10,8 +10,8 @@ import os
 import re
 import sys
 
-ROOT = "/home/user/tamas/shape-form-proton"
-sys.path.insert(0, ROOT)
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))   # repository root
+sys.path.insert(0, os.path.join(ROOT, "src"))
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -64,7 +64,7 @@ def evaluate(core, p, abar=None):
                     f"f mag / test / udvar, z'={zz:.0f}": [f"{a:.2f} / {b:.2f} / {c:.2f}" for a, b, c in zip(s1, (1 - s1) * s2, (1 - s1) * (1 - s2))]})
     if core.use_track:
         out["R(T) hatótáv [mm]"] = core.range_mm(th).flatten().cpu().numpy()
-        out["σ0 nyom [mm]"] = ex("log_st")
+        out["σ0 tengelytag [mm]"] = ex("log_st")
         if core.att:
             out["λ_att [mm]"] = ex("log_latt")
         if core.ms:
@@ -103,26 +103,26 @@ S = {
         formula=["## The formula", "",
                  "ρ(z', r | p) = w_zápor·S + w_nyom·U + w_csúcs·D + w_folt·E + w_távoli·H — each term is normalised separately on the "
                  "(z', r) grid (σ(·) = logistic function; terms not switched on for this particle are omitted; the subscripts are the "
-                 "Hungarian term names: zápor = shower, nyom = track, csúcs = entry spike, folt = end-of-range blob, távoli = far halo):",
+                 "Hungarian term names: zápor = shower, tengelytag = axial term (formerly “track”), csúcs = entry spike, folt = end-of-range blob, távoli = far halo):",
                  "",
                  "- **Shower** S = L(z')·T(r | z'). Plateau depth profile: L ∝ σ((z' − z_s)/w1)·σ((ℓ − z')/w2)·e^(κ z'/1 m); "
                  "gamma: L ∝ s^(α−1)·e^(−(α−1) s/t_max), s ≈ z' − z0. Cross-section: "
                  "T = f1·e^(−r²/2σ²)/(2πσ²) + f2·R²/(π(r² + R²)²) + f3·e^(−r/λ)/(2πλ(r + 1 mm)); ln σ, ln R, ln λ and the mixing "
                  "logits are linear in depth (σ and the logits also with a quadratic term when “curvature” is switched on); at every "
                  "depth normalised on the disc r < 700 mm.",
-                 "- **Track** U ∝ σ((z' − z_t0)/4 mm)·σ((R(T) − z')/w_R)·e^(−κ_t z'/R)·e^(−z'/λ_att)·(1 − z'/R + 0.03)^(−q) "
+                 "- **Axial term** U ∝ σ((z' − z_t0)/4 mm)·σ((R(T) − z')/w_R)·e^(−κ_t z'/R)·e^(−z'/λ_att)·(1 − z'/R + 0.03)^(−q) "
                  "× [(1 − f)·Gauss(r; σ(z')) + f·e^(−r/l)/(2πl(r + 1 mm))], where R(T) = R1·T^(k_R) − R0 (range), w_R = w·R + 3 mm, "
                  "σ(z')² = σ0² + (c·(z'/1 m)^k / βp)² (multiple scattering), βp = (T² + 2Tm)/(T + m).",
                  "- **Entry spike**: D ∝ e^(−(z' − z_sp)²/2σ_z²)·e^(−r²/2σ_r²); **end-of-range blob**: "
                  "E ∝ e^(−(z' − R(T))²/2σ_ez²)·e^(−r²/2σ_er²); **far halo**: H ∝ σ(z'/10 mm)·e^(−z'/L)·e^(−r/R)/(r + 10 mm).",
-                 "- **Weights**: w_távoli = σ(a_far), w_folt = σ(a_end)·(1 − w_távoli); the shower, the track and the entry spike "
-                 "share the remainder (the entry spike is tied to the track: f1 = d1/(d1 + L_t), where L_t is the length of the track).",
+                 "- **Weights**: w_távoli = σ(a_far), w_folt = σ(a_end)·(1 − w_távoli); the shower, the axial term and the entry spike "
+                 "share the remainder (the entry spike is tied to the axial term: f1 = d1/(d1 + L_t), where L_t is the length of the axial term).",
                  "- Every raw parameter is P(x) = Σ c_k x^k, x = (ln(T/GeV) − v0)/vs, T = √(p² + m²) − m; “log_” = logarithm of the "
                  "quantity, “logit_” = logit of a fraction.", ""],
-        terms_line="Terms: shower ({long} depth profile × [Gaussian core + Cauchy body + e^(−r/λ)/r halo])", plateau="plateau",
-        track_term=" + track (range, attenuation)", spike_term=" + entry spike",
-        terms={"far": "far halo", "endblob": "end-of-range blob", "ms": "multiple scattering (track widening)",
-               "track_halo": "delta-electron halo around the track", "bragg": "Bragg rise",
+        terms_line="Terms: shower ({long} depth profile × [Gaussian narrow component + Cauchy body + e^(−r/λ)/r halo])", plateau="plateau",
+        track_term=" + axial term (range, attenuation)", spike_term=" + entry spike",
+        terms={"far": "far halo", "endblob": "end-of-range blob", "ms": "multiple scattering (widening of the axial term)",
+               "track_halo": "delta-electron halo around the axial term", "bragg": "Bragg rise",
                "curv": "quadratic depth terms in the cross-section"},
         metric={"slab": "3D metric (normalised per event to the detector slab) – this is the body of revolution",
                 "std": "Report metric (× Ā; the r95 and iso-density shapes are computed from it)"},
@@ -137,37 +137,37 @@ S = {
                   "the energy deposited in the detector (behind the tilted entrance face) – this is the physically meaningful energy share.",
                   "- **z_s, w1, ℓ, w2, κ** (plateau) or **z0, t_max, α−1** (gamma): depth profile of the shower. **σ core, R Cauchy, "
                   "λ halo** and **f core / body / halo**: widths and fractions of the three cross-section terms at the given depth.",
-                  "- **R(T)**: length of the track (range); **σ0**: width of the track at the entrance; **c_ms, k_ms**: widening due "
+                  "- **R(T)**: length of the axial term (range); **σ0**: its width at the entrance; **c_ms, k_ms**: widening due "
                   "to multiple scattering; **λ_att**: attenuation length; **f, l delta halo**: fraction and length of the halo around "
-                  "the track; **q Bragg**: exponent of the Bragg rise; **entry spike …, end-of-range blob …**: position and width of the "
+                  "the axial term; **q Bragg**: exponent of the Bragg rise; **entry spike …, end-of-range blob …**: position and width of the "
                   "two Gaussians; **far halo L, R**: depth and radial length (R → ∞: no radial cut-off).",
                   "- There are two fits: the **3D metric** (normalised per event to the detector slab; it describes the body of "
                   "revolution) and the **report metric** (× Ā; the r95 and iso-density shapes are computed from it). Their values "
                   "differ slightly.", ""],
         brief="## In brief", what="- **What it is:** {note}",
-        note={"electron": "Electromagnetic shower, no track. At low momentum the entry spike is significant, at higher momentum the "
+        note={"electron": "Electromagnetic shower, no axial term. At low momentum the entry spike is significant, at higher momentum the "
                           "shower dominates. Of the additional terms, the ~1 % far halo gave the largest improvement; according to the "
                           "simulation truth it is prompt electromagnetic (e±/γ) energy, not neutrons, and at 5–20 GeV the model "
                           "underestimates it by ~30 %.",
-              "muon": "Minimum-ionising track: most of the energy is in the track (the primary's own ionisation and the nearby delta "
-                      "electrons). The track widens with depth as multiple scattering predicts; for the LFHCal layers with the 40 mm "
+              "muon": "Minimum-ionising passage: most of the energy is in the axial term (the primary's own ionisation and the nearby delta "
+                      "electrons). The axial term widens with depth as multiple scattering predicts; for the LFHCal layers with the 40 mm "
                       "steel front plate, the Highland formula gives ≈ 62–63 mm and an exponent of 1.35–1.41. At the end there is a "
                       "Bragg rise (Bragg–Kleeman: q ≈ 0.43); the range is nearly linear in T.",
-              "proton": "At low momentum a stopping proton (track + entry spike + end-of-range blob), at higher momentum a hadronic "
+              "proton": "At low momentum a stopping proton (axial term + entry spike + end-of-range blob), at higher momentum a hadronic "
                         "shower. At T = 0.5–1 GeV the range agrees with the CSDA range to within 4–16 % (after the front plate); the "
                         "exponent k_R is global, the local CSDA exponent here is 1.3–1.6. The attenuation length is ≈ 1.26 λ_I. The "
-                        "widening, the delta halo and the Bragg exponent of the track are effective here: they also describe part of "
+                        "widening, the delta halo and the Bragg exponent of the axial term are effective here: they also describe part of "
                         "the core of the hadronic shower.",
-              "pion": "Like the proton: a track up to the first nuclear interaction, then a hadronic shower. The attenuation length "
+              "pion": "Like the proton: an axial term up to the first nuclear interaction, then a hadronic shower. The attenuation length "
                       "is ≈ 1.31 λ_π, longer than that of the proton, as is the interaction length of the pion. The parameters of the "
-                      "track's extra terms are effective."},
+                      "axial term's extra terms are effective."},
         acc="- **Accuracy (test NLL, report metric, lower = better):** new formula {new}, the baseline × Ā fitted the same way {base}, "
             "the fine-tuned network {mlp}. The new formula closes {gap} % of the gap between the baseline and the network (3D metric: "
             "{gap3} %; independent s2 sample: {s2} % / {s23} %).",
         shares="- **Split of the energy deposited in the detector, 1 GeV → 20 GeV** (3D metric): {shares}.",
-        track="- **Track:** range R ≈ {R} mm at 1 GeV (exponent k_R ≈ {kR}); attenuation length λ_att ≈ {latt} mm; widening "
+        track="- **Axial term:** range R ≈ {R} mm at 1 GeV (exponent k_R ≈ {kR}); attenuation length λ_att ≈ {latt} mm; widening "
               "c ≈ {c} mm, k ≈ {k}; Bragg exponent q ≈ {q}.",
-        lat="- **Cross-section at z' = 100 mm, 1 → 20 GeV:** Gaussian core σ ≈ {s1} → {s20} mm, Cauchy body R ≈ {R1} → {R20} mm, "
+        lat="- **Cross-section at z' = 100 mm, 1 → 20 GeV:** Gaussian narrow component σ ≈ {s1} → {s20} mm, Cauchy body R ≈ {R1} → {R20} mm, "
             "halo λ ≈ {lam} mm; fractions (core / body / halo) {f1} → {f20}.",
         env="- **98 % envelope bodies** (the smallest body that, in 98 % of the showers, contains ≥ 95 % of the energy; average of "
             "20 bins): {parts}.",
@@ -184,7 +184,7 @@ S = {
               "r ≥ 300 mm holds {fr} % of the energy ({mfar} % in the model); of this, {neut} % comes from neutrons, {em} % is "
               "electromagnetic and {prompt} % is prompt (< 5 ns); in the model, the far halo term carries {mhalo} % of it.",
         theta="- **Angle-dependent extension – not a model prediction.** The angle of incidence is given per event as an input, and "
-              "{nb} entrance parameters (entry spike, shower and track start) may vary linearly with the angle: "
+              "{nb} entrance parameters (entry spike, shower and axial-term start) may vary linearly with the angle: "
               "P + β·(1/cosθ − 1.1). The β values were fitted to the data (an empirical correction, not predicted by the physics of "
               "the formula); all other numbers on this card come from the angle-free formula. 3D test NLL: {c} → {th} (s2: {d0} ± "
               "{d1} nat/event).",
@@ -213,19 +213,19 @@ S = {
                  "T = f1·e^(−r²/2σ²)/(2πσ²) + f2·R²/(π(r² + R²)²) + f3·e^(−r/λ)/(2πλ(r + 1 mm)); ln σ, ln R, ln λ és a keverési logitok "
                  "lineárisak a mélységben (σ-nál és a logitoknál négyzetes taggal is, ha „görbület” be van kapcsolva); minden mélységben "
                  "az r < 700 mm korongra normálva.",
-                 "- **Nyom** U ∝ σ((z' − z_t0)/4 mm)·σ((R(T) − z')/w_R)·e^(−κ_t z'/R)·e^(−z'/λ_att)·(1 − z'/R + 0,03)^(−q) "
+                 "- **Tengelytag** U ∝ σ((z' − z_t0)/4 mm)·σ((R(T) − z')/w_R)·e^(−κ_t z'/R)·e^(−z'/λ_att)·(1 − z'/R + 0,03)^(−q) "
                  "× [(1 − f)·Gauss(r; σ(z')) + f·e^(−r/l)/(2πl(r + 1 mm))], ahol R(T) = R1·T^(k_R) − R0 (hatótáv), w_R = w·R + 3 mm, "
                  "σ(z')² = σ0² + (c·(z'/1 m)^k / βp)² (többszörös szórás), βp = (T² + 2Tm)/(T + m).",
                  "- **Csúcs** a belépésnél: D ∝ e^(−(z' − z_sp)²/2σ_z²)·e^(−r²/2σ_r²); **folt** a hatótáv végén: "
                  "E ∝ e^(−(z' − R(T))²/2σ_ez²)·e^(−r²/2σ_er²); **távoli udvar**: H ∝ σ(z'/10 mm)·e^(−z'/L)·e^(−r/R)/(r + 10 mm).",
-                 "- **Súlyok**: w_távoli = σ(a_far), w_folt = σ(a_end)·(1 − w_távoli); a zápor, a nyom és a csúcs a maradékon osztozik "
-                 "(a csúcs a nyomhoz kötve: f1 = d1/(d1 + L_t), L_t a nyom hossza).",
+                 "- **Súlyok**: w_távoli = σ(a_far), w_folt = σ(a_end)·(1 − w_távoli); a zápor, a tengelytag és a csúcs a maradékon osztozik "
+                 "(a csúcs a tengelytaghoz kötve: f1 = d1/(d1 + L_t), L_t a tengelytag hossza).",
                  "- Minden nyers paraméter P(x) = Σ c_k x^k, x = (ln(T/GeV) − v0)/vs, T = √(p² + m²) − m; „log_” = a mennyiség "
                  "logaritmusa, „logit_” = arány logitja.", ""],
-        terms_line="Tagok: zápor ({long}-mélységprofil × [Gauss-mag + Cauchy-test + e^(−r/λ)/r udvar])", plateau="plató",
-        track_term=" + nyom (hatótáv, csillapítás)", spike_term=" + csúcs a belépésnél",
-        terms={"far": "távoli udvar", "endblob": "folt a hatótáv végén", "ms": "többszörös szórás (a nyom szélesedése)",
-               "track_halo": "delta-elektron-udvar a nyom körül", "bragg": "Bragg-felfutás",
+        terms_line="Tagok: zápor ({long}-mélységprofil × [Gauss-féle keskeny komponens + Cauchy-test + e^(−r/λ)/r udvar])", plateau="plató",
+        track_term=" + tengelytag (hatótáv, csillapítás)", spike_term=" + csúcs a belépésnél",
+        terms={"far": "távoli udvar", "endblob": "folt a hatótáv végén", "ms": "többszörös szórás (a tengelytag szélesedése)",
+               "track_halo": "delta-elektron-udvar a tengelytag körül", "bragg": "Bragg-felfutás",
                "curv": "négyzetes mélységtagok a keresztmetszetben"},
         metric={"slab": "3D-mérce (eseményenként a detektor-szeletre normálva) – ez a forgástest",
                 "std": "report-mérce (× Ā; ebből számolódik az r95- és az izoszint-alak)"},
@@ -239,33 +239,33 @@ S = {
                   "belépési sík mögé) eső energiában – ez a fizikailag értelmezhető energiaarány.",
                   "- **z_s, w1, ℓ, w2, κ** (plató) ill. **z0, t_max, α−1** (gamma): a zápor mélységprofilja. **σ mag, R Cauchy, λ udvar** és "
                   "**f mag / test / udvar**: a keresztmetszet három tagjának szélessége és aránya az adott mélységben.",
-                  "- **R(T)**: a nyom hossza (hatótáv); **σ0**: a nyom szélessége a belépésnél; **c_ms, k_ms**: a többszörös szórás miatti "
-                  "szélesedés; **λ_att**: csillapítási hossz; **f, l delta-udvar**: a nyom körüli udvar aránya és hossza; **q Bragg**: a "
+                  "- **R(T)**: a tengelytag hossza (hatótáv); **σ0**: a tengelytag szélessége a belépésnél; **c_ms, k_ms**: a többszörös szórás miatti "
+                  "szélesedés; **λ_att**: csillapítási hossz; **f, l delta-udvar**: a tengelytag körüli udvar aránya és hossza; **q Bragg**: a "
                   "Bragg-felfutás kitevője; **csúcs …, folt …**: a két Gauss-folt helye és szélessége; **távoli udvar L, R**: mélységi és "
                   "sugárirányú hossz (R → ∞: sugárirányban nincs levágás).",
                   "- Két illesztés van: a **3D-mérce** (eseményenként a detektor-szeletre normálva; ez írja le a forgástestet) és a "
                   "**report-mérce** (× Ā; ebből számolódik az r95- és az izoszint-alak). A kettő értékei kissé eltérnek.", ""],
         brief="## Röviden", what="- **Mi ez:** {note}",
-        note={"electron": "Elektromágneses zápor, nyom nincs. Kis impulzuson a belépés körüli csúcs jelentős, nagyobb impulzuson a zápor "
+        note={"electron": "Elektromágneses zápor, tengelytag nincs. Kis impulzuson a belépés körüli csúcs jelentős, nagyobb impulzuson a zápor "
                           "dominál. A ~1 %-os távoli udvar hozta a legnagyobb javulást a kiegészítő tagok közül; a szimulációs igazság "
                           "szerint ez azonnali elektromágneses (e±/γ) energia, nem neutron, és a modell 5–20 GeV-en ~30 %-kal alulbecsli.",
-              "muon": "Minimálisan ionizáló nyom: az energia nagy része a nyomban van (a primer saját ionizációja és a közeli "
-                      "delta-elektronok). A nyom a mélységgel a többszörös szórás szerint szélesedik; a Highland-képlet az LFHCal "
+              "muon": "Minimálisan ionizáló áthaladás: az energia nagy része a tengelytagban van (a primer saját ionizációja és a közeli "
+                      "delta-elektronok). A tengelytag a mélységgel a többszörös szórás szerint szélesedik; a Highland-képlet az LFHCal "
                       "rétegeire a 40 mm-es acél előlappal ≈ 62–63 mm-t és 1,35–1,41-es kitevőt ad. A végén Bragg-felfutás "
                       "(Bragg–Kleeman: q ≈ 0,43); a hatótáv közel lineáris T-ben.",
-              "proton": "Kis impulzuson megálló proton (nyom + csúcs + folt), nagyobb impulzuson hadronzápor. A hatótáv T = 0,5–1 GeV-en "
+              "proton": "Kis impulzuson megálló proton (tengelytag + csúcs + folt), nagyobb impulzuson hadronzápor. A hatótáv T = 0,5–1 GeV-en "
                         "4–16 %-on belül egyezik a CSDA-hatótávval (az előlap után); a k_R kitevő globális, a CSDA helyi kitevője itt "
-                        "1,3–1,6. A csillapítási hossz ≈ 1,26 λ_I. A nyom szélesedése, delta-udvara és Bragg-kitevője itt effektív: a "
+                        "1,3–1,6. A csillapítási hossz ≈ 1,26 λ_I. A tengelytag szélesedése, delta-udvara és Bragg-kitevője itt effektív: a "
                         "hadronmag egy részét is ezek írják le.",
-              "pion": "Mint a proton: nyom az első magkölcsönhatásig, utána hadronzápor. A csillapítási hossz ≈ 1,31 λ_π, a protonénál "
-                      "hosszabb, ahogy a pion kölcsönhatási hossza is. A nyom kiegészítőinek paraméterei effektívek."},
+              "pion": "Mint a proton: tengelytag az első magkölcsönhatásig, utána hadronzápor. A csillapítási hossz ≈ 1,31 λ_π, a protonénál "
+                      "hosszabb, ahogy a pion kölcsönhatási hossza is. A tengelytag kiegészítőinek paraméterei effektívek."},
         acc="- **Pontosság (teszt-NLL, report-mérce, kisebb = jobb):** új formula {new}, az ugyanígy illesztett baseline × Ā {base}, "
             "a finomhangolt háló {mlp}. A baseline és a háló közti rés {gap} %-át zárja be (3D-mérce: {gap3} %; független s2 minta: "
             "{s2} % / {s23} %).",
         shares="- **A detektorba eső energia megoszlása, 1 GeV → 20 GeV** (3D-mérce): {shares}.",
-        track="- **Nyom:** hatótáv R ≈ {R} mm 1 GeV-en (kitevő k_R ≈ {kR}); csillapítási hossz λ_att ≈ {latt} mm; szélesedés "
+        track="- **Tengelytag:** hatótáv R ≈ {R} mm 1 GeV-en (kitevő k_R ≈ {kR}); csillapítási hossz λ_att ≈ {latt} mm; szélesedés "
               "c ≈ {c} mm, k ≈ {k}; Bragg-kitevő q ≈ {q}.",
-        lat="- **Keresztmetszet z' = 100 mm-en, 1 → 20 GeV:** Gauss-mag σ ≈ {s1} → {s20} mm, Cauchy-test R ≈ {R1} → {R20} mm, "
+        lat="- **Keresztmetszet z' = 100 mm-en, 1 → 20 GeV:** Gauss-féle keskeny komponens σ ≈ {s1} → {s20} mm, Cauchy-test R ≈ {R1} → {R20} mm, "
             "udvar λ ≈ {lam} mm; arányok (mag / test / udvar) {f1} → {f20}.",
         env="- **98 %-os burkok** (a legkisebb test, amelyben a záporok 98 %-ában az energia ≥ 95 %-a bent van; 20 bin átlaga): {parts}.",
         env_part="{lab} {V} L ({Vs} L a detektorban, lefedés {cov})",
@@ -280,7 +280,7 @@ S = {
               "energia {fr} %-a (a modellben {mfar} %), ennek {neut} %-a neutronból, {em} %-a elektromágneses és {prompt} %-a "
               "azonnali (< 5 ns); a modellben ennek {mhalo} %-át viszi a távoli udvar tag.",
         theta="- **Szögfüggő kiegészítés – nem modellpredikció.** A beesési szöget eseményenként bemenetként megadjuk, és {nb} "
-              "belépési paraméter (csúcs, zápor- és nyomkezdet) a szöggel lineárisan változhat: P + β·(1/cosθ − 1,1). A β-kat az "
+              "belépési paraméter (csúcs, zápor- és tengelytag-kezdet) a szöggel lineárisan változhat: P + β·(1/cosθ − 1,1). A β-kat az "
               "adatra illesztettük (empirikus korrekció, a formula fizikája nem jósolja); a többi szám ezen a kártyán szög nélküli. "
               "3D teszt-NLL: {c} → {th} (s2: {d0} ± {d1} nat/esemény).",
         theta_front=" A belépés előtti energia (θ ≈ 0,25 → 0,57 rad): adat {data}, végleges formula {final}, szögfüggő {theta}.",

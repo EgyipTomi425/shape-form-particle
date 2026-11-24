@@ -18,9 +18,9 @@ polinomja, ahol T = √(p² + m²) − m a mozgási energia; σ(·) a logisztiku
 |---|---|---|
 | zápor S | `L(z')·T(r│z')` | a másodlagos részecskék hadron- vagy EM-zápora |
 | – mélységprofil | plató: `σ((z'−z_s)/w1)·σ((ℓ−z')/w2)·e^(κz')`; müon: gamma `s^(α−1)e^(−(α−1)s/t_max)` | z_s kezdet, w1 felfutás, ℓ vég, w2 lecsengés, κ lassú meredekség |
-| – keresztmetszet | `f1·Gauss(r;σ) + f2·R²/(π(r²+R²)²) + f3·e^(−r/λ)/(2πλ(r+1 mm))` | keskeny mag (σ), Cauchy-test (R), exponenciális udvar (λ); a mélységgel változik |
-| nyom U | `σ((z'−z_t0)/4 mm)·σ((R(T)−z')/w_R)·e^(−z'/λ_att)·e^(−κ_t·z'/R)·(1−z'/R+0,03)^(−q)` × keresztmetszet | a beeső részecske ionizációs nyoma: R(T) hatótáv (~1 mm-nél simán levágva), w_R = w·R + 3 mm a vég szélessége, λ_att csillapítás (magkölcsönhatás), κ_t a hatótáv menti fokozatos fogyás, q Bragg-felfutás |
-| – a nyom szélessége | `σ(z')² = σ0² + (c·(z'/1 m)^k / βp)²`, plusz `f·e^(−r/l)/(2πl(r+1 mm))` | többszörös szórás miatti szélesedés (c, k), delta-elektron-udvar (f, l) |
+| – keresztmetszet | `f1·Gauss(r;σ) + f2·R²/(π(r²+R²)²) + f3·e^(−r/λ)/(2πλ(r+1 mm))` | keskeny komponens (σ), Cauchy-test (R), exponenciális udvar (λ); a mélységgel változik |
+| tengelytag U | `σ((z'−z_t0)/4 mm)·σ((R(T)−z')/w_R)·e^(−z'/λ_att)·e^(−κ_t·z'/R)·(1−z'/R+0,03)^(−q)` × keresztmetszet | a beeső részecske ionizációs lerakódása: R(T) hatótáv (~1 mm-nél simán levágva), w_R = w·R + 3 mm a vég szélessége, λ_att csillapítás (magkölcsönhatás), κ_t a hatótáv menti fokozatos fogyás, q Bragg-felfutás |
+| – a tengelytag szélessége | `σ(z')² = σ0² + (c·(z'/1 m)^k / βp)²`, plusz `f·e^(−r/l)/(2πl(r+1 mm))` | többszörös szórás miatti szélesedés (c, k), delta-elektron-udvar (f, l) |
 | csúcs D | Gauss a belépésnél | az első rétegek többletenergiája |
 | folt E | Gauss a z' = R(T) helyen | a megálló részecske vége (Bragg-csúcs, befogás) |
 | távoli udvar H | `σ(z'/10 mm)·e^(−z'/L)/(r + 1 cm)` | diffúz, messzire jutó energia |
@@ -30,22 +30,22 @@ polinomja, ahol T = √(p² + m²) − m a mozgási energia; σ(·) a logisztiku
 ![A végleges formula sűrűsége részecskénként, 1, 5 és 20 GeV/c-nél](results/formula_maps.png)
 
 A szín a sűrűség tízes alapú logaritmusa (6 nagyságrend), a vonal az energia 95 %-át tartalmazó izoszint (`scripts/formula_maps.py`).
-Az elektron kompakt EM-zápor. A müon főleg egy keskeny, a mélységgel szélesedő nyom: 1 GeV/c-nél megáll, 5 GeV/c felett átmegy a
-detektoron. A pion és a proton széles hadronzápor, kis impulzuson a megálló nyommal. A 98 %-os burkok (szuper-tojás):
+Az elektron kompakt EM-zápor. A müon főleg egy keskeny, a mélységgel szélesedő tengelytag: 1 GeV/c-nél megáll, 5 GeV/c felett átmegy a
+detektoron. A pion és a proton széles hadronzápor, kis impulzuson a megálló tengelytaggal. A 98 %-os burkok (szuper-tojás):
 [results/detektor_es_alakok/osszehasonlitas.png](results/detektor_es_alakok/osszehasonlitas.png); kétoldalas összefoglaló:
 [Protonmodell-Tamas.pdf](Protonmodell-Tamas.pdf).
 
 ## Részecskénként röviden
 
-- **Elektron** (64 paraméter): zápor + belépési csúcs + távoli udvar, nyom nélkül. A mag σ ≈ 16–19 mm (≈ 0,8 Molière-sugár); a
+- **Elektron** (64 paraméter): zápor + belépési csúcs + távoli udvar, tengelytag nélkül. A mag σ ≈ 16–19 mm (≈ 0,8 Molière-sugár); a
   csúcs 1 GeV/c-nél az energia 17 %-a, 20 GeV/c-nél 0,35 %.
-- **Müon** (129 paraméter): az energia 87–93 %-a a nyomban. A nyom a többszörös szórás szerint szélesedik (k ≈ 1,41, a Highland-becslés
+- **Müon** (129 paraméter): az energia 87–93 %-a a tengelytagban. A tengelytag a többszörös szórás szerint szélesedik (k ≈ 1,41, a Highland-becslés
   1,35–1,41), a hatótáv ≈ 1,06 m/GeV · T, a Bragg-kitevő 0,42 (elmélet 0,43).
-- **Pion** (101 paraméter): zápor + nyom (a nyom 26–53 %); a csillapítási hossz 339 mm ≈ 1,31 λ_π.
-- **Proton** (143 paraméter): két rezsim – 1 GeV/c-nél főleg megáll (nyom 61 %, csúcs 24 %), 5–20 GeV/c-nél záport kelt (74–81 %);
+- **Pion** (101 paraméter): zápor + tengelytag (a tengelytag 26–53 %); a csillapítási hossz 339 mm ≈ 1,31 λ_π.
+- **Proton** (143 paraméter): két rezsim – 1 GeV/c-nél főleg megáll (tengelytag 61 %, csúcs 24 %), 5–20 GeV/c-nél záport kelt (74–81 %);
   a csillapítási hossz 266 mm ≈ 1,26 λ_I.
 
-Hadronoknál a nyom szélesedése, delta-udvara és Bragg-kitevője effektív paraméter: a hadronzápor magjának egy részét is ezek írják le.
+Hadronoknál a tengelytag szélesedése, delta-udvara és Bragg-kitevője effektív paraméter: a hadronzápor magjának egy részét is ezek írják le.
 
 <!-- KEPLETEK:START (scripts/readme_particle_formulas.py generálja) -->
 
@@ -80,7 +80,7 @@ A fenti általános képlet részecskénként: melyik tag van benne, az álland�
 
 - Zápor mélységprofilja gamma: `L(z') ∝ s^(α−1)·e^(−(α−1)s/t_max)`, s = z' − z0 (értékek lent).
 - Zápor keresztmetszete: `T(r│z') = f_mag·Gauss(r; σ) + f_test·Cauchy(r; R) + f_udvar·e^(−r/λ)/(2πλ(r + 1 mm))`; σ, R, λ és az arányok a mélységgel változnak (lent z' = 100 mm-en).
-- Nyom: hatótáv `R(T) = 1057 mm · (T/GeV)^1,02 − 85 mm` (~1 mm-nél simán levágva); kezdet `σ((z' − 24,2 mm)/4 mm)`, vég `σ((R − z')/w_R)`, w_R = 0,0232·R + 3 mm; csillapítás `e^(−z'/1211 mm)·e^(−0,735·z'/R)`; Bragg-felfutás `(1 − z'/R + 0,03)^(−0,42)`; szélesség `σ(z')² = (15 mm)² + (74,4 mm · (z'/1 m)^1,41 / βp)²`; delta-elektron-udvar `e^(−r/51,4 mm)/(2π·51,4 mm·(r + 1 mm))` (aránya lent).
+- Tengelytag: hatótáv `R(T) = 1057 mm · (T/GeV)^1,02 − 85 mm` (~1 mm-nél simán levágva); kezdet `σ((z' − 24,2 mm)/4 mm)`, vég `σ((R − z')/w_R)`, w_R = 0,0232·R + 3 mm; csillapítás `e^(−z'/1211 mm)·e^(−0,735·z'/R)`; Bragg-felfutás `(1 − z'/R + 0,03)^(−0,42)`; szélesség `σ(z')² = (15 mm)² + (74,4 mm · (z'/1 m)^1,41 / βp)²`; delta-elektron-udvar `e^(−r/51,4 mm)/(2π·51,4 mm·(r + 1 mm))` (aránya lent).
 - Folt a hatótáv végén: Gauss, σ_z = 73,1 mm, σ_r = 85,6 mm.
 - Csúcs a belépésnél: Gauss (hely és szélességek lent). Távoli udvar: `H ∝ σ(z'/10 mm)·e^(−z'/1309 mm)/(r + 1 cm)`.
 
@@ -107,7 +107,7 @@ A fenti általános képlet részecskénként: melyik tag van benne, az álland�
 
 - Zápor mélységprofilja plató: `L(z') ∝ σ((z' − z_s)/w1)·σ((ℓ − z')/w2)·e^(κ·z'/1 m)` (értékek lent).
 - Zápor keresztmetszete: `T(r│z') = f_mag·Gauss(r; σ) + f_test·Cauchy(r; R) + f_udvar·e^(−r/λ)/(2πλ(r + 1 mm))`; σ, R, λ és az arányok a mélységgel változnak (lent z' = 100 mm-en).
-- Nyom: hatótáv `R(T) = 757 mm · (T/GeV)^1,78 − 36,5 mm` (~1 mm-nél simán levágva); kezdet `σ((z' − 24,1 mm)/4 mm)`, vég `σ((R − z')/w_R)`, w_R = 0,0579·R + 3 mm; csillapítás `e^(−z'/266 mm)·e^(−2,46·z'/R)`; Bragg-felfutás `(1 − z'/R + 0,03)^(−0,804)`; szélesség `σ(z')² = (18,5 mm)² + (285 mm · (z'/1 m)^2,37 / βp)²`; delta-elektron-udvar `e^(−r/81,5 mm)/(2π·81,5 mm·(r + 1 mm))` (aránya lent).
+- Tengelytag: hatótáv `R(T) = 757 mm · (T/GeV)^1,78 − 36,5 mm` (~1 mm-nél simán levágva); kezdet `σ((z' − 24,1 mm)/4 mm)`, vég `σ((R − z')/w_R)`, w_R = 0,0579·R + 3 mm; csillapítás `e^(−z'/266 mm)·e^(−2,46·z'/R)`; Bragg-felfutás `(1 − z'/R + 0,03)^(−0,804)`; szélesség `σ(z')² = (18,5 mm)² + (285 mm · (z'/1 m)^2,37 / βp)²`; delta-elektron-udvar `e^(−r/81,5 mm)/(2π·81,5 mm·(r + 1 mm))` (aránya lent).
 - Folt a hatótáv végén: Gauss, σ_z = 76,3 mm, σ_r = 81,1 mm.
 - Csúcs a belépésnél: Gauss (hely és szélességek lent). Távoli udvar: `H ∝ σ(z'/10 mm)·e^(−z'/962 mm)/(r + 1 cm)`.
 
@@ -134,7 +134,7 @@ A fenti általános képlet részecskénként: melyik tag van benne, az álland�
 
 - Zápor mélységprofilja plató: `L(z') ∝ σ((z' − z_s)/w1)·σ((ℓ − z')/w2)·e^(κ·z'/1 m)` (értékek lent).
 - Zápor keresztmetszete: `T(r│z') = f_mag·Gauss(r; σ) + f_test·Cauchy(r; R) + f_udvar·e^(−r/λ)/(2πλ(r + 1 mm))`; σ, R, λ és az arányok a mélységgel változnak (lent z' = 100 mm-en).
-- Nyom: hatótáv `R(T) = 952 mm · (T/GeV)^1,26 − 26,9 mm` (~1 mm-nél simán levágva); kezdet `σ((z' − 28,4 mm)/4 mm)`, vég `σ((R − z')/w_R)`, w_R = 0,0861·R + 3 mm; csillapítás `e^(−z'/339 mm)·e^(−2,25·z'/R)`; Bragg-felfutás `(1 − z'/R + 0,03)^(−0,526)`; szélesség `σ(z')² = (20,1 mm)² + (135 mm · (z'/1 m)^1,72 / βp)²`; delta-elektron-udvar `e^(−r/69,4 mm)/(2π·69,4 mm·(r + 1 mm))` (aránya lent).
+- Tengelytag: hatótáv `R(T) = 952 mm · (T/GeV)^1,26 − 26,9 mm` (~1 mm-nél simán levágva); kezdet `σ((z' − 28,4 mm)/4 mm)`, vég `σ((R − z')/w_R)`, w_R = 0,0861·R + 3 mm; csillapítás `e^(−z'/339 mm)·e^(−2,25·z'/R)`; Bragg-felfutás `(1 − z'/R + 0,03)^(−0,526)`; szélesség `σ(z')² = (20,1 mm)² + (135 mm · (z'/1 m)^1,72 / βp)²`; delta-elektron-udvar `e^(−r/69,4 mm)/(2π·69,4 mm·(r + 1 mm))` (aránya lent).
 - Folt a hatótáv végén: Gauss, σ_z = 103 mm, σ_r = 130 mm.
 - Csúcs a belépésnél: Gauss (hely és szélességek lent). Távoli udvar: `H ∝ σ(z'/10 mm)·e^(−z'/701 mm)/(r + 1 cm)`.
 

@@ -18,6 +18,8 @@ Families (parameters per momentum bin = len(names) + 1, the +1 is the size A):
   Knots(zk)                        non-parametric: ln r piecewise linear between fixed knots        len(zk)
   BodyOfLnP                        a family whose shape parameters and ln A are polynomials in ln p (closed form in p)
 """
+import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
 import math
 
 import numpy as np
@@ -28,7 +30,7 @@ try:
     import envlab
 except ImportError:                                    # the harness directory is not on the path yet
     import sys
-    sys.path.insert(0, "/home/user/tamas/shape-form-proton")
+    sys.path.insert(0, os.path.join(ROOT, "src"))
     import envlab
 
 Body, Envelope, BetaDrop = envlab.Body, envlab.Envelope, envlab.BetaDrop

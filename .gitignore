@@ -33,3 +33,6 @@ __pycache__/
 /LAB_GUIDE.md
 /Protonmodell-Tamas (1).pdf
 /README.pdf
+
+# Per-event features of the second sample (rebuilt by `python src/core_mip.py features <particle> s2`); its tables are in results/core_mip/s2/
+/results/features/*_s2.parquet

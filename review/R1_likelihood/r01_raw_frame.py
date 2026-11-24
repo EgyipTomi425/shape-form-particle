@@ -7,13 +7,14 @@ Checks (independent of the cached tensors and of shapelab):
   d) z0 = min z over ALL hits of the event (pre-cut), i.e. the origin layer is the first hit layer;
   e) the origin (x0, y0) is the energy-weighted centroid of the first-layer hits - with or without the time cut;
   f) events whose origin layer loses all its hits through the report's cuts: which cut removes them."""
-import json
 import os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))   # repository root
+import json
 
 import numpy as np
 import pandas as pd
 
-OUT = "/home/user/tamas/shape-form-proton/review/R1_likelihood"
+OUT = os.path.join(ROOT, "review/R1_likelihood")
 df = pd.read_parquet(os.path.join(OUT, "raw_test_rows.parquet"))
 print("rows", len(df), "events", df.event_number.nunique(), flush=True)
 res = {"rows (all hits, pre-cut)": int(len(df)), "events": int(df.event_number.nunique())}

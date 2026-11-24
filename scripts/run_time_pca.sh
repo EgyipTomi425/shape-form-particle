@@ -1,9 +1,9 @@
 #!/bin/bash
 # időben szétválasztott illesztés (proton, pion) és záporonkénti ingadozás (mind a négy) – háttérben, folytatható
-cd /home/user/tamas/shape-form-proton
+cd "$(dirname "$0")/.."
 mkdir -p logs
 export MPLBACKEND=Agg
-PY=/home/user/.venv/bin/python
+PY=${PYTHON:-python3}
 for p in proton pion; do
   ( [ -f results/particles/$p/time_split.json ] || $PY scripts/time_split.py $p > logs/timesplit_$p.log 2>&1 ) &
 done

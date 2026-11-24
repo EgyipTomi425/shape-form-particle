@@ -1,8 +1,8 @@
 #!/bin/bash
 # one worker of the fit queue: $1 = comma separated bins
-cd /home/user/tamas/shape-form-proton/lanes/E1_bodies
+cd "$(dirname "$0")/../.."/lanes/E1_bodies
 export MPLBACKEND=Agg
-PY=/home/user/.venv/bin/python
+PY=${PYTHON:-python3}
 BINS=$1
 # (A) non-parametric bound at the report criterion: surrogate + exact optimisation, started from all fitted bodies
 $PY s02_fit.py --bins $BINS --fam knots12 --improve
