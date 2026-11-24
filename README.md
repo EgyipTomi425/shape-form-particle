@@ -195,25 +195,25 @@ the data, but no separate measurement was made for it.
 `results/features/<particle>.parquet`. Every number below is written by `scripts/core_mip_pages.py` from `results/core_mip/`.
 
 - **Q1 – the core** is the energy within R = 5 cm of the axis (from the entry point at the front face, z = 3620 mm) from the shower
-  start on. 5 cm holds 94 % of the muon energy within 10 cm and 90 % of the electron
-  shower, and separates electrons from hadrons best among 2.5–10 cm. Electron showers are core (≥ 0.89), muons MIP segment
-  (0.63–0.85); for hadrons the core grows from 0.20–0.23 (1–2 GeV/c) to 0.43–0.50
-  (19–20 GeV/c) and the halo carries 0.48–0.61.
-- **Q2 – the infographic's 60 % / 43 %** are the share of the formula's axial term, not a core fraction. Measured at 1 GeV/c:
-  f_core = 0.40 ± 0.01 (proton) and 0.19 ± 0.01 (pion); 0.26
-  of the proton's 0.40 is the proton's own deposit after its MIP segment (mostly the end of its range). Pion/proton separation by f_core: AUC 0.55–0.67 (weak but
-  non-zero).
-- **Q3 – the MIP segment** is present in 75 %–89 % of hadron events. L_MIP ≥ 8 cm occurs for 62 %–77 %
-  of hadrons and 0.1 %–2.7 % of electrons (likelihood ratio 27–471); at 99 % electron rejection it
-  keeps 66 %–80 % of hadrons from 2 GeV/c (f_core: 97 %–100 %). Gábor's four properties hold for the
-  primary, with two refinements: in 9 %–13 % of the events a secondary draws a later MIP-like run, and the tiles before
-  the interaction receive 0.60–0.77 MIP of backsplash per tile outside 5 cm. Therefore the shower start is found from the core
-  energy (two non-MIP tiles with more than 6 + 0.5·p MIP), tuned on the simulation truth:
-  within ±1 tile of the true interaction in 76 %–87 % of the events from 5 GeV/c (the issue's original rule: early in a
-  quarter of the pion events). True interaction lengths (Geant4, 3–20 GeV/c): λ_π = 24.4 cm, λ_p = 19.9 cm.
-  The ePIC LFHCal reads tiles 1–5 out as one channel, so a per-tile L_MIP exists only in simulation; a "first segment MIP-like" tag is
-  nearly as good.
-- **Checks.** The independent second sample (s2; same finder, its own MIP calibration) reproduces all 258 compared numbers within their statistical errors (98 % within 2σ, largest difference 2.9σ; `s2_check.csv`); the MIP calibration agrees to 0.3 % per tile (median).
+  start on. Within 5 cm lie 94 % of the muon energy within 10 cm and 90 % of the
+  electron energy; the R scan 2.5–10 cm is on the Q1 page. Shares of `E_vis`: core in electron showers ≥ 0.89, MIP segment in
+  muon events 0.63–0.85; for hadrons the core is 0.20–0.23 at 1–2 GeV/c and 0.43–0.50 at
+  19–20 GeV/c, the halo 0.48–0.61 (2–20 GeV/c).
+- **Q2 – f_core at 1 GeV/c:** 0.40 ± 0.01 (proton) and 0.19 ± 0.01 (pion). The infographic's
+  60 % / 43 % are the share of the formula's axial term, a different quantity. *(truth)* 0.26 of the
+  proton's 0.40 is in cells whose first particle is the proton itself, after its MIP segment. Pion/proton separation by
+  f_core: AUC 0.55–0.67.
+- **Q3 – the MIP segment** is found in 75 %–89 % of hadron events. L_MIP ≥ 8 cm occurs for 62 %–77 %
+  of hadrons and 0.1 %–2.7 % of electrons (likelihood ratio 27–471); at 99 % electron rejection,
+  from 2 GeV/c, L_MIP keeps 66 %–80 % of hadrons and f_core 97 %–100 %. *(truth)* A later MIP-like run
+  of a secondary particle occurs in 9 %–13 % of the events; the tiles in front of the interaction receive
+  0.60–0.77 MIP per tile outside 5 cm (muon tiles: 0.07). Shower start used here: two
+  non-MIP-like tiles with summed core energy above 6 + 0.5·p MIP, tuned on the simulation truth;
+  within ±1 tile of the truth interaction in 76 %–87 % of the events from 5 GeV/c (with the issue's rule the start is early
+  in 25 % of the pion events). *(truth)* Exponential fit of the primary's interaction depth, 3–20 GeV/c: λ_π = 24.4 cm,
+  λ_p = 19.9 cm. The ePIC LFHCal reads tiles 1–5 out as one channel; with this first readout segment the hadron
+  efficiency at 99 % electron rejection is 66 %–81 % from 2 GeV/c.
+- **Checks.** Independent second sample (s2; same finder, its own MIP calibration): 258 numbers compared, 98 % of them within 2σ, largest difference 2.9σ (`s2_check.csv`); median difference of the MIP calibration per tile 0.3 %.
 <!-- ISSUE1 END -->
 
 <!-- ISSUE2 BEGIN -->
@@ -225,17 +225,22 @@ the repository as `notebooks/11_density.ipynb` (her original: `notebooks/sofiya/
 `scripts/density_pages.py` from `results/density/`.
 
 - **Global density (Q4).** ρ̄95 = E95 / V95 with 5 × 5 × 10 cm boxes (visible energy): median at 9–10 GeV/c 84.9 MeV/L
-  for electrons, 17.8 for pions, 13.5 for protons and 10.5 for muons (flat, one MIP). From 4 GeV/c electron
-  showers are 4.1–7.8 times denser than hadron showers.
+  for electrons, 17.8 for pions, 13.5 for protons and 10.5 for muons. From 4 GeV/c the electron median is
+  4.1–7.8 times the hadron medians.
 - **Electron-like dense boxes (Q5).** A box denser than the 10th percentile of the electrons' densest box (same momentum) occurs in
   13.2 % / 9.9 % / 8.1 % of the pion and 7.4 % / 3.4 % /
-  1.6 % of the proton events (4–5 / 9–10 / 19–20 GeV/c): more candidate EM sub-showers (π⁰) in pion showers.
-- **Checks.** The run in this repository reproduces her numbers (80 medians within 0.00 MeV/L,
-  12 shares within 0.04 percentage points); the samples s1 and s2 agree (largest
-  difference 2.4σ for the medians, 1.7σ for the shares).
+  1.6 % of the proton events (4–5 / 9–10 / 19–20 GeV/c).
+- **Checks.** Re-run in this repository: 80 medians are identical to hers,
+  12 shares by at most 0.04 percentage points. s1 and s2 computed separately: largest
+  difference 2.4σ for the medians, 1.7σ for the shares.
+- **Shower frame** (`scripts/density_frame_check.py`, `results/density/frame_offset.csv`; mean x′ of the deposits, 4–20 GeV/c): fiducial
+  pion / proton events −11.2 / −13.9 mm in the notebook's frame
+  (origin: centre of the first hit layer) and −0.6 / −1.5 mm on the issue #1
+  axis; events outside the fiducial region −24.4 / −30.8 mm
+  and −24.9 / −30.2 mm.
 - **ρ̄95 as a feature** (test split, 2–20 GeV/c, AUC): electron vs. pion 0.98–1.00 (f_core of issue #1:
-  0.99–1.00, both: 0.99–1.00); pion vs. proton 0.58–0.74 – protons
-  are less dense; this separates them better than f_core (0.56–0.67), both together 0.59–0.74;
+  0.99–1.00, both: 0.99–1.00); pion vs. proton 0.58–0.74 (f_core:
+  0.56–0.67, both: 0.59–0.74; written so that 0.5 means no separation);
   muon vs. the rest 0.64–0.96.
 - **To run it yourself** (laptop or server): open `notebooks/11_density.ipynb`, set `DATA_DIR` in the first code cell to the folder of the
   eight balanced s1/s2 CSVs (one folder or `regression-<particle>/` subfolders) and run all cells; it needs numpy, pandas, matplotlib
@@ -713,12 +718,14 @@ generator needs a separate, non-Gaussian fluctuation model.
 - Particle issue #1: `python src/core_mip.py build <particle>` (muon first: MIP calibration; per-layer arrays and simulation truth in
   `cache/core_mip/`) → `python scripts/core_mip_tune.py` (finder parameters on the train split against the truth) →
   `python src/core_mip.py features <particle>` (`results/features/<particle>.parquet`) → `python scripts/core_mip_answers.py`
-  (tables, figures, `answers.json`; the Q1 picture first needs `python scripts/core_mip_region_map.py`) → `python scripts/core_mip_pages.py` (answer pages and the README block) →
+  (tables, figures, `answers.json`; the Q1 picture first needs `python scripts/core_mip_region_map.py`) → `python scripts/core_mip_estimates.py`
+  (comparison values from PDG constants, `estimates.json`) → `python scripts/core_mip_pages.py` (answer pages and the README block) →
   `python scripts/build_core_mip_notebooks.py` (notebooks 09 and 10). Checks: the same chain on the second sample
   (`build`/`features <particle> s2`, then `CORE_MIP_SAMPLE=s2 python scripts/core_mip_answers.py` and `scripts/core_mip_s2_check.py`)
   and an independent second implementation, `scripts/verify_core_mip.py`.
 - Particle issue #2: `python scripts/build_density_notebook.py` builds and runs `notebooks/11_density.ipynb` from Sofiya's original
-  (needs `duckdb`); then `python scripts/density_pages.py` writes the README block.
+  (needs `duckdb`); `python scripts/density_frame_check.py` compares the notebook's shower frame with the issue #1 axis
+  (`results/density/frame_offset.csv`); then `python scripts/density_pages.py` writes the README block.
 - Archived, not runnable from this repository (their inputs belong to the earlier proton-only stage): `review/` (independent review of
   the likelihood and of the numbers) and `results/isobody/` (iso-density bodies used for the 90%/90% comparison in the 08 notebook).
 - `results/detektor_es_alakok/`, `results/detektor_*.png` and `docs/Protonmodell-Tamas.pdf` are presentation figures (in Hungarian) made from

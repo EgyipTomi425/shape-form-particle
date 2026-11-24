@@ -16,17 +16,39 @@ PNAME = {"en": {"electron": "electron", "muon": "muon", "pion": "pion", "proton"
          "hu": {"electron": "elektron", "muon": "müon", "pion": "pion", "proton": "proton"}}
 ISSUE = "https://github.com/EgyipTomi425/particle/issues/1"
 S2 = json.load(open(os.path.join(D, "s2_check.json")))
+EST = json.load(open(os.path.join(D, "estimates.json")))                  # scripts/core_mip_estimates.py
+EP = EST["proton_1gev"]
+
+
+def front_steel(part, lang="en"):
+    """estimate and simulated range of the share of hadrons interacting in the front steel"""
+    d = EST["front_steel"][part]
+    v = d["truth_no_primary_cell"].values()
+    return pct(d["estimate"], 0, lang), f"{pct(min(v), 0, lang)}–{pct(max(v), 0, lang)}"
+
+
+def eff_range(feat, lang="en", b0=2):
+    """range of the hadron efficiency at 99 % electron rejection over e/pi and e/p, bins b0..19"""
+    v = [eff(pair, b, feat) for pair in ("electron_vs_pion", "electron_vs_proton") for b in range(b0, 20)]
+    return f"{pct(min(v), 0, lang)}–{pct(max(v), 0, lang)}"
+
+
+def auc_range(pair, feat, lang="en"):
+    """range of the AUC over the bins 1..19 (1-20 GeV/c), as stored in q3_classify.csv"""
+    t = T["q3_classify"]
+    a = t[(t.pair == pair) & (t.feature == feat) & (t.bin >= 1)].auc
+    return f"{num(a.min(), 2, lang)}–{num(a.max(), 2, lang)}"
 
 
 def s2_sentence(lang):
     n = lambda x, d=2: num(x, d, lang)
     if lang == "hu":
-        return (f"A független második minta (s2; ugyanaz a kereső, saját MIP-kalibráció) a {S2['comparisons']} összevetett számot a "
-                f"statisztikai hibán belül megismétli ({pct(S2['within_2_sigma'], 0, lang)} 2σ-n belül, a legnagyobb eltérés "
-                f"{n(S2['max_abs_z'], 1)}σ; `s2_check.csv`); a MIP-kalibráció csempénként mediánban {pct(abs(S2['mpv_rel_diff_median']), 1, lang)}-ra egyezik.")
-    return (f"The independent second sample (s2; same finder, its own MIP calibration) reproduces all {S2['comparisons']} compared numbers "
-            f"within their statistical errors ({pct(S2['within_2_sigma'], 0)} within 2σ, largest difference {n(S2['max_abs_z'], 1)}σ; "
-            f"`s2_check.csv`); the MIP calibration agrees to {pct(abs(S2['mpv_rel_diff_median']), 1)} per tile (median).")
+        return (f"Független második minta (s2; ugyanaz a kereső, saját MIP-kalibráció): {S2['comparisons']} összevetett szám, ebből "
+                f"{pct(S2['within_2_sigma'], 0, lang)} 2σ-n belül, a legnagyobb eltérés {n(S2['max_abs_z'], 1)}σ (`s2_check.csv`); a "
+                f"MIP-kalibráció csempénkénti eltérésének mediánja {pct(abs(S2['mpv_rel_diff_median']), 1, lang)}.")
+    return (f"Independent second sample (s2; same finder, its own MIP calibration): {S2['comparisons']} numbers compared, "
+            f"{pct(S2['within_2_sigma'], 0)} of them within 2σ, largest difference {n(S2['max_abs_z'], 1)}σ (`s2_check.csv`); "
+            f"median difference of the MIP calibration per tile {pct(abs(S2['mpv_rel_diff_median']), 1)}.")
 
 
 def num(x, d=2, lang="en"):
@@ -120,10 +142,15 @@ def page_q1(lang):
 
 Particle issue [#1]({ISSUE}). Notebook: [`notebooks/09_axis_core.ipynb`](../../notebooks/09_axis_core.ipynb).
 
+**How the numbers were obtained.** All numbers come from the ePIC LFHCal simulation (Geant4, FTFP_BERT). Unmarked numbers are
+computed from the simulated hit energies, as the detector would record them (noise-free, tile by tile). Numbers marked *(truth)*
+use information that a real detector does not provide: which particle deposited energy first in a cell, and how the primary
+particle's track ended (read from its daughter particles). Estimates and literature values are named as such.
+
 **Answer.** The core is the visible energy within **R = 5 cm** of the axis (the incoming direction from the entry point at the front
 face, z = 3620 mm), taken from the shower start on; the axis region before the start is the MIP segment, everything farther than 5 cm
-is the halo, so `E_vis = E_MIP + E_core + E_halo`. Electron showers are almost entirely core (at least {n(e_core)} from 2 GeV/c on,
-halo at most {n(e_halo)}). Muons are mostly MIP segment ({n(mu_mip[0])}–{n(mu_mip[1])} from 1 GeV/c on). For pions and protons the core
+is the halo, so `E_vis = E_MIP + E_core + E_halo`. In electron showers the core holds at least {n(e_core)} from 2 GeV/c on
+(halo at most {n(e_halo)}); in muon events the MIP segment holds {n(mu_mip[0])}–{n(mu_mip[1])} from 1 GeV/c on. For pions and protons the core
 grows with momentum (pion {g['pion', 1, 'core']} → {g['pion', 19, 'core']}, proton {g['proton', 1, 'core']} → {g['proton', 19, 'core']} from
 1–2 to 19–20 GeV/c) while the MIP segment shrinks (pion {g['pion', 1, 'MIP']} → {g['pion', 19, 'MIP']}, proton {g['proton', 1, 'MIP']} →
 {g['proton', 19, 'MIP']}); from 2 GeV/c on the halo holds {n(h_halo[0])}–{n(h_halo[1])} of the energy.
@@ -149,20 +176,20 @@ Shares of `E_vis` (ratio of sums; the event means are in the notebook and in `q1
 |---|---|---|---|---|---|
 {cont}
 
-1. **The MIP track fits.** Of the muon energy within 10 cm, {pct(mu['R25'], 0)} lies within 2.5 cm, {pct(mu['R50'], 0)} within 5 cm and
+1. **Muons.** Of the muon energy within 10 cm, {pct(mu['R25'], 0)} lies within 2.5 cm, {pct(mu['R50'], 0)} within 5 cm and
    {pct(mu['R75'], 0)} within 7.5 cm: with 48.6 mm cells, 5 cm is the smallest radius that holds the cell(s) the primary crosses.
-   Below it the result is set by the assumption that the energy is uniform within a cell (folding), not by the shower.
-2. **The electromagnetic shower fits.** 5 cm = 2.3 Molière radii (R_M = 21.9 mm); {pct(C['electron']['R50'], 0)} of the electron energy
-   lies within it.
-3. **It separates best.** The electron/hadron separation by the energy within R (AUC averaged over 2–20 GeV/c, R = 2.5 / 5 / 7.5 / 10 cm)
-   is {sep} for e/π and {sepp} for e/p: 5 cm is the best or tied for best.
+   Below 5 cm the result depends on the assumption that the energy is uniform within a cell (folding).
+2. **Electrons.** 5 cm = {n(50.0 / EST['moliere_radius_stack_mm'], 1)} Molière radii of the layer stack (R_M = {n(EST['moliere_radius_stack_mm'], 1)} mm from the
+   PDG values of iron and polystyrene, `scripts/core_mip_estimates.py`); {pct(C['electron']['R50'], 0)} of the electron energy lies within it.
+3. **Electron/hadron separation.** The separation by the energy within R (AUC averaged over 2–20 GeV/c, R = 2.5 / 5 / 7.5 / 10 cm)
+   is {sep} for e/π and {sepp} for e/p.
 
 **Cell-centre rule or proportional sharing?** The cell-centre rule assigns a whole cell to the core when its centre is within 5 cm; it
-gives about 0.03 more core than proportional sharing (table, last column) and practically the same separation. Proportional sharing
-does not depend on where the axis crosses a cell, so we use it; both are stored (`f_near_R50`, `f_near_centre_R50`).
+gives about 0.03 more core than proportional sharing (table, last column). The pages use proportional sharing; both are stored
+(`f_near_R50`, `f_near_centre_R50`).
 
-**Selection.** Entry point in the instrumented area and the axis 10 cm inside the area in all 60 layers (no lateral leakage at the outer
-edge or the beam hole; {pct(A['selection']['pion']['events_fiducial'] / 1e5, 0)} of the events); only prompt deposits (t < 100 ns).
+**Selection.** Entry point in the instrumented area and the axis 10 cm inside the area in all 60 layers (the points 10 cm
+from the axis in ±x and ±y lie in the instrumented area; {pct(A['selection']['pion']['events_fiducial'] / 1e5, 0)} of the events); only prompt deposits (t < 100 ns).
 """
     return f"""[English](Q1.md) | **Magyar**
 
@@ -170,10 +197,15 @@ edge or the beam hole; {pct(A['selection']['pion']['events_fiducial'] / 1e5, 0)}
 
 Részecske-issue [#1]({ISSUE}). Notebook: [`notebooks/09_axis_core.ipynb`](../../notebooks/09_axis_core.ipynb).
 
+**Honnan jönnek a számok.** Minden szám az ePIC LFHCal szimulációjából (Geant4, FTFP_BERT) származik. A jelöletlen számokat a
+szimulált találati energiákból számoltuk, ahogy a detektor rögzítené őket (zaj nélkül, csempénként). Az *(igazság)* jelű számok
+olyan információt használnak, amit egy valódi detektor nem ad: melyik részecske adott le elsőként energiát egy cellában, és hogyan
+ért véget a primer részecske nyoma (a leányrészecskéiből). A becsléseket és az irodalmi értékeket külön megnevezzük.
+
 **Válasz.** A mag a tengelytől (a beérkezés iránya a belépési ponttól, z = 3620 mm-es front) **R = 5 cm**-en belüli látható energia a
 zápor kezdetétől; a kezdet előtti tengely menti rész a MIP-szakasz, az 5 cm-nél távolabbi energia a halo, így
-`E_vis = E_MIP + E_core + E_halo`. Az elektronzápor szinte csak mag (2 GeV/c-től legalább {n(e_core)}, a halo legfeljebb {n(e_halo)}). A
-müon nagyrészt MIP-szakasz (1 GeV/c-től {n(mu_mip[0])}–{n(mu_mip[1])}). A pionnál és a protonnál a mag az impulzussal nő (pion
+`E_vis = E_MIP + E_core + E_halo`. Az elektronzáporban a mag 2 GeV/c-től legalább {n(e_core)} (a halo legfeljebb {n(e_halo)}); a
+müoneseményekben a MIP-szakasz 1 GeV/c-től {n(mu_mip[0])}–{n(mu_mip[1])}. A pionnál és a protonnál a mag az impulzussal nő (pion
 {g['pion', 1, 'core']} → {g['pion', 19, 'core']}, proton {g['proton', 1, 'core']} → {g['proton', 19, 'core']} az 1–2 és a 19–20 GeV/c között),
 a MIP-szakasz csökken (pion {g['pion', 1, 'MIP']} → {g['pion', 19, 'MIP']}, proton {g['proton', 1, 'MIP']} → {g['proton', 19, 'MIP']}); 2 GeV/c-től a
 halo az energia {n(h_halo[0])}–{n(h_halo[1])} részét viszi.
@@ -199,21 +231,22 @@ Az `E_vis` megoszlása (összegek aránya; az eseményátlagok a notebookban és
 |---|---|---|---|---|---|
 {cont}
 
-1. **A MIP-nyom belefér.** A müon 10 cm-en belüli energiájának {pct(mu['R25'], 0, lang)}-a 2,5 cm-en, {pct(mu['R50'], 0, lang)}-a
+1. **Müonok.** A müon 10 cm-en belüli energiájának {pct(mu['R25'], 0, lang)}-a 2,5 cm-en, {pct(mu['R50'], 0, lang)}-a
    5 cm-en, {pct(mu['R75'], 0, lang)}-a 7,5 cm-en belül van: 48,6 mm-es cellákkal az 5 cm a legkisebb sugár, amely a primer által
-   átszelt cellá(ka)t tartalmazza. Ennél kisebb sugárnál az eredményt az a feltevés dönti el, hogy a cellán belül egyenletes az energia
-   (felezés), nem a zápor.
-2. **Az elektromágneses zápor belefér.** 5 cm = 2,3 Molière-sugár (R_M = 21,9 mm); az elektron energiájának
+   átszelt cellá(ka)t tartalmazza. 5 cm alatt az eredmény attól a feltevéstől függ, hogy a cellán belül egyenletes az energia
+   (felezés).
+2. **Elektronok.** 5 cm = a rétegszerkezet {n(50.0 / EST['moliere_radius_stack_mm'], 1)} Molière-sugara (R_M = {n(EST['moliere_radius_stack_mm'], 1)} mm a vas és a
+   polisztirol PDG-adataiból, `scripts/core_mip_estimates.py`); az elektron energiájának
    {pct(C['electron']['R50'], 0, lang)}-a ezen belül van.
-3. **Ez választ szét a legjobban.** Az R-en belüli energiával az elektron–hadron szétválasztás (AUC 2–20 GeV/c átlaga,
-   R = 2,5 / 5 / 7,5 / 10 cm) e/π-re {sep}, e/p-re {sepp}: az 5 cm a legjobb vagy holtversenyben a legjobb.
+3. **Elektron–hadron szétválasztás.** Az R-en belüli energiával az elektron–hadron szétválasztás (AUC 2–20 GeV/c átlaga,
+   R = 2,5 / 5 / 7,5 / 10 cm) e/π-re {sep}, e/p-re {sepp}.
 
 **Cellaközép-szabály vagy arányos felezés?** A cellaközép-szabály az egész cellát a maghoz sorolja, ha a középpontja 5 cm-en belül van;
-kb. 0,03-dal több magot ad, mint az arányos felezés (a táblázat utolsó oszlopa), a szétválasztás gyakorlatilag ugyanaz. Az arányos
-felezés nem függ attól, hol szeli át a tengely a cellát, ezért ezt használjuk; mindkettő megvan (`f_near_R50`, `f_near_centre_R50`).
+kb. 0,03-dal több magot ad, mint az arányos felezés (a táblázat utolsó oszlopa). Az oldalak az arányos felezést használják;
+mindkettő el van mentve (`f_near_R50`, `f_near_centre_R50`).
 
 **Kiválasztás.** A belépési pont a műszerezett területen van, és a tengely mind a 60 rétegben 10 cm-rel a terület szélén belül marad
-(nincs oldalirányú kiszivárgás a külső szélen vagy a nyalábnyílásnál; az események {pct(A['selection']['pion']['events_fiducial'] / 1e5, 0, lang)}-a);
+(a tengelytől ±x és ±y irányban 10 cm-re lévő pontok a műszerezett területen vannak; az események {pct(A['selection']['pion']['events_fiducial'] / 1e5, 0, lang)}-a);
 csak a gyors (t < 100 ns) lerakódások számítanak.
 """
 
@@ -239,41 +272,48 @@ def page_q2(lang):
 
 Particle issue [#1]({ISSUE}). Notebook: [`notebooks/09_axis_core.ipynb`](../../notebooks/09_axis_core.ipynb).
 
-**Answer. No.** Measured with the definition of issue #1, the core fraction at 1 GeV/c is **f_core = {n(pr.f_core)} ± {n(pr.f_core_se)}
+**How the numbers were obtained.** All numbers come from the ePIC LFHCal simulation (Geant4, FTFP_BERT). Unmarked numbers are
+computed from the simulated hit energies, as the detector would record them (noise-free, tile by tile). Numbers marked *(truth)*
+use information that a real detector does not provide: which particle deposited energy first in a cell, and how the primary
+particle's track ended (read from its daughter particles). Estimates and literature values are named as such.
+
+**Answer.** Measured with the definition of issue #1, the core fraction at 1 GeV/c is **f_core = {n(pr.f_core)} ± {n(pr.f_core_se)}
 for protons and {n(pi.f_core)} ± {n(pi.f_core_se)} for pions** (ratio of sums; event means {n(pr.f_core_event_mean)} and
-{n(pi.f_core_event_mean)}). The infographic numbers ({n(pr.formula_axial_term)} and {n(pi.formula_axial_term)}) are not a core fraction:
-they are the share of the *axial term* of the fitted shape formula, the model's component for the primary's whole passage. The measured
-counterpart of that is the whole axis region `f_core + f_MIP` = {n(pr.f_core_plus_MIP)} (proton) and {n(pi.f_core_plus_MIP)} (pion), or
-the primary's own share of `E_vis` in the simulation truth, {n(pr.truth_primary_share)} and {n(pi.truth_primary_share)}. For the proton the
-axial term ({n(pr.formula_axial_term)}) is close to that truth ({n(pr.truth_primary_share)}); for the pion it is too large
-({n(pi.formula_axial_term)} against {n(pi.truth_primary_share)}): the fit gives the axial term energy of secondaries near the axis.
+{n(pi.f_core_event_mean)}). The infographic numbers ({n(pr.formula_axial_term)} and {n(pi.formula_axial_term)}) are the share of the
+*axial term* of the fitted shape formula (the term of the formula for the primary's passage along the axis), not f_core as defined in
+issue #1. For comparison: the whole axis region `f_core + f_MIP` = {n(pr.f_core_plus_MIP)} (proton) and {n(pi.f_core_plus_MIP)} (pion);
+*(truth)* the primary's own share of `E_vis`: {n(pr.truth_primary_share)} and {n(pi.truth_primary_share)}.
 
 ![f_core against momentum](q2_fcore.png)
 
-| particle | p [GeV/c] | f_core (ratio of sums) | f_core (event mean) | f_MIP | f_core + f_MIP | infographic (axial term) | truth: primary's share | truth: f_core from the primary's passage | truth: interaction before tile 1 / inelastic / stops |
+| particle | p [GeV/c] | f_core (ratio of sums) | f_core (event mean) | f_MIP | f_core + f_MIP | infographic (axial term) | truth: primary's share | truth: f_core from the primary's passage | truth: no primary cell / inelastic / stops |
 |---|---|---|---|---|---|---|---|---|---|
 {tab}
 
 Windows: 0.9–1.1, 4.75–5.25 and 19.5–20 GeV/c. Halving the window width changes f_core by less than its error (`q2_table.csv`).
 
-**How much comes from an initial non-interacting passage?** At 1 GeV/c {pct(pr.truth_stops, 0)} of the protons stop without a hadronic
-interaction (their range is about 16 cm of steel), {pct(pr.truth_before_layer1, 0)} interact in the 40.4 mm front steel and
-{pct(pr.truth_inelastic, 0)} later. **{n(pr.truth_core_from_primary_passage)} of the proton's {n(pr.f_core)} core is the proton's own
-deposit after its MIP segment** (the heavily ionising end of the range, more than 2 MIP per tile, where the finder ends the MIP segment);
-for stopping protons f_core is {n(pr.f_core_not_interacting)}, for interacting ones {n(pr.f_core_interacting)}. For pions only
-{n(pi.truth_core_from_primary_passage)} of {n(pi.f_core)} comes from the pion itself: {pct(pi.truth_inelastic + pi.truth_before_layer1, 0)}
-of them interact, so the pion core is shower. At 5 and 20 GeV/c the primary's own passage gives at most 0.02 for both. Pions and protons
-reach at least the second tile in about two thirds of the events (`truth_reaches_tile2` in `q2_table.csv`).
+**How much comes from an initial non-interacting passage?** *(truth)* The end of the primary's track is classified from the
+simulation record: *inelastic* if its daughter particles include hadrons (n, p, π, d, t, ³He, α, K); *no primary cell* if the primary
+is not the first particle in any cell (counted as an interaction in the 40.4 mm of steel in front of the first tile); otherwise
+*stops* if the track ends inside the calorimeter. 1 GeV/c protons: {pct(pr.truth_stops, 0)} stops, {pct(pr.truth_before_layer1, 0)} no
+primary cell, {pct(pr.truth_inelastic, 0)} inelastic. For comparison (`scripts/core_mip_estimates.py`): the Bethe range of a 1 GeV/c
+proton in iron is {n(EP['range_cm_iron'], 1)} cm and the nuclear interaction length of iron {n(EP['lambda_I_cm_iron'], 1)} cm (PDG);
+e^(−{n(EP['range_cm_iron'] / EP['lambda_I_cm_iron'], 2)}) = {n(EP['survival_estimate'])}. Of the proton's f_core = {n(pr.f_core)},
+**{n(pr.truth_core_from_primary_passage)} is in cells whose first particle is the proton itself, after its MIP segment** *(truth)*;
+f_core is {n(pr.f_core_not_interacting)} for the protons classified as *stops* and {n(pr.f_core_interacting)} for the others. For
+pions, {n(pi.truth_core_from_primary_passage)} of f_core = {n(pi.f_core)} is in cells whose first particle is the pion itself *(truth)*.
+At 5 and 20 GeV/c this part is at most {n(max(q2row(h, W[k]).truth_core_from_primary_passage for h in ("pion", "proton") for k in (5, 20)))}
+for both. *(truth)* At 1 GeV/c the primary is recorded in at least the first two tiles in {pct(pi.truth_reaches_tile2, 0)} of the
+pion and {pct(pr.truth_reaches_tile2, 0)} of the proton events (`truth_reaches_tile2` in `q2_table.csv`).
 
-**Discriminating power.** The core fraction separates pions from protons weakly but clearly: AUC = {n(a1)} (1–2 GeV/c), {n(a9)} (9–10)
-and {n(a19)} (19–20 GeV/c) – protons have less core than pions above 1 GeV/c (below 1 GeV/c the stopping protons have more). The
-ratio core / rest of the shower is a monotonic function of f_core and has the same AUC. Against electrons f_core is the strongest single
-feature (see Q3: about 99 % hadron efficiency at 99 % electron rejection from 2 GeV/c).
+**Discriminating power.** Pion/proton separation by f_core: AUC = {n(a1)} (1–2 GeV/c), {n(a9)} (9–10) and {n(a19)} (19–20 GeV/c);
+above 1 GeV/c the protons have the lower f_core, below 1 GeV/c the higher. The ratio core / rest of the shower is a monotonic
+function of f_core and has the same AUC. Electron/hadron separation: see Q3.
 
 ![AUC of f_core](q2_auc_fcore.png)
 
-**To confirm with Gábor.** *Event mean or ratio of sums?* Both are in the table; they differ by up to 0.07 for 1 GeV/c protons (a few
-high-energy events dominate the sum). The infographic, being a model of the mean density, corresponds to the ratio of sums.
+**To confirm with Gábor.** *Event mean or ratio of sums?* Both are in the table; they differ by up to 0.07 for 1 GeV/c protons. The
+infographic values are integrals of the fitted mean energy density, i.e. a ratio of sums.
 """
     return f"""[English](Q2.md) | **Magyar**
 
@@ -281,42 +321,49 @@ high-energy events dominate the sum). The infographic, being a model of the mean
 
 Részecske-issue [#1]({ISSUE}). Notebook: [`notebooks/09_axis_core.ipynb`](../../notebooks/09_axis_core.ipynb).
 
-**Válasz. Nem.** Az issue #1 definíciójával mérve 1 GeV/c-n **f_core = {n(pr.f_core)} ± {n(pr.f_core_se)} a protonra és
+**Honnan jönnek a számok.** Minden szám az ePIC LFHCal szimulációjából (Geant4, FTFP_BERT) származik. A jelöletlen számokat a
+szimulált találati energiákból számoltuk, ahogy a detektor rögzítené őket (zaj nélkül, csempénként). Az *(igazság)* jelű számok
+olyan információt használnak, amit egy valódi detektor nem ad: melyik részecske adott le elsőként energiát egy cellában, és hogyan
+ért véget a primer részecske nyoma (a leányrészecskéiből). A becsléseket és az irodalmi értékeket külön megnevezzük.
+
+**Válasz.** Az issue #1 definíciójával mérve 1 GeV/c-n **f_core = {n(pr.f_core)} ± {n(pr.f_core_se)} a protonra és
 {n(pi.f_core)} ± {n(pi.f_core_se)} a pionra** (összegek aránya; eseményátlag {n(pr.f_core_event_mean)} és {n(pi.f_core_event_mean)}).
-Az infografika számai ({n(pr.formula_axial_term)} és {n(pi.formula_axial_term)}) nem magarányok: az illesztett alakképlet
-*tengelytagjának* részarányai, ami a modellben a primer teljes áthaladását írja le. Ennek mért megfelelője a teljes tengely menti
-tartomány, `f_core + f_MIP` = {n(pr.f_core_plus_MIP)} (proton) és {n(pi.f_core_plus_MIP)} (pion), vagy a szimulációs igazság szerint a
-primer saját részaránya az `E_vis`-ből: {n(pr.truth_primary_share)} és {n(pi.truth_primary_share)}. A protonnál a tengelytag
-({n(pr.formula_axial_term)}) közel van ehhez az igazsághoz ({n(pr.truth_primary_share)}); a pionnál túl nagy
-({n(pi.formula_axial_term)} a {n(pi.truth_primary_share)} helyett): az illesztés a tengely közelében lévő másodlagos részecskék energiáját is
-a tengelytaghoz adja.
+Az infografika számai ({n(pr.formula_axial_term)} és {n(pi.formula_axial_term)}) az illesztett alakképlet *tengelytagjának* részarányai
+(a képletben ez a tag írja le a primer tengely menti áthaladását), nem az issue #1 szerinti f_core. Összehasonlításképpen: a teljes
+tengely menti tartomány `f_core + f_MIP` = {n(pr.f_core_plus_MIP)} (proton) és {n(pi.f_core_plus_MIP)} (pion); *(igazság)* a primer
+saját részaránya az `E_vis`-ből: {n(pr.truth_primary_share)} és {n(pi.truth_primary_share)}.
 
 ![f_core az impulzus függvényében](q2_fcore.png)
 
-| részecske | p [GeV/c] | f_core (összegek aránya) | f_core (eseményátlag) | f_MIP | f_core + f_MIP | infografika (tengelytag) | igazság: a primer része | igazság: f_core a primer áthaladásából | igazság: kölcsönhatás az 1. csempe előtt / rugalmatlan / megáll |
+| részecske | p [GeV/c] | f_core (összegek aránya) | f_core (eseményátlag) | f_MIP | f_core + f_MIP | infografika (tengelytag) | igazság: a primer része | igazság: f_core a primer áthaladásából | igazság: nincs primer cella / rugalmatlan / megáll |
 |---|---|---|---|---|---|---|---|---|---|
 {tab}
 
 Ablakok: 0,9–1,1, 4,75–5,25 és 19,5–20 GeV/c. Az ablak felére szűkítése a hibánál kevesebbet változtat f_core-on (`q2_table.csv`).
 
-**Mennyi jön a kezdeti, kölcsönhatás nélküli áthaladásból?** 1 GeV/c-n a protonok {pct(pr.truth_stops, 0, lang)}-a hadronikus
-kölcsönhatás nélkül megáll (hatótávolsága kb. 16 cm acél), {pct(pr.truth_before_layer1, 0, lang)}-a a 40,4 mm-es elülső acélban,
-{pct(pr.truth_inelastic, 0, lang)}-a később hat kölcsön. **A proton {n(pr.f_core)}-os magjából {n(pr.truth_core_from_primary_passage)} a
-proton saját lerakódása a MIP-szakasza után** (a hatótávolság erősen ionizáló vége, rétegenként 2 MIP fölött, ahol a kereső lezárja a
-MIP-szakaszt); a megálló protonokra f_core = {n(pr.f_core_not_interacting)}, a kölcsönhatókra {n(pr.f_core_interacting)}. A pionnál a
-{n(pi.f_core)}-ból csak {n(pi.truth_core_from_primary_passage)} jön magától a piontól: {pct(pi.truth_inelastic + pi.truth_before_layer1, 0, lang)}-uk
-kölcsönhat, így a pionmag zápor. 5 és 20 GeV/c-n a primer saját áthaladása mindkettőnél legfeljebb 0,02. A pionok és a protonok kb.
-kétharmada legalább a második csempéig eljut (`truth_reaches_tile2` a `q2_table.csv`-ben).
+**Mennyi jön a kezdeti, kölcsönhatás nélküli áthaladásból?** *(igazság)* A primer nyomának végét a szimulációs rekord alapján
+soroljuk be: *rugalmatlan*, ha a leányrészecskéi között hadron van (n, p, π, d, t, ³He, α, K); *nincs primer cella*, ha a primer
+egyetlen cellában sem az első részecske (ezt az első csempe előtti 40,4 mm acélban történt kölcsönhatásnak számoljuk); egyébként
+*megáll*, ha a nyom a kaloriméteren belül ér véget. 1 GeV/c-s protonok: {pct(pr.truth_stops, 0, lang)} megáll,
+{pct(pr.truth_before_layer1, 0, lang)} nincs primer cella, {pct(pr.truth_inelastic, 0, lang)} rugalmatlan. Összehasonlításképpen
+(`scripts/core_mip_estimates.py`): az 1 GeV/c-s proton Bethe-féle hatótávolsága vasban {n(EP['range_cm_iron'], 1)} cm, a vas
+magkölcsönhatási hossza {n(EP['lambda_I_cm_iron'], 1)} cm (PDG); e^(−{n(EP['range_cm_iron'] / EP['lambda_I_cm_iron'], 2)}) =
+{n(EP['survival_estimate'])}. A proton f_core = {n(pr.f_core)} értékéből **{n(pr.truth_core_from_primary_passage)} olyan cellákban van,
+amelyekben az első részecske maga a proton, a MIP-szakasza után** *(igazság)*; az f_core a *megáll* kategóriájú protonokra
+{n(pr.f_core_not_interacting)}, a többire {n(pr.f_core_interacting)}. A pionnál az f_core = {n(pi.f_core)} értékből
+{n(pi.truth_core_from_primary_passage)} van olyan cellákban, amelyekben az első részecske maga a pion *(igazság)*. 5 és 20 GeV/c-n ez a
+rész mindkettőnél legfeljebb {n(max(q2row(h, W[k]).truth_core_from_primary_passage for h in ("pion", "proton") for k in (5, 20)))}.
+*(igazság)* 1 GeV/c-n a primer legalább az első két csempében szerepel a pionesemények {pct(pi.truth_reaches_tile2, 0, lang)}-ában és a
+protonesemények {pct(pr.truth_reaches_tile2, 0, lang)}-ában (`truth_reaches_tile2` a `q2_table.csv`-ben).
 
-**Megkülönböztető erő.** A magarány gyengén, de egyértelműen választja szét a piont a protontól: AUC = {n(a1)} (1–2 GeV/c), {n(a9)}
-(9–10) és {n(a19)} (19–20 GeV/c) – 1 GeV/c felett a protonnak kisebb a magja, mint a pionnak (1 GeV/c alatt a megálló protonoké
-nagyobb). A mag / a zápor többi része arány f_core monoton függvénye, ugyanaz az AUC-ja. Az elektronokkal szemben f_core a legerősebb
-egyedi jellemző (lásd Q3: 2 GeV/c-től kb. 99 % hadronhatásfok 99 % elektron-elutasításnál).
+**Megkülönböztető erő.** Pion–proton szétválasztás f_core-ral: AUC = {n(a1)} (1–2 GeV/c), {n(a9)} (9–10) és {n(a19)} (19–20 GeV/c);
+1 GeV/c felett a protonok f_core-ja a kisebb, 1 GeV/c alatt a nagyobb. A mag / a zápor többi része arány f_core monoton függvénye,
+ugyanaz az AUC-ja. Elektron–hadron szétválasztás: lásd Q3.
 
 ![f_core AUC](q2_auc_fcore.png)
 
-**Gáborral egyeztetendő.** *Eseményátlag vagy összegek aránya?* Mindkettő a táblázatban; az 1 GeV/c-s protonoknál 0,07-ig eltérnek (az
-összeget néhány nagy energiájú esemény uralja). Az infografika az átlagos sűrűség modellje, így az összegek arányának felel meg.
+**Gáborral egyeztetendő.** *Eseményátlag vagy összegek aránya?* Mindkettő a táblázatban; az 1 GeV/c-s protonoknál 0,07-ig eltérnek. Az
+infografika értékei az illesztett átlagos energiasűrűség integráljai, vagyis összegek arányai.
 """
 
 
@@ -326,7 +373,7 @@ REFS = """- CALICE, *Pion and proton showers in the CALICE scintillator-steel an
 - CALICE, *Testing hadronic interaction models using a highly granular silicon-tungsten calorimeter*, NIM A 794 (2015) 240,
   [arXiv:1411.7215](https://arxiv.org/abs/1411.7215) – interaction-layer finder, muon false starts per interaction length.
 - CMS HGCAL and CALICE, *Performance of the CMS High Granularity Calorimeter prototype to charged pion beams of 20–300 GeV/c*,
-  JINST 18 (2023) P08014, [arXiv:2211.04740](https://arxiv.org/abs/2211.04740) – energy-dependent shower-start thresholds, λ_π / λ_I ≈ 1.2.
+  JINST 18 (2023) P08014, [arXiv:2211.04740](https://arxiv.org/abs/2211.04740) – shower start in a high-granularity calorimeter prototype.
 - CALICE, *Particle identification using Boosted Decision Trees in the Semi-Digital Hadronic Calorimeter prototype*, JINST 15 (2020)
   P10009, [arXiv:2004.02972](https://arxiv.org/abs/2004.02972) – shower start and radius as e/π features.
 - Particle Data Group, *Passage of particles through matter* (2024) and *Atomic and nuclear properties of materials* – MIP energy loss,
@@ -380,31 +427,39 @@ def page_q3(lang):
 
 Particle issue [#1]({ISSUE}). Notebook: [`notebooks/10_mip_segment.ipynb`](../../notebooks/10_mip_segment.ipynb).
 
-**Answer.** Yes: {pct(present[0], 0)}–{pct(present[1], 0)} of pions and protons start with a MIP segment; most of the rest interact
-already in the 40.4 mm of steel in front of the first tile. A segment of 8 cm or longer is a high-purity hadron tag – it occurs for
-{pct(ph8[0], 0)}–{pct(ph8[1], 0)} of hadrons and for {pct(pe8[0], 1)} (1–2 GeV/c) to {pct(pe8[1], 1)} (10–20 GeV/c) of electrons, a
-likelihood ratio of {n(lr8[0], 0)} to {n(lr8[1], 0)} – but it keeps only about 60–80 % of hadrons at 99 % electron rejection, because
-the rest interact earlier. The core fraction is the stronger electron/hadron feature (about 99 % from 2 GeV/c); the MIP segment does
-not separate pions from protons. The rule of the issue had to be changed to find the shower start reliably (see *The finder*).
+**How the numbers were obtained.** All numbers come from the ePIC LFHCal simulation (Geant4, FTFP_BERT). Unmarked numbers are
+computed from the simulated hit energies, as the detector would record them (noise-free, tile by tile). Numbers marked *(truth)*
+use information that a real detector does not provide: which particle deposited energy first in a cell, and how the primary
+particle's track ended (read from its daughter particles). Estimates and literature values are named as such.
+
+**Answer.** A MIP segment is found in {pct(present[0], 0)}–{pct(present[1], 0)} of the pion and proton events. A segment of
+8 cm or longer occurs for {pct(ph8[0], 0)}–{pct(ph8[1], 0)} of the hadrons and for {pct(pe8[0], 1)} (1–2 GeV/c) to {pct(pe8[1], 1)}
+(10–20 GeV/c) of the electrons (likelihood ratio {n(lr8[0], 0)} to {n(lr8[1], 0)}). At 99 % electron rejection, L_MIP keeps
+{eff_range('L_MIP')} of the hadrons from 2 GeV/c and f_core {eff_range('f_core')}. Pion/proton separation by L_MIP: AUC
+{auc_range('pion_vs_proton', 'L_MIP')} (1–20 GeV/c). The start rule of the issue was changed (see *The finder*).
 
 ## Gábor's four properties
 
-1. **It may or may not be there – true.** A segment exists in {pct(present[0], 0)}–{pct(present[1], 0)} of the hadron events; in the
-   simulation truth {pct(reach[0], 0)}–{pct(reach[1], 0)} of the primaries reach the first tile (the others interact in the front steel,
-   about 1 − exp(−4.04 cm / (λ cos θ)); at low momentum some of these interactions are not visible, so the observed share is higher).
-2. **If it is there, it always starts at the entry point – true for the primary.** The primary's segment starts at the entry by
-   construction; but after the shower start a secondary (a leading hadron of a soft interaction) draws another MIP-like run of ≥ 4
-   tiles in {pct(late[0], 0)}–{pct(late[1], 0)} of the events at 3–20 GeV/c (truth: carried by a secondary; by the primary itself in at
-   most {pct(latep, 1)}). Such later segments do not start at the entry point.
-3. **Very small energy deposit, along the axis only – true for the primary, not for the tiles.** In the tiles the primary crosses before
-   its interaction (truth, p ≥ 3 GeV/c) the core holds {n(cl3['pion']['core_mip_per_tile'], 2)} MIP per tile for pions, of which
-   {n(cl3['pion']['primary_core_mip_per_tile'], 2)} MIP is the pion itself and {n(cl3['pion']['secondary_core_mip_per_tile'], 2)} MIP
-   secondaries; outside 5 cm the same tiles receive {n(cl3['pion']['outside_R_mip_per_tile'], 2)} MIP (protons
-   {n(cl3['proton']['outside_R_mip_per_tile'], 2)}), and {pct(cl3['pion']['share_tiles_with_outside_R_gt_1mip'], 0)}
-   ({pct(cl3['proton']['share_tiles_with_outside_R_gt_1mip'], 0)}) of them more than 1 MIP, against {n(mref['outside_R_mip_per_tile'], 2)} MIP and
-   {pct(mref['share_tiles_with_outside_R_gt_1mip'], 1)} for muons, which have no hadronic interaction: this is **backsplash** from the shower deeper in
-   the calorimeter. A condition on the energy outside 5 cm therefore ends the segment too early.
-4. **8–10 cm or longer is a very powerful hadron indicator – true for purity, limited in efficiency** (numbers above and below).
+1. **It may or may not be there.** A segment is found in {pct(present[0], 0)}–{pct(present[1], 0)} of the hadron events.
+   *(truth)* In {pct(reach[0], 0)}–{pct(reach[1], 0)} of the events the primary itself is recorded in at least one tile; in the others
+   it is not the first particle in any cell ({front_steel('pion')[1]} of the pions, {front_steel('proton')[1]} of the protons,
+   1–20 GeV/c), which we count as an interaction in the 40.4 mm of steel in front of the first tile. For comparison,
+   1 − exp(−4.04 cm / (λ cos θ)) with the interaction lengths of iron (PDG: 20.4 cm for pions, 16.8 cm for protons) and the simulated
+   angles gives {front_steel('pion')[0]} and {front_steel('proton')[0]} (`scripts/core_mip_estimates.py`).
+2. **If it is there, it always starts at the entry point.** The finder starts the segment at the entry point by construction. After
+   the shower start a further MIP-like run of at least 4 tiles is found in {pct(late[0], 0)}–{pct(late[1], 0)} of the events at
+   3–20 GeV/c with at most half of the run's core energy in cells whose first particle is the primary *(truth)*; runs with more
+   than half occur in at most {pct(latep, 1)} of the events. Such later runs do not start at the entry point.
+3. **Very small energy deposit, along the axis only.** *(truth, p ≥ 3 GeV/c)* In the tiles the primary crosses before its
+   interaction, the core holds {n(cl3['pion']['core_mip_per_tile'], 2)} MIP per tile for pions: {n(cl3['pion']['primary_core_mip_per_tile'], 2)} MIP in
+   cells of the pion itself and {n(cl3['pion']['secondary_core_mip_per_tile'], 2)} MIP in cells of secondary particles. Outside 5 cm the same
+   tiles receive {n(cl3['pion']['outside_R_mip_per_tile'], 2)} MIP per tile (protons {n(cl3['proton']['outside_R_mip_per_tile'], 2)}), and
+   {pct(cl3['pion']['share_tiles_with_outside_R_gt_1mip'], 0)} ({pct(cl3['proton']['share_tiles_with_outside_R_gt_1mip'], 0)}) of them more than
+   1 MIP; for muon tiles the same numbers are {n(mref['outside_R_mip_per_tile'], 2)} MIP and {pct(mref['share_tiles_with_outside_R_gt_1mip'], 1)}.
+   With the issue's threshold on the energy outside 5 cm, the start lies more than one tile before the truth interaction in
+   {pct(TM['gabor_rule']['pion_early'], 0)} of the pion events (train split; see *The finder*).
+4. **8–10 cm or longer is a very powerful hadron indicator.** L_MIP ≥ 8 cm: {pct(ph8[0], 0)}–{pct(ph8[1], 0)} of the hadrons,
+   {pct(pe8[1], 1)}–{pct(pe8[0], 1)} of the electrons; efficiencies at 99 % electron rejection: see *Hadron identification*.
 
 ## MIP calibration with muons
 
@@ -414,34 +469,34 @@ Muons with p ≥ 2 GeV/c, every tile on its own: most probable value of the core
 (median of the 60 tiles; the first tile {n(cal['mpv_layer1_MeV'], 3)} MeV), half widths at half maximum {n(cal['hwhm_left_median_MeV'], 3)} /
 {n(cal['hwhm_right_median_MeV'], 3)} MeV. With θ the raw value rises from {n(th.mpv_raw_MeV.iloc[0], 3)} to {n(th.mpv_raw_MeV.iloc[-1], 3)} MeV
 ({pct(th.mpv_raw_MeV.iloc[-1] / th.mpv_raw_MeV.iloc[0] - 1, 0)}); after the 1/cos θ correction it changes by
-{pct(th.mpv_cos_MeV.iloc[-1] / th.mpv_cos_MeV.iloc[0] - 1, 1)}, about half of which is expected because the most probable loss grows
-slightly faster than the path length (Landau–Vavilov, ≈ 1 % at θ = 0.57 rad).
-This agrees with the PDG Landau–Vavilov most probable value for a 4 mm tile of the ePIC polystyrene (1.032 g/cm³): 0.615–0.624 MeV
+{pct(th.mpv_cos_MeV.iloc[-1] / th.mpv_cos_MeV.iloc[0] - 1, 1)}; for comparison, the PDG Landau–Vavilov most probable value for the
+1/cos θ longer path at θ = 0.57 rad is ≈ 1 % above path-length scaling.
+For comparison, the PDG Landau–Vavilov most probable value for a 4 mm tile of the ePIC polystyrene (1.032 g/cm³): 0.615–0.624 MeV
 for 2–20 GeV/c muons. About {pct(cal['zero_frac_median'], 0)} of the crossed
-tiles have no energy (gaps between tiles), so empty tiles must not end a segment.
+tiles have no core energy; in the finder an empty tile does not end the segment.
 
 ## The finder
 
 A tile is **MIP-like** if its core energy is at most {n(F['core_up'], 1)} MIP and at most {F['cells_up']} cells fire (> 0.3 MIP). The
-**shower starts** at the first {F['n_consec']} consecutive non-MIP tiles whose summed core energy exceeds **{thr} MIP** (the momentum is
-known from the tracker; CMS HGCAL also uses energy-dependent thresholds). Empty tiles do not interrupt the segment; without a start the
+**shower starts** at the first {F['n_consec']} consecutive non-MIP tiles whose summed core energy exceeds **{thr} MIP** (p is the incoming
+momentum). Empty tiles do not interrupt the segment; without a start the
 segment ends at the last deposit on the axis (a stopping particle). `L_MIP` is the depth of the last tile with a deposit on the axis
-before the start; `z_start` the depth of the start tile. Because a tile sits in front of its absorber, L_MIP ≤ true interaction depth
-< z_start.
+before the start; `z_start` the depth of the start tile. Each tile sits in front of its absorber plate, so for a start found in
+the right tile L_MIP ≤ true interaction depth < z_start.
 
 The parameters were chosen on the train split against the simulation truth (`scripts/core_mip_tune.py`, {len(pd.read_csv(os.path.join(D, 'finder_scan.csv')))} settings): among the
-settings with at most 3 % muon false starts per interaction length (the CALICE Si-W level), those within 0.01 of the best ±1-tile
+settings with at most 3 % muon false starts per interaction length, those within 0.01 of the best ±1-tile
 agreement with the true interaction, then the best L_MIP efficiency at 99 % electron rejection. Comparison on the train split:
 
 | rule | ±1-tile agreement (π, p; 3–20 GeV/c) | early starts (π) | late starts (π) | muon false starts per λ_I | π efficiency at 99 % e rejection, 1–3 / 3–20 GeV/c |
 |---|---|---|---|---|---|
 {comp}
 
-The issue's rule starts the shower too early in a quarter of the pion events: the energy outside 5 cm and the cell count react to
-backsplash, and a single Landau/δ-ray tile pair is enough. The energy condition on the core removes that. **Strict band or narrow deposit
-for slow hadrons?** The narrow-deposit version (no limit on the core energy) cannot tell an electron shower from a slow hadron – both are
-narrow – so it fails as an identifier ({n(TM['narrow']['eff99_pion_1_3'])} pion efficiency at 1–3 GeV/c); with the energy condition the
-strict band already keeps slow protons in their segment except at the end of their range. We recommend the strict version.
+With the issue's rule the start is early (more than one tile before the truth interaction) in
+{pct(TM['gabor_rule']['pion_early'], 0)} of the pion events, with the chosen rule in {pct(TM['strict']['pion_early'], 0)} (table).
+**Strict band or narrow deposit for slow hadrons?** Pion efficiency at 99 % electron rejection, 1–3 GeV/c: narrow deposit
+{n(TM['narrow']['eff99_pion_1_3'])}, strict band {n(TM['strict']['eff99_pion_1_3'])} (table). Both versions are stored (`*_strict`,
+`*_narrow` in `results/features/<particle>.parquet`); the numbers on these pages use the strict band.
 
 ## L_MIP and P(L_MIP ≥ 8 / 10 cm)
 
@@ -456,19 +511,18 @@ P(L ≥ 8 cm) / P(L ≥ 10 cm):
 
 ## Effective interaction length
 
-![Survival without a (visible) interaction](q3_survival.png)
+![Survival: truth and finder](q3_survival.png)
 
 Truncated, censored exponential likelihood on 8–80 cm, p ≥ 3 GeV/c:
 
 - **simulation truth** (the primary's last tile): **λ = {n(lt['lambda_cm'], 1)} ± {n(lt['se'], 1)} cm for pions and {n(pt['lambda_cm'], 1)} ± {n(pt['se'], 1)} cm
   for protons**, ratio {n(lt['lambda_cm'] / pt['lambda_cm'], 2)}. The PDG values of the layer stack, 26.0 and 21.2 cm (ratio 1.23), are for
-  200 GeV/c; the pion value rises with momentum ({n(lam('pion', '3-5', 'truth')['lambda_cm'], 1)} cm at 3–5, {n(lam('pion', '10-20', 'truth')['lambda_cm'], 1)} cm at 10–20 GeV/c), the proton
-  value is flat ({n(lam('proton', '3-5', 'truth')['lambda_cm'], 1)} / {n(lam('proton', '10-20', 'truth')['lambda_cm'], 1)} cm). The truth survival is a clean exponential.
-- **the finder** measures the first *visible* shower start: λ_eff = {n(ls['lambda_cm'], 1)} cm (pions) and {n(ps['lambda_cm'], 1)} cm
-  (protons), and its survival is not a single exponential. It is longer than the truth because a part of the interactions puts little
-  energy near the axis: the two tiles after the true interaction hold less than the start threshold in {vt} of the pion and {vp} of the
-  proton interactions (1–2, 2–3, 3–5, 5–10, 10–20 GeV/c). Muon false starts ({pct(mf['share_with_start'], 0)} of the muons, λ_fake = {n(mf['lambda_fake_cm'], 0)} cm)
-  shorten it a little. The effective length therefore depends on the start definition; the physical interaction length is the truth value.
+  200 GeV/c. By momentum: pions {n(lam('pion', '3-5', 'truth')['lambda_cm'], 1)} cm at 3–5 and {n(lam('pion', '10-20', 'truth')['lambda_cm'], 1)} cm at 10–20 GeV/c,
+  protons {n(lam('proton', '3-5', 'truth')['lambda_cm'], 1)} and {n(lam('proton', '10-20', 'truth')['lambda_cm'], 1)} cm.
+- **the finder's start tile:** λ_eff = {n(ls['lambda_cm'], 1)} cm (pions) and {n(ps['lambda_cm'], 1)} cm
+  (protons). *(truth)* In {vt} of the pion and {vp} of the proton interactions, the two tiles after the true interaction hold less
+  core energy than the start threshold (1–2, 2–3, 3–5, 5–10, 10–20 GeV/c). Muon false starts: {pct(mf['share_with_start'], 0)} of the
+  muons, λ_fake = {n(mf['lambda_fake_cm'], 0)} cm.
 
 ## The start tile against the true interaction
 
@@ -480,9 +534,7 @@ Share within ±1 tile of the true interaction (early / late / no start), all eve
 |---|---|---|---|---|---|
 {agt}
 
-From 5 GeV/c the agreement ({n(w1[0])}–{n(w1[1])}) is at the level of the CALICE finders (≈ 80 % within ±1 layer at 10–80 GeV); below 3 GeV/c
-many interactions are not visible as a shower start (low multiplicity, energy carried by neutrons), so the MIP segment there ends at the
-first *visible* activity.
+Agreement within ±1 tile from 5 GeV/c: {n(w1[0])}–{n(w1[1])}; below 3 GeV/c it is lower (table).
 
 ## Hadron identification
 
@@ -495,9 +547,8 @@ Hadron efficiency at 99 % electron rejection (test split; thresholds from the tr
 {ef}
 
 `seg1` is the energy of tiles 1–5. **The ePIC LFHCal reads these five tiles out as one channel** (segments of 5, 5, 10, 10, 10, 10, 10
-tiles), so a per-tile L_MIP exists only in simulation (and in the individually read insert); at the readout level the tag becomes
-"the first segment is MIP-like", which keeps almost the same efficiency. Below 1 GeV/c nothing works (soft electrons deposit only a few
-MeV).
+tiles), so a per-tile L_MIP exists only in simulation; at the readout level the tag becomes "the first segment is MIP-like"
+(row `seg1` of the table).
 
 ## Checks
 
@@ -514,33 +565,40 @@ start tile of the finder event by event and the headline numbers (`verification.
 
 Részecske-issue [#1]({ISSUE}). Notebook: [`notebooks/10_mip_segment.ipynb`](../../notebooks/10_mip_segment.ipynb).
 
-**Válasz.** Igen: a pionok és protonok {pct(present[0], 0, lang)}–{pct(present[1], 0, lang)}-a MIP-szakasszal kezd; a többi nagyrészt már az
-első csempe előtti 40,4 mm acélban kölcsönhat. A legalább 8 cm-es szakasz nagy tisztaságú hadronjel – a hadronok
-{pct(ph8[0], 0, lang)}–{pct(ph8[1], 0, lang)}-ánál és az elektronok {pct(pe8[0], 1, lang)} (1–2 GeV/c) – {pct(pe8[1], 1, lang)}
-(10–20 GeV/c) részénél fordul elő, a valószínűségi hányados {n(lr8[0], 0)}–{n(lr8[1], 0)} –, de 99 % elektron-elutasításnál a hadronoknak
-csak kb. 60–80 %-át tartja meg, mert a többi korábban kölcsönhat. Az elektron–hadron szétválasztásban a magarány az erősebb (2 GeV/c-től
-kb. 99 %); a MIP-szakasz a piont a protontól nem választja el. Az issue szabályán változtatni kellett, hogy a zápor kezdete megbízható
-legyen (lásd *A kereső*).
+**Honnan jönnek a számok.** Minden szám az ePIC LFHCal szimulációjából (Geant4, FTFP_BERT) származik. A jelöletlen számokat a
+szimulált találati energiákból számoltuk, ahogy a detektor rögzítené őket (zaj nélkül, csempénként). Az *(igazság)* jelű számok
+olyan információt használnak, amit egy valódi detektor nem ad: melyik részecske adott le elsőként energiát egy cellában, és hogyan
+ért véget a primer részecske nyoma (a leányrészecskéiből). A becsléseket és az irodalmi értékeket külön megnevezzük.
+
+**Válasz.** A pion- és protonesemények {pct(present[0], 0, lang)}–{pct(present[1], 0, lang)}-ában találunk MIP-szakaszt. Legalább 8 cm-es
+szakasz a hadronok {pct(ph8[0], 0, lang)}–{pct(ph8[1], 0, lang)}-ánál és az elektronok {pct(pe8[0], 1, lang)} (1–2 GeV/c) –
+{pct(pe8[1], 1, lang)} (10–20 GeV/c) részénél fordul elő (valószínűségi hányados {n(lr8[0], 0)}–{n(lr8[1], 0)}). 99 %
+elektron-elutasításnál 2 GeV/c-től az L_MIP a hadronok {eff_range('L_MIP', lang)}-át tartja meg, az f_core {eff_range('f_core', lang)}-át.
+Pion–proton szétválasztás L_MIP-pel: AUC {auc_range('pion_vs_proton', 'L_MIP', lang)} (1–20 GeV/c). Az issue kezdetszabályán
+változtattunk (lásd *A kereső*).
 
 ## Gábor négy állítása
 
-1. **Lehet, hogy ott van, lehet, hogy nincs – igaz.** A hadronesemények {pct(present[0], 0, lang)}–{pct(present[1], 0, lang)}-ában van
-   szakasz; a szimulációs igazság szerint a primerek {pct(reach[0], 0, lang)}–{pct(reach[1], 0, lang)}-a eléri az első csempét (a többi
-   az elülső acélban hat kölcsön, kb. 1 − exp(−4,04 cm / (λ cos θ)); kis impulzusnál e kölcsönhatások egy része nem látszik, ezért ott a
-   megfigyelt arány nagyobb).
-2. **Ha ott van, mindig a belépési pontnál kezdődik – a primerre igaz.** A primer szakasza definíció szerint a belépésnél kezdődik; a zápor
-   kezdete után viszont egy másodlagos részecske (egy lágy kölcsönhatás vezető hadronja) 3–20 GeV/c-n az események
-   {pct(late[0], 0, lang)}–{pct(late[1], 0, lang)}-ában újabb, legalább 4 csempés MIP-szerű szakaszt húz (igazság: másodlagos viszi; maga a
-   primer legfeljebb {pct(latep, 1, lang)}-ban). Ezek a későbbi szakaszok nem a belépési pontnál kezdődnek.
-3. **Nagyon kis energialerakódás, csak a tengely mentén – a primerre igaz, a csempékre nem.** Azokban a csempékben, amelyeket a primer a
-   kölcsönhatása előtt átszel (igazság, p ≥ 3 GeV/c), a magban pionnál {n(cl3['pion']['core_mip_per_tile'], 2)} MIP van csempénként, ebből
-   {n(cl3['pion']['primary_core_mip_per_tile'], 2)} MIP maga a pion, {n(cl3['pion']['secondary_core_mip_per_tile'], 2)} MIP másodlagos; 5 cm-en
-   kívül ugyanezek a csempék {n(cl3['pion']['outside_R_mip_per_tile'], 2)} MIP-et kapnak (proton {n(cl3['proton']['outside_R_mip_per_tile'], 2)}),
-   és {pct(cl3['pion']['share_tiles_with_outside_R_gt_1mip'], 0, lang)}-uk ({pct(cl3['proton']['share_tiles_with_outside_R_gt_1mip'], 0, lang)}-uk)
-   több mint 1 MIP-et, szemben a müonok {n(mref['outside_R_mip_per_tile'], 2)} MIP-jével és {pct(mref['share_tiles_with_outside_R_gt_1mip'], 1, lang)}-ával
-   (náluk nincs hadronikus kölcsönhatás): ez a kaloriméterben mélyebben induló zápor **visszaszórása**. Az 5 cm-en kívüli energiára tett
-   feltétel ezért túl korán zárja le a szakaszt.
-4. **A 8–10 cm-es vagy hosszabb szakasz nagyon erős hadronjel – a tisztaságra igaz, a hatásfoka korlátozott** (számok fent és lent).
+1. **Lehet, hogy ott van, lehet, hogy nincs.** A hadronesemények {pct(present[0], 0, lang)}–{pct(present[1], 0, lang)}-ában
+   találunk szakaszt. *(igazság)* Az események {pct(reach[0], 0, lang)}–{pct(reach[1], 0, lang)}-ában a primer maga is szerepel legalább
+   egy csempében; a többiben egyetlen cellában sem ő az első részecske (a pionok {front_steel('pion', lang)[1]}-a, a protonok
+   {front_steel('proton', lang)[1]}-a, 1–20 GeV/c), ezt az első csempe előtti 40,4 mm acélban történt kölcsönhatásnak számoljuk.
+   Összehasonlításképpen az 1 − exp(−4,04 cm / (λ cos θ)) a vas kölcsönhatási hosszaival (PDG: pionra 20,4 cm, protonra 16,8 cm) és a
+   szimulált szögekkel {front_steel('pion', lang)[0]} és {front_steel('proton', lang)[0]} (`scripts/core_mip_estimates.py`).
+2. **Ha ott van, mindig a belépési pontnál kezdődik.** A kereső a szakaszt definíció szerint a belépési pontnál kezdi. A zápor kezdete
+   után 3–20 GeV/c-n az események {pct(late[0], 0, lang)}–{pct(late[1], 0, lang)}-ában további, legalább 4 csempés MIP-szerű szakaszt
+   találunk, amelynek mag-energiájából legfeljebb a fele van olyan cellákban, amelyekben a primer az első részecske *(igazság)*; a
+   több mint felet tartalmazó ilyen szakaszok az események legfeljebb {pct(latep, 1, lang)}-ában fordulnak elő. Ezek a későbbi szakaszok nem a belépési pontnál kezdődnek.
+3. **Nagyon kis energialerakódás, csak a tengely mentén.** *(igazság, p ≥ 3 GeV/c)* A primer által a kölcsönhatása előtt átszelt
+   csempékben a mag pionnál {n(cl3['pion']['core_mip_per_tile'], 2)} MIP-et tartalmaz csempénként: {n(cl3['pion']['primary_core_mip_per_tile'], 2)} MIP-et
+   a pion saját celláiban, {n(cl3['pion']['secondary_core_mip_per_tile'], 2)} MIP-et másodlagos részecskék celláiban. 5 cm-en kívül ugyanezek a
+   csempék csempénként {n(cl3['pion']['outside_R_mip_per_tile'], 2)} MIP-et kapnak (proton {n(cl3['proton']['outside_R_mip_per_tile'], 2)}), és
+   {pct(cl3['pion']['share_tiles_with_outside_R_gt_1mip'], 0, lang)}-uk ({pct(cl3['proton']['share_tiles_with_outside_R_gt_1mip'], 0, lang)}-uk) több mint
+   1 MIP-et; a müoncsempékre ugyanezek {n(mref['outside_R_mip_per_tile'], 2)} MIP és {pct(mref['share_tiles_with_outside_R_gt_1mip'], 1, lang)}. Az issue
+   5 cm-en kívüli energiára tett küszöbével a kezdet a pionesemények {pct(TM['gabor_rule']['pion_early'], 0, lang)}-ában több mint egy csempével
+   a valódi kölcsönhatás előtt van (tanító minta; lásd *A kereső*).
+4. **A 8–10 cm-es vagy hosszabb szakasz nagyon erős hadronjel.** L_MIP ≥ 8 cm: a hadronok {pct(ph8[0], 0, lang)}–{pct(ph8[1], 0, lang)}-a,
+   az elektronok {pct(pe8[1], 1, lang)}–{pct(pe8[0], 1, lang)}-a; hatásfokok 99 % elektron-elutasításnál: lásd *Hadronazonosítás*.
 
 ## MIP-kalibráció müonokkal
 
@@ -549,34 +607,34 @@ legyen (lásd *A kereső*).
 Müonok p ≥ 2 GeV/c-vel, minden csempe külön: a mag-energia × cos θ legvalószínűbb értéke {n(cal['mpv_median_MeV'], 3)} MeV (a 60 csempe
 mediánja; az első csempe {n(cal['mpv_layer1_MeV'], 3)} MeV), a félértékszélesség felei {n(cal['hwhm_left_median_MeV'], 3)} /
 {n(cal['hwhm_right_median_MeV'], 3)} MeV. A nyers érték θ-val {n(th.mpv_raw_MeV.iloc[0], 3)}-ról {n(th.mpv_raw_MeV.iloc[-1], 3)} MeV-re nő
-({pct(th.mpv_raw_MeV.iloc[-1] / th.mpv_raw_MeV.iloc[0] - 1, 0, lang)}); az 1/cos θ korrekció után csak
-{pct(th.mpv_cos_MeV.iloc[-1] / th.mpv_cos_MeV.iloc[0] - 1, 1, lang)}-ot változik, és ennek kb. fele várható, mert a legvalószínűbb
-energiaveszteség kicsit gyorsabban nő, mint az úthossz (Landau–Vavilov, θ = 0,57 rad-nál ≈ 1 %). Ez egyezik a PDG
-Landau–Vavilov-képlet szerinti legvalószínűbb értékkel az ePIC 4 mm-es polisztirol csempéjére (1,032 g/cm³): 0,615–0,624 MeV a
+({pct(th.mpv_raw_MeV.iloc[-1] / th.mpv_raw_MeV.iloc[0] - 1, 0, lang)}); az 1/cos θ korrekció után
+{pct(th.mpv_cos_MeV.iloc[-1] / th.mpv_cos_MeV.iloc[0] - 1, 1, lang)}-ot változik; összehasonlításképpen a PDG Landau–Vavilov-képlete szerint
+θ = 0,57 rad-nál az 1/cos θ-szor hosszabb úton a legvalószínűbb érték ≈ 1 %-kal nagyobb az úthosszal arányosnál. Összehasonlításképpen a PDG
+Landau–Vavilov-képlet szerinti legvalószínűbb érték az ePIC 4 mm-es polisztirol csempéjére (1,032 g/cm³): 0,615–0,624 MeV a
 2–20 GeV/c-s müonokra. Az átszelt csempék kb.
-{pct(cal['zero_frac_median'], 0, lang)}-ában nincs energia (rések a csempék között), ezért üres csempe nem zárhatja le a szakaszt.
+{pct(cal['zero_frac_median'], 0, lang)}-ában nincs mag-energia; a keresőben üres csempe nem zárja le a szakaszt.
 
 ## A kereső
 
 Egy csempe **MIP-szerű**, ha a mag-energiája legfeljebb {n(F['core_up'], 1)} MIP, és legfeljebb {F['cells_up']} cella tüzel (> 0,3 MIP). A
 **zápor ott kezdődik**, ahol először {F['n_consec']} egymást követő nem MIP-szerű csempe mag-energiájának összege meghaladja a **{thr} MIP**-et
-(az impulzus a nyomkövetőből ismert; a CMS HGCAL is energiafüggő küszöböket használ). Üres csempe nem szakítja meg a szakaszt; kezdet
+(p a beérkező impulzus). Üres csempe nem szakítja meg a szakaszt; kezdet
 nélkül a szakasz a tengely menti utolsó lerakódásnál ér véget (megálló részecske). `L_MIP` a kezdet előtti utolsó, tengely menti
-lerakódású csempe mélysége, `z_start` a kezdő csempéé. Mivel a csempe az elnyelője előtt ül, L_MIP ≤ a valódi kölcsönhatás mélysége < z_start.
+lerakódású csempe mélysége, `z_start` a kezdő csempéé. Minden csempe az elnyelőlemeze előtt ül, így jó csempében talált kezdetnél L_MIP ≤ a valódi kölcsönhatás mélysége < z_start.
 
 A paramétereket a tanító mintán, a szimulációs igazsághoz mérve választottuk (`scripts/core_mip_tune.py`, {len(pd.read_csv(os.path.join(D, 'finder_scan.csv')))} beállítás): a legfeljebb 3 %
-müon-hamis-kezdetet adó (λ_I-nként; CALICE Si-W szint) beállítások közül a legjobb ±1 csempés egyezéstől 0,01-en belüliek, ezek közül a
+müon-hamis-kezdetet adó (λ_I-nként) beállítások közül a legjobb ±1 csempés egyezéstől 0,01-en belüliek, ezek közül a
 legjobb L_MIP-hatásfok 99 % elektron-elutasításnál. Összehasonlítás a tanító mintán:
 
 | szabály | ±1 csempés egyezés (π, p; 3–20 GeV/c) | korai kezdet (π) | késői kezdet (π) | müon hamis kezdet λ_I-nként | π hatásfok 99 % e-elutasításnál, 1–3 / 3–20 GeV/c |
 |---|---|---|---|---|---|
 {comp}
 
-Az issue szabálya a pionesemények negyedében túl korán indítja a záport: az 5 cm-en kívüli energia és a cellaszám a visszaszórásra
-reagál, és egyetlen Landau-/δ-sugaras csempepár is elég. A mag-energiára tett feltétel ezt megszünteti. **Szigorú sáv vagy keskeny
-lerakódás a lassú hadronokra?** A keskeny változat (a mag-energiára nincs korlát) nem tudja megkülönböztetni az elektronzáport a lassú
-hadrontól – mindkettő keskeny –, így azonosításra alkalmatlan (pionhatásfok 1–3 GeV/c-n: {n(TM['narrow']['eff99_pion_1_3'])}); az
-energiafeltétellel a szigorú sáv a lassú protonokat a hatótávolságuk végéig a szakaszban tartja. A szigorú változatot javasoljuk.
+Az issue szabályával a kezdet a pionesemények {pct(TM['gabor_rule']['pion_early'], 0, lang)}-ában korai (több mint egy csempével a
+valódi kölcsönhatás előtt), a választott szabállyal {pct(TM['strict']['pion_early'], 0, lang)}-ában (táblázat). **Szigorú sáv vagy keskeny
+lerakódás a lassú hadronokra?** Pionhatásfok 99 % elektron-elutasításnál, 1–3 GeV/c: keskeny lerakódás {n(TM['narrow']['eff99_pion_1_3'])},
+szigorú sáv {n(TM['strict']['eff99_pion_1_3'])} (táblázat). Mindkét változat el van mentve (`*_strict`, `*_narrow` a
+`results/features/<particle>.parquet`-ban); ezeken az oldalakon a számok a szigorú sávval készültek.
 
 ## L_MIP és P(L_MIP ≥ 8 / 10 cm)
 
@@ -591,21 +649,19 @@ P(L ≥ 8 cm) / P(L ≥ 10 cm):
 
 ## Effektív kölcsönhatási hossz
 
-![Túlélés (látható) kölcsönhatás nélkül](q3_survival.png)
+![Túlélés: igazság és kereső](q3_survival.png)
 
 Csonkolt, cenzorált exponenciális likelihood 8–80 cm-en, p ≥ 3 GeV/c:
 
 - **szimulációs igazság** (a primer utolsó csempéje): **λ = {n(lt['lambda_cm'], 1)} ± {n(lt['se'], 1)} cm a pionra és
   {n(pt['lambda_cm'], 1)} ± {n(pt['se'], 1)} cm a protonra**, arányuk {n(lt['lambda_cm'] / pt['lambda_cm'], 2)}. A rétegszerkezet PDG-értékei,
-  26,0 és 21,2 cm (arány 1,23), 200 GeV/c-re vonatkoznak; a pionérték az impulzussal nő ({n(lam('pion', '3-5', 'truth')['lambda_cm'], 1)} cm
-  3–5, {n(lam('pion', '10-20', 'truth')['lambda_cm'], 1)} cm 10–20 GeV/c-n), a protoné állandó
-  ({n(lam('proton', '3-5', 'truth')['lambda_cm'], 1)} / {n(lam('proton', '10-20', 'truth')['lambda_cm'], 1)} cm). Az igazság túlélése tiszta exponenciális.
-- **a kereső** az első *látható* zápor-kezdetet méri: λ_eff = {n(ls['lambda_cm'], 1)} cm (pion) és {n(ps['lambda_cm'], 1)} cm (proton), a
-  túlélése nem egyetlen exponenciális. Azért hosszabb az igazságnál, mert a kölcsönhatások egy része kevés energiát ad le a tengely
-  közelében: a valódi kölcsönhatás utáni két csempe a pionkölcsönhatások {vt}, a protonkölcsönhatások {vp} részében kevesebbet tartalmaz
-  a kezdési küszöbnél (1–2, 2–3, 3–5, 5–10, 10–20 GeV/c). A müonok hamis kezdetei ({pct(mf['share_with_start'], 0, lang)}, λ_fake =
-  {n(mf['lambda_fake_cm'], 0)} cm) kicsit rövidítik. Az effektív hossz tehát a kezdet definíciójától függ; a fizikai kölcsönhatási hossz az
-  igazság szerinti érték.
+  26,0 és 21,2 cm (arány 1,23), 200 GeV/c-re vonatkoznak. Impulzus szerint: pion {n(lam('pion', '3-5', 'truth')['lambda_cm'], 1)} cm 3–5 és
+  {n(lam('pion', '10-20', 'truth')['lambda_cm'], 1)} cm 10–20 GeV/c-n, proton {n(lam('proton', '3-5', 'truth')['lambda_cm'], 1)} és
+  {n(lam('proton', '10-20', 'truth')['lambda_cm'], 1)} cm.
+- **a kereső kezdő csempéje:** λ_eff = {n(ls['lambda_cm'], 1)} cm (pion) és {n(ps['lambda_cm'], 1)} cm (proton), *(igazság)* a
+  pionkölcsönhatások {vt}, a protonkölcsönhatások {vp} részében a valódi kölcsönhatás utáni két csempe kevesebb mag-energiát tartalmaz a
+  kezdési küszöbnél (1–2, 2–3, 3–5, 5–10, 10–20 GeV/c). Müonok hamis kezdetei: a müonok {pct(mf['share_with_start'], 0, lang)}-a,
+  λ_fake = {n(mf['lambda_fake_cm'], 0)} cm.
 
 ## A kezdő csempe a valódi kölcsönhatáshoz képest
 
@@ -617,9 +673,7 @@ A valódi kölcsönhatástól legfeljebb ±1 csempére lévő kezdetek aránya (
 |---|---|---|---|---|---|
 {agt}
 
-5 GeV/c-től az egyezés ({n(w1[0])}–{n(w1[1])}) a CALICE-keresők szintjén van (10–80 GeV-en kb. 80 % ±1 rétegen belül); 3 GeV/c alatt sok
-kölcsönhatás nem látszik zápor-kezdetként (kis multiplicitás, az energiát neutronok viszik), ott a MIP-szakasz az első *látható*
-aktivitásig tart.
+±1 csempén belüli egyezés 5 GeV/c-től: {n(w1[0])}–{n(w1[1])}; 3 GeV/c alatt kisebb (táblázat).
 
 ## Hadronazonosítás
 
@@ -632,9 +686,8 @@ Hadronhatásfok 99 % elektron-elutasításnál (tesztminta; a küszöbök a tan�
 {ef}
 
 A `seg1` az 1–5. csempe energiája. **Az ePIC LFHCal ezt az öt csempét egy csatornán olvassa ki** (5, 5, 10, 10, 10, 10, 10 csempés
-szegmensek), így a csempénkénti L_MIP csak a szimulációban (és az egyenként kiolvasott betétben) létezik; a kiolvasás szintjén a jel úgy
-szól: „az első szegmens MIP-szerű”, és ez majdnem ugyanazt a hatásfokot adja. 1 GeV/c alatt semmi sem működik (a lágy elektronok csak
-néhány MeV-et adnak le).
+szegmensek), így a csempénkénti L_MIP csak a szimulációban létezik; a kiolvasás szintjén a jel úgy szól: „az első szegmens MIP-szerű”
+(a táblázat `seg1` sora).
 
 ## Ellenőrzések
 
@@ -674,6 +727,7 @@ def readme_block(lang):
     F = A["finder"]["versions"]["strict"]
     w1 = (min(agr(p, r, "within_1") for p in ("pion", "proton") for r in ("5-10", "10-20")), max(agr(p, r, "within_1") for p in ("pion", "proton") for r in ("5-10", "10-20")))
     lt, ltp = lam("pion", "3-20", "truth"), lam("proton", "3-20", "truth")
+    early = A["finder"]["train_metrics"]["gabor_rule"]["pion_early"]
     links = "[Q1](results/core_mip/Q1{s}) · [Q2](results/core_mip/Q2{s}) · [Q3](results/core_mip/Q3{s})".format(s=".hu.md" if hu else ".md")
     if not hu:
         return f"""## Particle issue #1 – core, MIP segment and halo
@@ -683,24 +737,24 @@ def readme_block(lang):
 `results/features/<particle>.parquet`. Every number below is written by `scripts/core_mip_pages.py` from `results/core_mip/`.
 
 - **Q1 – the core** is the energy within R = 5 cm of the axis (from the entry point at the front face, z = 3620 mm) from the shower
-  start on. 5 cm holds {P(C['muon']['rel_to_R100']['R50'])} of the muon energy within 10 cm and {P(C['electron']['R50'])} of the electron
-  shower, and separates electrons from hadrons best among 2.5–10 cm. Electron showers are core (≥ {n(e_core)}), muons MIP segment
-  ({n(mu_mip[0])}–{n(mu_mip[1])}); for hadrons the core grows from {n(hc1[0])}–{n(hc1[1])} (1–2 GeV/c) to {n(hc19[0])}–{n(hc19[1])}
-  (19–20 GeV/c) and the halo carries {n(hh[0])}–{n(hh[1])}.
-- **Q2 – the infographic's 60 % / 43 %** are the share of the formula's axial term, not a core fraction. Measured at 1 GeV/c:
-  f_core = {n(pr.f_core)} ± {n(pr.f_core_se)} (proton) and {n(pi.f_core)} ± {n(pi.f_core_se)} (pion); {n(pr.truth_core_from_primary_passage)}
-  of the proton's {n(pr.f_core)} is the proton's own deposit after its MIP segment (mostly the end of its range). Pion/proton separation by f_core: AUC {n(a_pp[0])}–{n(a_pp[1])} (weak but
-  non-zero).
-- **Q3 – the MIP segment** is present in {P(present[0])}–{P(present[1])} of hadron events. L_MIP ≥ 8 cm occurs for {P(ph8[0])}–{P(ph8[1])}
-  of hadrons and {P(pe8[0], 1)}–{P(pe8[1], 1)} of electrons (likelihood ratio {n(lr8[0], 0)}–{n(lr8[1], 0)}); at 99 % electron rejection it
-  keeps {P(min(effL))}–{P(max(effL))} of hadrons from 2 GeV/c (f_core: {P(min(effF))}–{P(max(effF))}). Gábor's four properties hold for the
-  primary, with two refinements: in {P(late[0])}–{P(late[1])} of the events a secondary draws a later MIP-like run, and the tiles before
-  the interaction receive {n(bs[0])}–{n(bs[1])} MIP of backsplash per tile outside 5 cm. Therefore the shower start is found from the core
-  energy (two non-MIP tiles with more than {n(F['core_sum'], 0)} + {n(F['core_sum_per_gev'], 1)}·p MIP), tuned on the simulation truth:
-  within ±1 tile of the true interaction in {P(w1[0])}–{P(w1[1])} of the events from 5 GeV/c (the issue's original rule: early in a
-  quarter of the pion events). True interaction lengths (Geant4, 3–20 GeV/c): λ_π = {n(lt['lambda_cm'], 1)} cm, λ_p = {n(ltp['lambda_cm'], 1)} cm.
-  The ePIC LFHCal reads tiles 1–5 out as one channel, so a per-tile L_MIP exists only in simulation; a "first segment MIP-like" tag is
-  nearly as good.
+  start on. Within 5 cm lie {P(C['muon']['rel_to_R100']['R50'])} of the muon energy within 10 cm and {P(C['electron']['R50'])} of the
+  electron energy; the R scan 2.5–10 cm is on the Q1 page. Shares of `E_vis`: core in electron showers ≥ {n(e_core)}, MIP segment in
+  muon events {n(mu_mip[0])}–{n(mu_mip[1])}; for hadrons the core is {n(hc1[0])}–{n(hc1[1])} at 1–2 GeV/c and {n(hc19[0])}–{n(hc19[1])} at
+  19–20 GeV/c, the halo {n(hh[0])}–{n(hh[1])} (2–20 GeV/c).
+- **Q2 – f_core at 1 GeV/c:** {n(pr.f_core)} ± {n(pr.f_core_se)} (proton) and {n(pi.f_core)} ± {n(pi.f_core_se)} (pion). The infographic's
+  60 % / 43 % are the share of the formula's axial term, a different quantity. *(truth)* {n(pr.truth_core_from_primary_passage)} of the
+  proton's {n(pr.f_core)} is in cells whose first particle is the proton itself, after its MIP segment. Pion/proton separation by
+  f_core: AUC {n(a_pp[0])}–{n(a_pp[1])}.
+- **Q3 – the MIP segment** is found in {P(present[0])}–{P(present[1])} of hadron events. L_MIP ≥ 8 cm occurs for {P(ph8[0])}–{P(ph8[1])}
+  of hadrons and {P(pe8[0], 1)}–{P(pe8[1], 1)} of electrons (likelihood ratio {n(lr8[0], 0)}–{n(lr8[1], 0)}); at 99 % electron rejection,
+  from 2 GeV/c, L_MIP keeps {P(min(effL))}–{P(max(effL))} of hadrons and f_core {P(min(effF))}–{P(max(effF))}. *(truth)* A later MIP-like run
+  of a secondary particle occurs in {P(late[0])}–{P(late[1])} of the events; the tiles in front of the interaction receive
+  {n(bs[0])}–{n(bs[1])} MIP per tile outside 5 cm (muon tiles: {n(cl3['muon_reference']['outside_R_mip_per_tile'])}). Shower start used here: two
+  non-MIP-like tiles with summed core energy above {n(F['core_sum'], 0)} + {n(F['core_sum_per_gev'], 1)}·p MIP, tuned on the simulation truth;
+  within ±1 tile of the truth interaction in {P(w1[0])}–{P(w1[1])} of the events from 5 GeV/c (with the issue's rule the start is early
+  in {P(early)} of the pion events). *(truth)* Exponential fit of the primary's interaction depth, 3–20 GeV/c: λ_π = {n(lt['lambda_cm'], 1)} cm,
+  λ_p = {n(ltp['lambda_cm'], 1)} cm. The ePIC LFHCal reads tiles 1–5 out as one channel; with this first readout segment the hadron
+  efficiency at 99 % electron rejection is {eff_range('seg1')} from 2 GeV/c.
 - **Checks.** {s2_sentence("en")}
 """
     return f"""## Részecske-issue #1 – mag, MIP-szakasz és halo
@@ -709,24 +763,26 @@ Az [issue #1]({ISSUE}) a zápor tengelye körüli tartományról kérdezett (fog
 ábrákkal: {links}; notebookok: `notebooks/09_axis_core.ipynb` és `notebooks/10_mip_segment.ipynb`; eseményenkénti jellemzők további
 használatra: `results/features/<particle>.parquet`. Az alábbi számokat a `scripts/core_mip_pages.py` írja a `results/core_mip/` alapján.
 
-- **Q1 – a mag** a tengelytől (a front belépési pontjától, z = 3620 mm) R = 5 cm-en belüli energia a zápor kezdetétől. Az 5 cm a müon
-  10 cm-en belüli energiájának {P(C['muon']['rel_to_R100']['R50'])}-át és az elektronzápor {P(C['electron']['R50'])}-át tartalmazza, és a
-  2,5–10 cm közül ez választja szét legjobban az elektront a hadrontól. Az elektronzápor mag (≥ {n(e_core)}), a müon MIP-szakasz
-  ({n(mu_mip[0])}–{n(mu_mip[1])}); a hadronoknál a mag {n(hc1[0])}–{n(hc1[1])}-ról (1–2 GeV/c) {n(hc19[0])}–{n(hc19[1])}-ra (19–20 GeV/c)
-  nő, a halo {n(hh[0])}–{n(hh[1])} részt visz.
-- **Q2 – az infografika 60 %-a / 43 %-a** a képlet tengelytagjának részaránya, nem magarány. Mérve 1 GeV/c-n: f_core =
-  {n(pr.f_core)} ± {n(pr.f_core_se)} (proton) és {n(pi.f_core)} ± {n(pi.f_core_se)} (pion); a proton {n(pr.f_core)}-es magjából
-  {n(pr.truth_core_from_primary_passage)} a proton saját lerakódása a MIP-szakasza után (főleg a hatótávolsága végén). Pion–proton szétválasztás f_core-ral: AUC {n(a_pp[0])}–{n(a_pp[1])} (gyenge, de nem nulla).
-- **Q3 – a MIP-szakasz** a hadronesemények {P(present[0])}–{P(present[1])}-ában van jelen. L_MIP ≥ 8 cm a hadronok
+- **Q1 – a mag** a tengelytől (a front belépési pontjától, z = 3620 mm) R = 5 cm-en belüli energia a zápor kezdetétől. 5 cm-en
+  belül van a müon 10 cm-en belüli energiájának {P(C['muon']['rel_to_R100']['R50'])}-a és az elektron energiájának
+  {P(C['electron']['R50'])}-a; a 2,5–10 cm-es R-pásztázás a Q1-oldalon van. Részarányok az `E_vis`-ből: a mag az elektronzáporban
+  ≥ {n(e_core)}, a MIP-szakasz a müoneseményekben {n(mu_mip[0])}–{n(mu_mip[1])}; a hadronoknál a mag 1–2 GeV/c-n {n(hc1[0])}–{n(hc1[1])},
+  19–20 GeV/c-n {n(hc19[0])}–{n(hc19[1])}, a halo {n(hh[0])}–{n(hh[1])} (2–20 GeV/c).
+- **Q2 – f_core 1 GeV/c-n:** {n(pr.f_core)} ± {n(pr.f_core_se)} (proton) és {n(pi.f_core)} ± {n(pi.f_core_se)} (pion). Az infografika
+  60 %-a / 43 %-a a képlet tengelytagjának részaránya, ez más mennyiség. *(igazság)* A proton {n(pr.f_core)}-es értékéből
+  {n(pr.truth_core_from_primary_passage)} olyan cellákban van, amelyekben az első részecske maga a proton, a MIP-szakasza után.
+  Pion–proton szétválasztás f_core-ral: AUC {n(a_pp[0])}–{n(a_pp[1])}.
+- **Q3 – MIP-szakaszt** a hadronesemények {P(present[0])}–{P(present[1])}-ában találunk. L_MIP ≥ 8 cm a hadronok
   {P(ph8[0])}–{P(ph8[1])}-ánál és az elektronok {P(pe8[0], 1)}–{P(pe8[1], 1)}-ánál fordul elő (valószínűségi hányados
-  {n(lr8[0], 0)}–{n(lr8[1], 0)}); 99 % elektron-elutasításnál 2 GeV/c-től a hadronok {P(min(effL))}–{P(max(effL))}-át tartja meg (f_core:
-  {P(min(effF))}–{P(max(effF))}). Gábor négy állítása a primerre igaz, két pontosítással: az események {P(late[0])}–{P(late[1])}-ában egy
-  másodlagos részecske későbbi MIP-szerű szakaszt húz, és a kölcsönhatás előtti csempék 5 cm-en kívül csempénként {n(bs[0])}–{n(bs[1])} MIP
-  visszaszórást kapnak. Ezért a zápor kezdetét a mag-energiából keressük (két nem MIP-szerű csempe több mint {n(F['core_sum'], 0)} +
-  {n(F['core_sum_per_gev'], 1)}·p MIP-pel), a szimulációs igazsághoz hangolva: 5 GeV/c-től az események {P(w1[0])}–{P(w1[1])}-ában ±1 csempén
-  belül van a valódi kölcsönhatástól (az issue eredeti szabálya a pionesemények negyedében túl korán jelez). Valódi kölcsönhatási hosszak
-  (Geant4, 3–20 GeV/c): λ_π = {n(lt['lambda_cm'], 1)} cm, λ_p = {n(ltp['lambda_cm'], 1)} cm. Az ePIC LFHCal az 1–5. csempét egy csatornán olvassa
-  ki, így a csempénkénti L_MIP csak a szimulációban létezik; az „első szegmens MIP-szerű” jel majdnem ugyanolyan jó.
+  {n(lr8[0], 0)}–{n(lr8[1], 0)}); 99 % elektron-elutasításnál 2 GeV/c-től az L_MIP a hadronok {P(min(effL))}–{P(max(effL))}-át, az f_core
+  {P(min(effF))}–{P(max(effF))}-át tartja meg. *(igazság)* Másodlagos részecske későbbi MIP-szerű szakasza az események
+  {P(late[0])}–{P(late[1])}-ában fordul elő; a kölcsönhatás előtti csempék 5 cm-en kívül csempénként {n(bs[0])}–{n(bs[1])} MIP-et kapnak
+  (müoncsempék: {n(cl3['muon_reference']['outside_R_mip_per_tile'])}). Az itt használt zápor-kezdet: két nem MIP-szerű csempe, amelyek
+  mag-energiájának összege több mint {n(F['core_sum'], 0)} + {n(F['core_sum_per_gev'], 1)}·p MIP, a szimulációs igazsághoz hangolva; 5 GeV/c-től
+  az események {P(w1[0])}–{P(w1[1])}-ában ±1 csempén belül van a valódi kölcsönhatástól (az issue szabályával a kezdet a
+  pionesemények {P(early)}-ában korai). *(igazság)* A primer kölcsönhatási mélységének exponenciális illesztése, 3–20 GeV/c:
+  λ_π = {n(lt['lambda_cm'], 1)} cm, λ_p = {n(ltp['lambda_cm'], 1)} cm. Az ePIC LFHCal az 1–5. csempét egy csatornán olvassa ki; ezzel az első
+  kiolvasási szegmenssel a hadronhatásfok 99 % elektron-elutasításnál 2 GeV/c-től {eff_range('seg1', lang)}.
 - **Ellenőrzések.** {s2_sentence("hu")}
 """
 

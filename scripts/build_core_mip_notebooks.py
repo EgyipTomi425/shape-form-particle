@@ -40,7 +40,7 @@ A cell's energy is shared by the part of its 48.6 × 48.6 mm face inside R (8 ×
 comparison. Only prompt deposits (t < 100 ns) count, as in the report.
 
 **Selection and statistics.** The entry point must be in the instrumented area and the axis must stay 10 cm inside it in all 60 layers
-(no lateral leakage at the outer edge or the beam hole; 59 % of the events). Ratios of sums carry bootstrap errors, AUCs Hanley–McNeil
+(the points 10 cm from the axis in ±x and ±y lie in the instrumented area; 59 % of the events). Ratios of sums carry bootstrap errors, AUCs Hanley–McNeil
 errors; efficiencies at 99 % electron rejection use thresholds from the train + val electrons applied to the test split.
 
 **Simulation truth** (validation only). The CSV gives each cell's earliest contributor with its complete list of direct daughters. The
@@ -103,7 +103,7 @@ NB10 = [
        "tiles whose summed core energy exceeds `core_sum + core_sum_per_gev · p` MIP (p is known from the tracker); empty tiles do not "
        "interrupt the segment. `L_MIP` is the depth of the last tile with a deposit on the axis before the start. The parameters were "
        "chosen on the train split against the simulation truth (`scripts/core_mip_tune.py`): among the settings with at most 3 % muon "
-       "false starts per interaction length (the CALICE Si-W ECAL level), those within 0.01 of the best ±1-tile agreement with the true "
+       "false starts per interaction length, those within 0.01 of the best ±1-tile agreement with the true "
        "interaction (π and p, 3–5, 5–10, 10–20 GeV/c), then the best L_MIP efficiency at 99 % electron rejection. Gábor's original rule "
        "(core within the MIP band, outside-R energy below a threshold, ≤ 2 cells, two consecutive non-MIP tiles) and the narrow-deposit "
        "version are evaluated with the same metrics."),
@@ -118,7 +118,7 @@ NB10 = [
          'CL = A.claims(F)\ndisplay(CL["claim1_may_or_may_not_be_there"].round(3))'),
     md("## Effective interaction length\n\nTruncated, censored exponential likelihood on 8–80 cm (p ≥ 3 GeV/c; the interaction is placed "
        "in the steel in front of the start tile; events without a start are censored). `truth` uses the primary's last tile; the finder "
-       "values measure the depth of the first *visible* shower start; `corrected` removes the muon false-start rate. The PDG values of "
+       "values use the finder's start tile; `corrected` removes the muon false-start rate. The PDG values of "
        "the layer stack are for 200 GeV/c."),
     code('LAM = A.q3_lambda(F)\nG.q3_survival(F, LAM, A.interaction_depth)\n'
          'rows = []\nfor p in A.HADRONS:\n'
@@ -128,9 +128,9 @@ NB10 = [
          '                         "strict corrected [cm]": f"{r[\'strict\'][\'lambda_corrected_cm\']:.1f}", "PDG stack [cm]": LAM[p]["pdg_stack_cm"]})\n'
          'display(pd.DataFrame(rows))\nprint("muon false starts:", LAM["muon_false_start"])'),
     md("## The start tile against the true interaction\n\n`exact`: start in the tile right after the interaction or in the tile in "
-       "front of it (backsplash); `within_1`: one more tile on either side; `early` / `late`: farther away; `no_start`: no shower start "
-       "found. The second table shows why low momenta are hard: the core energy in the two tiles after the true interaction, compared "
-       "with the start threshold."),
+       "front of it; `within_1`: one more tile on either side; `early` / `late`: farther away; `no_start`: no shower start "
+       "found. The second table shows the core energy in the two tiles after the true interaction, compared with the start "
+       "threshold."),
     code('AGR = A.q3_truth_agreement(F)\nG.q3_truth(AGR)\ndisplay(AGR.round(3))\n'
          'display(pd.concat([A.start_visibility(p) for p in A.HADRONS]).round(3)) if HAVE_CACHE else print("visibility of the start:", NO_CACHE)'),
     md("## Hadron identification\n\nTest split: AUC and hadron efficiency at 99 % electron rejection for `f_core`, `L_MIP`, the "

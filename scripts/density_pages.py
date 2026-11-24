@@ -1,5 +1,6 @@
 """README block of particle issue #2 (energy density, Sofiya Kolesnyk's notebook) from results/density/summary.json and
-global_density_table.csv, written by notebooks/11_density.ipynb (scripts/build_density_notebook.py).
+global_density_table.csv, written by notebooks/11_density.ipynb (scripts/build_density_notebook.py), and frame_offset.csv
+(scripts/density_frame_check.py).
     python scripts/density_pages.py      -> the block between <!-- ISSUE2 BEGIN --> and <!-- ISSUE2 END --> of README.md / README.hu.md"""
 import json
 import os
@@ -31,6 +32,8 @@ def block(lang):
     rng = lambda pair, c: f"{n(A[pair][c][0], 2)}–{n(A[pair][c][1], 2)}"
     sep = lambda pair, c: f"{n(1 - A[pair][c][1], 2)}–{n(1 - A[pair][c][0], 2)}"     # single features: protons score lower
     rep, two = S["reproduction"], S["two_samples_max_abs_z"]
+    FO = pd.read_csv(os.path.join(D, "frame_offset.csv")).set_index(["particle", "events"])      # scripts/density_frame_check.py
+    fo = lambda part, ev, col: n(FO.loc[(part, ev), col], 1).replace("-", "−")
     if not hu:
         return f"""## Particle issue #2 – energy density of the showers
 
@@ -40,17 +43,22 @@ the repository as `notebooks/11_density.ipynb` (her original: `notebooks/sofiya/
 `scripts/density_pages.py` from `results/density/`.
 
 - **Global density (Q4).** ρ̄95 = E95 / V95 with 5 × 5 × 10 cm boxes (visible energy): median at 9–10 GeV/c {n(m['electron'])} MeV/L
-  for electrons, {n(m['pion'])} for pions, {n(m['proton'])} for protons and {n(m['muon'])} for muons (flat, one MIP). From 4 GeV/c electron
-  showers are {n(r[0])}–{n(r[1])} times denser than hadron showers.
+  for electrons, {n(m['pion'])} for pions, {n(m['proton'])} for protons and {n(m['muon'])} for muons. From 4 GeV/c the electron median is
+  {n(r[0])}–{n(r[1])} times the hadron medians.
 - **Electron-like dense boxes (Q5).** A box denser than the 10th percentile of the electrons' densest box (same momentum) occurs in
   {pc(sh['pion|4'], 1)} / {pc(sh['pion|9'], 1)} / {pc(sh['pion|19'], 1)} of the pion and {pc(sh['proton|4'], 1)} / {pc(sh['proton|9'], 1)} /
-  {pc(sh['proton|19'], 1)} of the proton events (4–5 / 9–10 / 19–20 GeV/c): more candidate EM sub-showers (π⁰) in pion showers.
-- **Checks.** The run in this repository reproduces her numbers ({rep['n_rho95']} medians within {n(rep['rho95_max_abs_diff'], 2)} MeV/L,
-  {rep['n_shares']} shares within {n(100 * rep['shares_max_abs_diff'], 2)} percentage points); the samples s1 and s2 agree (largest
-  difference {n(two['rho95'], 1)}σ for the medians, {n(two['shares'], 1)}σ for the shares).
+  {pc(sh['proton|19'], 1)} of the proton events (4–5 / 9–10 / 19–20 GeV/c).
+- **Checks.** Re-run in this repository: {rep['n_rho95']} medians {"are identical to hers" if rep['rho95_max_abs_diff'] == 0 else "differ from hers by at most " + n(rep['rho95_max_abs_diff'], 2) + " MeV/L"},
+  {rep['n_shares']} shares by at most {n(100 * rep['shares_max_abs_diff'], 2)} percentage points. s1 and s2 computed separately: largest
+  difference {n(two['rho95'], 1)}σ for the medians, {n(two['shares'], 1)}σ for the shares.
+- **Shower frame** (`scripts/density_frame_check.py`, `results/density/frame_offset.csv`; mean x′ of the deposits, 4–20 GeV/c): fiducial
+  pion / proton events {fo('pion', 'fiducial', 'x_first_layer_mm')} / {fo('proton', 'fiducial', 'x_first_layer_mm')} mm in the notebook's frame
+  (origin: centre of the first hit layer) and {fo('pion', 'fiducial', 'x_axis_mm')} / {fo('proton', 'fiducial', 'x_axis_mm')} mm on the issue #1
+  axis; events outside the fiducial region {fo('pion', 'not fiducial', 'x_first_layer_mm')} / {fo('proton', 'not fiducial', 'x_first_layer_mm')} mm
+  and {fo('pion', 'not fiducial', 'x_axis_mm')} / {fo('proton', 'not fiducial', 'x_axis_mm')} mm.
 - **ρ̄95 as a feature** (test split, 2–20 GeV/c, AUC): electron vs. pion {rng('electron vs pion', 'auc_rho95')} (f_core of issue #1:
-  {rng('electron vs pion', 'auc_fcore')}, both: {rng('electron vs pion', 'auc_both')}); pion vs. proton {sep('pion vs proton', 'auc_rho95')} – protons
-  are less dense; this separates them better than f_core ({sep('pion vs proton', 'auc_fcore')}), both together {rng('pion vs proton', 'auc_both')};
+  {rng('electron vs pion', 'auc_fcore')}, both: {rng('electron vs pion', 'auc_both')}); pion vs. proton {sep('pion vs proton', 'auc_rho95')} (f_core:
+  {sep('pion vs proton', 'auc_fcore')}, both: {rng('pion vs proton', 'auc_both')}; written so that 0.5 means no separation);
   muon vs. the rest {rng('muon vs rest', 'auc_rho95')}.
 - **To run it yourself** (laptop or server): open `notebooks/11_density.ipynb`, set `DATA_DIR` in the first code cell to the folder of the
   eight balanced s1/s2 CSVs (one folder or `regression-<particle>/` subfolders) and run all cells; it needs numpy, pandas, matplotlib
@@ -64,17 +72,22 @@ része `notebooks/11_density.ipynb` néven (az eredetije: `notebooks/sofiya/ener
 számokat a `scripts/density_pages.py` írja a `results/density/` alapján.
 
 - **Globális sűrűség (Q4).** ρ̄95 = E95 / V95 5 × 5 × 10 cm-es dobozokkal (látható energia): mediánja 9–10 GeV/c-n {n(m['electron'])} MeV/L
-  az elektronra, {n(m['pion'])} a pionra, {n(m['proton'])} a protonra és {n(m['muon'])} a müonra (állandó, egy MIP). 4 GeV/c-től az
-  elektronzápor {n(r[0])}–{n(r[1])}-szor sűrűbb a hadronzápornál.
+  az elektronra, {n(m['pion'])} a pionra, {n(m['proton'])} a protonra és {n(m['muon'])} a müonra. 4 GeV/c-től az elektronmedián a
+  hadronmediánok {n(r[0])}–{n(r[1])}-szorosa.
 - **Elektronszerű sűrű dobozok (Q5).** Az elektronok legsűrűbb dobozának 10. percentilisénél (azonos impulzusnál) sűrűbb doboz a pion-
   események {pc(sh['pion|4'], 1)} / {pc(sh['pion|9'], 1)} / {pc(sh['pion|19'], 1)}-ában, a protonesemények {pc(sh['proton|4'], 1)} /
-  {pc(sh['proton|9'], 1)} / {pc(sh['proton|19'], 1)}-ában fordul elő (4–5 / 9–10 / 19–20 GeV/c): a pionzáporban több az EM-alzápor-jelölt (π⁰).
-- **Ellenőrzések.** A repóbeli futás megismétli a számait ({rep['n_rho95']} medián {n(rep['rho95_max_abs_diff'], 2)} MeV/L-en, {rep['n_shares']}
-  arány {n(100 * rep['shares_max_abs_diff'], 2)} százalékponton belül); az s1 és s2 minta egyezik (a legnagyobb eltérés a mediánoknál
-  {n(two['rho95'], 1)}σ, az arányoknál {n(two['shares'], 1)}σ).
+  {pc(sh['proton|9'], 1)} / {pc(sh['proton|19'], 1)}-ában fordul elő (4–5 / 9–10 / 19–20 GeV/c).
+- **Ellenőrzések.** A repóbeli újrafuttatásban {rep['n_rho95']} medián {"azonos az övével" if rep['rho95_max_abs_diff'] == 0 else "legfeljebb " + n(rep['rho95_max_abs_diff'], 2) + " MeV/L-rel tér el az övétől"}, {rep['n_shares']}
+  arány legfeljebb {n(100 * rep['shares_max_abs_diff'], 2)} százalékponttal tér el. Az s1 és s2 külön számolva: a legnagyobb
+  eltérés a mediánoknál {n(two['rho95'], 1)}σ, az arányoknál {n(two['shares'], 1)}σ.
+- **Zápor-koordinátarendszer** (`scripts/density_frame_check.py`, `results/density/frame_offset.csv`; a lerakódások átlagos x′-je,
+  4–20 GeV/c): a fiduciális pion- / protonesemények {fo('pion', 'fiducial', 'x_first_layer_mm')} / {fo('proton', 'fiducial', 'x_first_layer_mm')} mm a
+  notebook keretében (origó: az első találati réteg súlypontja) és {fo('pion', 'fiducial', 'x_axis_mm')} / {fo('proton', 'fiducial', 'x_axis_mm')} mm az
+  1-es issue tengelyén; a fiduciális tartományon kívüli események {fo('pion', 'not fiducial', 'x_first_layer_mm')} /
+  {fo('proton', 'not fiducial', 'x_first_layer_mm')} mm és {fo('pion', 'not fiducial', 'x_axis_mm')} / {fo('proton', 'not fiducial', 'x_axis_mm')} mm.
 - **ρ̄95 mint jellemző** (tesztminta, 2–20 GeV/c, AUC): elektron–pion {rng('electron vs pion', 'auc_rho95')} (az 1-es issue f_core-ja:
-  {rng('electron vs pion', 'auc_fcore')}, együtt: {rng('electron vs pion', 'auc_both')}); pion–proton {sep('pion vs proton', 'auc_rho95')} – a proton
-  ritkább; ez jobban szétválasztja őket, mint az f_core ({sep('pion vs proton', 'auc_fcore')}), a kettő együtt {rng('pion vs proton', 'auc_both')};
+  {rng('electron vs pion', 'auc_fcore')}, együtt: {rng('electron vs pion', 'auc_both')}); pion–proton {sep('pion vs proton', 'auc_rho95')} (f_core:
+  {sep('pion vs proton', 'auc_fcore')}, együtt: {rng('pion vs proton', 'auc_both')}; úgy írva, hogy 0,5 = nincs szétválasztás);
   müon a többiekkel szemben {rng('muon vs rest', 'auc_rho95')}.
 - **Saját futtatás** (laptopon vagy szerveren): nyisd meg a `notebooks/11_density.ipynb`-t, az első kódcellában állítsd a `DATA_DIR`-t a
   nyolc kiegyensúlyozott s1/s2 CSV mappájára (egy mappa vagy `regression-<particle>/` almappák), és futtasd az összes cellát; numpy,

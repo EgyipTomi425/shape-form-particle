@@ -179,25 +179,27 @@ Az [issue #1](https://github.com/EgyipTomi425/particle/issues/1) a zápor tengel
 ábrákkal: [Q1](results/core_mip/Q1.hu.md) · [Q2](results/core_mip/Q2.hu.md) · [Q3](results/core_mip/Q3.hu.md); notebookok: `notebooks/09_axis_core.ipynb` és `notebooks/10_mip_segment.ipynb`; eseményenkénti jellemzők további
 használatra: `results/features/<particle>.parquet`. Az alábbi számokat a `scripts/core_mip_pages.py` írja a `results/core_mip/` alapján.
 
-- **Q1 – a mag** a tengelytől (a front belépési pontjától, z = 3620 mm) R = 5 cm-en belüli energia a zápor kezdetétől. Az 5 cm a müon
-  10 cm-en belüli energiájának 94 %-át és az elektronzápor 90 %-át tartalmazza, és a
-  2,5–10 cm közül ez választja szét legjobban az elektront a hadrontól. Az elektronzápor mag (≥ 0,89), a müon MIP-szakasz
-  (0,63–0,85); a hadronoknál a mag 0,20–0,23-ról (1–2 GeV/c) 0,43–0,50-ra (19–20 GeV/c)
-  nő, a halo 0,48–0,61 részt visz.
-- **Q2 – az infografika 60 %-a / 43 %-a** a képlet tengelytagjának részaránya, nem magarány. Mérve 1 GeV/c-n: f_core =
-  0,40 ± 0,01 (proton) és 0,19 ± 0,01 (pion); a proton 0,40-es magjából
-  0,26 a proton saját lerakódása a MIP-szakasza után (főleg a hatótávolsága végén). Pion–proton szétválasztás f_core-ral: AUC 0,55–0,67 (gyenge, de nem nulla).
-- **Q3 – a MIP-szakasz** a hadronesemények 75 %–89 %-ában van jelen. L_MIP ≥ 8 cm a hadronok
+- **Q1 – a mag** a tengelytől (a front belépési pontjától, z = 3620 mm) R = 5 cm-en belüli energia a zápor kezdetétől. 5 cm-en
+  belül van a müon 10 cm-en belüli energiájának 94 %-a és az elektron energiájának
+  90 %-a; a 2,5–10 cm-es R-pásztázás a Q1-oldalon van. Részarányok az `E_vis`-ből: a mag az elektronzáporban
+  ≥ 0,89, a MIP-szakasz a müoneseményekben 0,63–0,85; a hadronoknál a mag 1–2 GeV/c-n 0,20–0,23,
+  19–20 GeV/c-n 0,43–0,50, a halo 0,48–0,61 (2–20 GeV/c).
+- **Q2 – f_core 1 GeV/c-n:** 0,40 ± 0,01 (proton) és 0,19 ± 0,01 (pion). Az infografika
+  60 %-a / 43 %-a a képlet tengelytagjának részaránya, ez más mennyiség. *(igazság)* A proton 0,40-es értékéből
+  0,26 olyan cellákban van, amelyekben az első részecske maga a proton, a MIP-szakasza után.
+  Pion–proton szétválasztás f_core-ral: AUC 0,55–0,67.
+- **Q3 – MIP-szakaszt** a hadronesemények 75 %–89 %-ában találunk. L_MIP ≥ 8 cm a hadronok
   62 %–77 %-ánál és az elektronok 0,1 %–2,7 %-ánál fordul elő (valószínűségi hányados
-  27–471); 99 % elektron-elutasításnál 2 GeV/c-től a hadronok 66 %–80 %-át tartja meg (f_core:
-  97 %–100 %). Gábor négy állítása a primerre igaz, két pontosítással: az események 9 %–13 %-ában egy
-  másodlagos részecske későbbi MIP-szerű szakaszt húz, és a kölcsönhatás előtti csempék 5 cm-en kívül csempénként 0,60–0,77 MIP
-  visszaszórást kapnak. Ezért a zápor kezdetét a mag-energiából keressük (két nem MIP-szerű csempe több mint 6 +
-  0,5·p MIP-pel), a szimulációs igazsághoz hangolva: 5 GeV/c-től az események 76 %–87 %-ában ±1 csempén
-  belül van a valódi kölcsönhatástól (az issue eredeti szabálya a pionesemények negyedében túl korán jelez). Valódi kölcsönhatási hosszak
-  (Geant4, 3–20 GeV/c): λ_π = 24,4 cm, λ_p = 19,9 cm. Az ePIC LFHCal az 1–5. csempét egy csatornán olvassa
-  ki, így a csempénkénti L_MIP csak a szimulációban létezik; az „első szegmens MIP-szerű” jel majdnem ugyanolyan jó.
-- **Ellenőrzések.** A független második minta (s2; ugyanaz a kereső, saját MIP-kalibráció) a 258 összevetett számot a statisztikai hibán belül megismétli (98 % 2σ-n belül, a legnagyobb eltérés 2,9σ; `s2_check.csv`); a MIP-kalibráció csempénként mediánban 0,3 %-ra egyezik.
+  27–471); 99 % elektron-elutasításnál 2 GeV/c-től az L_MIP a hadronok 66 %–80 %-át, az f_core
+  97 %–100 %-át tartja meg. *(igazság)* Másodlagos részecske későbbi MIP-szerű szakasza az események
+  9 %–13 %-ában fordul elő; a kölcsönhatás előtti csempék 5 cm-en kívül csempénként 0,60–0,77 MIP-et kapnak
+  (müoncsempék: 0,07). Az itt használt zápor-kezdet: két nem MIP-szerű csempe, amelyek
+  mag-energiájának összege több mint 6 + 0,5·p MIP, a szimulációs igazsághoz hangolva; 5 GeV/c-től
+  az események 76 %–87 %-ában ±1 csempén belül van a valódi kölcsönhatástól (az issue szabályával a kezdet a
+  pionesemények 25 %-ában korai). *(igazság)* A primer kölcsönhatási mélységének exponenciális illesztése, 3–20 GeV/c:
+  λ_π = 24,4 cm, λ_p = 19,9 cm. Az ePIC LFHCal az 1–5. csempét egy csatornán olvassa ki; ezzel az első
+  kiolvasási szegmenssel a hadronhatásfok 99 % elektron-elutasításnál 2 GeV/c-től 66 %–81 %.
+- **Ellenőrzések.** Független második minta (s2; ugyanaz a kereső, saját MIP-kalibráció): 258 összevetett szám, ebből 98 % 2σ-n belül, a legnagyobb eltérés 2,9σ (`s2_check.csv`); a MIP-kalibráció csempénkénti eltérésének mediánja 0,3 %.
 <!-- ISSUE1 END -->
 
 <!-- ISSUE2 BEGIN -->
@@ -209,17 +211,22 @@ része `notebooks/11_density.ipynb` néven (az eredetije: `notebooks/sofiya/ener
 számokat a `scripts/density_pages.py` írja a `results/density/` alapján.
 
 - **Globális sűrűség (Q4).** ρ̄95 = E95 / V95 5 × 5 × 10 cm-es dobozokkal (látható energia): mediánja 9–10 GeV/c-n 84,9 MeV/L
-  az elektronra, 17,8 a pionra, 13,5 a protonra és 10,5 a müonra (állandó, egy MIP). 4 GeV/c-től az
-  elektronzápor 4,1–7,8-szor sűrűbb a hadronzápornál.
+  az elektronra, 17,8 a pionra, 13,5 a protonra és 10,5 a müonra. 4 GeV/c-től az elektronmedián a
+  hadronmediánok 4,1–7,8-szorosa.
 - **Elektronszerű sűrű dobozok (Q5).** Az elektronok legsűrűbb dobozának 10. percentilisénél (azonos impulzusnál) sűrűbb doboz a pion-
   események 13,2 % / 9,9 % / 8,1 %-ában, a protonesemények 7,4 % /
-  3,4 % / 1,6 %-ában fordul elő (4–5 / 9–10 / 19–20 GeV/c): a pionzáporban több az EM-alzápor-jelölt (π⁰).
-- **Ellenőrzések.** A repóbeli futás megismétli a számait (80 medián 0,00 MeV/L-en, 12
-  arány 0,04 százalékponton belül); az s1 és s2 minta egyezik (a legnagyobb eltérés a mediánoknál
-  2,4σ, az arányoknál 1,7σ).
+  3,4 % / 1,6 %-ában fordul elő (4–5 / 9–10 / 19–20 GeV/c).
+- **Ellenőrzések.** A repóbeli újrafuttatásban 80 medián azonos az övével, 12
+  arány legfeljebb 0,04 százalékponttal tér el. Az s1 és s2 külön számolva: a legnagyobb
+  eltérés a mediánoknál 2,4σ, az arányoknál 1,7σ.
+- **Zápor-koordinátarendszer** (`scripts/density_frame_check.py`, `results/density/frame_offset.csv`; a lerakódások átlagos x′-je,
+  4–20 GeV/c): a fiduciális pion- / protonesemények −11,2 / −13,9 mm a
+  notebook keretében (origó: az első találati réteg súlypontja) és −0,6 / −1,5 mm az
+  1-es issue tengelyén; a fiduciális tartományon kívüli események −24,4 /
+  −30,8 mm és −24,9 / −30,2 mm.
 - **ρ̄95 mint jellemző** (tesztminta, 2–20 GeV/c, AUC): elektron–pion 0,98–1,00 (az 1-es issue f_core-ja:
-  0,99–1,00, együtt: 0,99–1,00); pion–proton 0,58–0,74 – a proton
-  ritkább; ez jobban szétválasztja őket, mint az f_core (0,56–0,67), a kettő együtt 0,59–0,74;
+  0,99–1,00, együtt: 0,99–1,00); pion–proton 0,58–0,74 (f_core:
+  0,56–0,67, együtt: 0,59–0,74; úgy írva, hogy 0,5 = nincs szétválasztás);
   müon a többiekkel szemben 0,64–0,96.
 - **Saját futtatás** (laptopon vagy szerveren): nyisd meg a `notebooks/11_density.ipynb`-t, az első kódcellában állítsd a `DATA_DIR`-t a
   nyolc kiegyensúlyozott s1/s2 CSV mappájára (egy mappa vagy `regression-<particle>/` almappák), és futtasd az összes cellát; numpy,
@@ -675,12 +682,14 @@ elektronnál és müonnál ~3/4-ét, hadronoknál 2 GeV felett csak ~40–50 %-�
 - Részecske-issue #1: `python src/core_mip.py build <részecske>` (először a müon: MIP-kalibráció; rétegenkénti tömbök és szimulációs
   igazság a `cache/core_mip/`-ban) → `python scripts/core_mip_tune.py` (a kereső paraméterei a tanító mintán, az igazsághoz mérve) →
   `python src/core_mip.py features <részecske>` (`results/features/<részecske>.parquet`) → `python scripts/core_mip_answers.py`
-  (táblázatok, ábrák, `answers.json`; a Q1-képhez előbb a `python scripts/core_mip_region_map.py` kell) → `python scripts/core_mip_pages.py` (válaszoldalak és a README-blokk) →
+  (táblázatok, ábrák, `answers.json`; a Q1-képhez előbb a `python scripts/core_mip_region_map.py` kell) → `python scripts/core_mip_estimates.py`
+  (összehasonlító értékek PDG-állandókból, `estimates.json`) → `python scripts/core_mip_pages.py` (válaszoldalak és a README-blokk) →
   `python scripts/build_core_mip_notebooks.py` (a 09-es és 10-es notebook). Ellenőrzések: ugyanez a lánc a második mintán
   (`build`/`features <részecske> s2`, majd `CORE_MIP_SAMPLE=s2 python scripts/core_mip_answers.py` és `scripts/core_mip_s2_check.py`)
   és egy független második implementáció, a `scripts/verify_core_mip.py`.
 - Részecske-issue #2: a `python scripts/build_density_notebook.py` Szófia eredetijéből építi és futtatja a `notebooks/11_density.ipynb`-t
-  (kell hozzá a `duckdb`); utána a `python scripts/density_pages.py` írja a README-blokkot.
+  (kell hozzá a `duckdb`); a `python scripts/density_frame_check.py` összeveti a notebook zápor-koordinátarendszerét az 1-es issue
+  tengelyével (`results/density/frame_offset.csv`); utána a `python scripts/density_pages.py` írja a README-blokkot.
 - Archivált, ebből a repóból nem futtatható (a bemeneteik a korábbi, csak protonos szakaszhoz tartoznak): `review/` (a likelihood és a
   számok független ellenőrzése) és `results/isobody/` (a 08-as notebook 90 %/90 %-os összevetésének izoszint-testei).
 - A `results/detektor_es_alakok/`, a `results/detektor_*.png` és a `docs/Protonmodell-Tamas.pdf` a mentett illesztésekből készült bemutató-
